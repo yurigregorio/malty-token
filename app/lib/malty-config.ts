@@ -30,9 +30,10 @@ export const MALTY_CONFIG: Record<
       "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz"
     ),
 
-    // Lock every Mainnet mutation until the next reviewed stage.
+    // Stage 2: only the exact MALTY supply minting action is enabled.
+    // Metadata and authority changes remain locked.
     allowCreateMint: false,
-    allowMintSupply: false,
+    allowMintSupply: true,
     allowMetadata: false,
     allowRevokeMintAuthority: false,
   },
