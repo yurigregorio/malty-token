@@ -25,12 +25,13 @@ export const MALTY_CONFIG: Record<
   },
 
   mainnet: {
-    // Stage 1: the production mint does not exist yet.
-    mint: null,
+    // Stage 1 complete and verified on-chain: 6 decimals, supply 0.
+    mint: address(
+      "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz"
+    ),
 
-    // Only mint-account creation is enabled in this release branch.
-    // Supply minting, metadata and authority revocation remain locked.
-    allowCreateMint: true,
+    // Lock every Mainnet mutation until the next reviewed stage.
+    allowCreateMint: false,
     allowMintSupply: false,
     allowMetadata: false,
     allowRevokeMintAuthority: false,
