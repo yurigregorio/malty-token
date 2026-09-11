@@ -1,13 +1,14 @@
-# MALTY Mainnet Checklist
+# MALTY Mainnet Checklist — Completed Record
 
-This checklist prepares the project for a future Mainnet deployment. It does not enable or execute Mainnet transactions.
+This checklist is retained as the historical pre-deployment checklist for MALTY Mainnet v1. The deployment has now been completed.
 
 ## Final token identity
 
 - Name: Malty
 - Symbol: MALTY
-- Network: Solana
+- Network: Solana Mainnet
 - Token program: SPL Token (traditional)
+- Mint: `6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz`
 - Decimals: 6
 - Total supply: 1,000,000,000 MALTY
 - Description: MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.
@@ -23,29 +24,22 @@ This checklist prepares the project for a future Mainnet deployment. It does not
 - collection: null
 - uses: null
 
-## Authority policy
+## Authority state
 
-- Freeze authority: none from creation.
-- Mint authority: retained only long enough to mint the exact 1,000,000,000 MALTY supply; revoke only after the supply is independently verified on Mainnet.
-- Metadata update authority: keep during the final verification window so metadata mistakes can be corrected. Consider making metadata immutable only after wallet/explorer verification.
+- Freeze Authority: none.
+- Mint Authority: permanently revoked after the fixed supply was verified.
+- Metadata Update Authority: intentionally retained and separate from the SPL Mint Authority.
 
-## Production safety gates
+## Completed production gates
 
-- `MALTY_CONFIG.mainnet.mint` remains `null` until a Mainnet mint actually exists.
-- `allowCreateMint` remains `false` until the production review is explicitly completed.
-- `allowMintSupply` remains `false` until the Mainnet mint address is verified.
-- `allowMetadata` remains `false` until the minted supply is verified.
-- `allowRevokeMintAuthority` remains `false` until supply and metadata are verified.
+- [x] Mainnet mint created and verified.
+- [x] Exactly 1,000,000,000 MALTY issued.
+- [x] Metadata created and verified.
+- [x] Mint Authority revoked.
+- [x] Freeze Authority confirmed absent.
+- [x] Token-creation and authority-changing actions locked in the application.
+- [x] Mainnet deployment recorded in `docs/MALTY_MAINNET_V1.md` and `docs/mainnet-status.md`.
 
-## Required checks before any Mainnet action
+## Current status
 
-- Confirm the connected wallet/account is the intended project wallet.
-- Confirm the app cluster and Phantom network both show Solana Mainnet.
-- Confirm name, symbol, decimals, supply, metadata URI and image URI one final time.
-- Confirm no private key, seed phrase, mnemonic, `.env`, keypair file or other secret is committed to Git.
-- Run `npm run typecheck` and the project test/build checks.
-- Keep the Devnet checkpoint/tag intact for recovery/reference.
-
-## Mainnet remains locked
-
-At this stage all Mainnet mutation flags are intentionally disabled. A later reviewed change must explicitly enable each production operation one at a time.
+Mainnet token creation is complete. Distribution, reserve allocation, liquidity, treasury, community, ecosystem and team movements are separate post-deployment activities and must be reconciled against the documented policies and actual on-chain balances.
