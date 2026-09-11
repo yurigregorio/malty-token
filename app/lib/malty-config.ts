@@ -35,16 +35,15 @@ export const MALTY_CONFIG: Record<
       "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz"
     ),
 
-    // Stage 2 verified on-chain: exact 1,000,000,000 MALTY supply exists.
+    // Stage 3 verified on-chain: exact supply and Metaplex metadata exist.
     supplyMinted: true,
-    metadataCreated: false,
+    metadataCreated: true,
     mintAuthorityRevoked: false,
 
-    // Stage 3: only Metaplex metadata creation is enabled.
-    // Supply minting and authority changes remain locked.
+    // Stage 4: only permanent Mint Authority revocation is enabled.
     allowCreateMint: false,
     allowMintSupply: false,
-    allowMetadata: true,
-    allowRevokeMintAuthority: false,
+    allowMetadata: false,
+    allowRevokeMintAuthority: true,
   },
 };
