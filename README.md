@@ -19,7 +19,9 @@ The complete verified deployment record is in [`docs/MALTY_MAINNET_V1.md`](docs/
 
 ### Production safeguards
 
-The application records the completed Mainnet deployment and keeps all creation and authority-changing actions locked. The metadata Update Authority remains separate from Mint Authority and is intentionally retained during the final metadata verification window.
+The application records the completed Mainnet deployment and keeps all token-creation and authority-changing actions locked. The Mainnet actions UI is also intentionally read-only, so the app does not expose transfer or other signing actions on Mainnet.
+
+The Metadata Update Authority remains separate from Mint Authority and is intentionally retained for metadata maintenance. It cannot mint additional MALTY.
 
 ## Development
 
@@ -30,13 +32,14 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000` and connect a compatible browser wallet. Development and testing should normally use Devnet or local test infrastructure; Mainnet transactions use real SOL and tokens.
+Open `http://localhost:3000` and connect a compatible browser wallet. Development and transaction testing should use Devnet or local test infrastructure. Mainnet is retained for read-only inspection and verification in this application.
 
 ## Project structure
 
 - `app/lib/malty-token.ts` — MALTY identity, supply and metadata constants
 - `app/lib/malty-config.ts` — per-network deployment state and action guards
-- `app/components/actions/token-card.tsx` — token UI and guarded token actions
+- `app/components/actions/actions-panel.tsx` — network-level action boundary; Mainnet is read-only
+- `app/components/actions/token-card.tsx` — token tooling for non-Mainnet development flows
 - `tests/malty-safety.test.ts` — MALTY production invariants
 - `docs/MALTY_MAINNET_V1.md` — verified Mainnet deployment record
 
@@ -53,7 +56,7 @@ This project started from the Solana Kit Next.js template and uses:
 - TypeScript
 - Vitest
 
-The app builds one Solana client per selected cluster in `app/lib/solana-client.ts` and provides it through the project client provider. Wallet signing is delegated to the connected wallet; private keys and seed phrases are never stored in the application.
+The app builds one Solana client per selected cluster in `app/lib/solana-client.ts` and provides it through the project client provider. Wallet signing is delegated to the connected wallet for supported non-Mainnet development actions; private keys and seed phrases are never stored in the application.
 
 ## Validation
 
@@ -69,8 +72,8 @@ The CI pipeline runs these checks for release and safety changes.
 
 ## Network notes
 
-- **Devnet:** completed MALTY test deployment; deployment actions locked.
-- **Mainnet:** MALTY Mainnet v1 completed; mint/supply/metadata creation and Mint Authority changes locked.
+- **Devnet:** completed MALTY test deployment; deployment actions locked, with development tooling available where applicable.
+- **Mainnet:** MALTY Mainnet v1 completed; application transaction actions are read-only/disabled.
 - **Other networks:** not part of the MALTY production deployment.
 
 ## Token metadata
