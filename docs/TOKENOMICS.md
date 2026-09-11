@@ -77,6 +77,18 @@ Rules:
 
 Purpose: allocation for people who actively contribute to the MALTY project.
 
+#### Internal allocation
+
+The 75,000,000 MALTY Team & Core Contributors allocation is planned for 11 people:
+
+| Role | People | MALTY per person | Total MALTY | % of total supply |
+| --- | ---: | ---: | ---: | ---: |
+| Team Lead | 1 | 20,000,000 | 20,000,000 | 2.0% |
+| Core Contributors | 10 | 5,500,000 | 55,000,000 | 5.5% |
+| **Total** | **11** | — | **75,000,000** | **7.5%** |
+
+Each allocation is intended for a distinct person contributing to the project. Individual names do not need to be published in this document.
+
 Rules:
 
 - This category should represent actual Team and Core Contributor participation.
@@ -133,3 +145,4 @@ As of the Mainnet v1 checkpoint:
 ## Change History
 
 - **v1:** Initial tokenomics structure: 50% Liquidity Reserve, 20% Launch & Ecosystem Reserve, 15% Community, 7.5% Treasury, and 7.5% Team & Core Contributors.
+- **v2:** Team & Core Contributors allocation defined for 11 people: 1 Team Lead with 20,000,000 MALTY and 10 Core Contributors with 5,500,000 MALTY each.
