@@ -25,11 +25,12 @@ export const MALTY_CONFIG: Record<
   },
 
   mainnet: {
-    // MALTY does not exist on Mainnet yet.
+    // Stage 1: the production mint does not exist yet.
     mint: null,
 
-    // Everything stays locked until the final production review.
-    allowCreateMint: false,
+    // Only mint-account creation is enabled in this release branch.
+    // Supply minting, metadata and authority revocation remain locked.
+    allowCreateMint: true,
     allowMintSupply: false,
     allowMetadata: false,
     allowRevokeMintAuthority: false,
