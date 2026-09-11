@@ -20,20 +20,20 @@ describe("MALTY token invariants", () => {
     expect(MALTY_PRODUCTION_POLICY.freezeAuthority).toBeNull();
   });
 
-  it("records the verified Mainnet mint and completed supply stage", () => {
+  it("records the verified Mainnet supply and metadata stages", () => {
     expect(MALTY_CONFIG.mainnet.mint?.toString()).toBe(
       "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz"
     );
     expect(MALTY_CONFIG.mainnet.supplyMinted).toBe(true);
-    expect(MALTY_CONFIG.mainnet.metadataCreated).toBe(false);
+    expect(MALTY_CONFIG.mainnet.metadataCreated).toBe(true);
     expect(MALTY_CONFIG.mainnet.mintAuthorityRevoked).toBe(false);
   });
 
-  it("allows only metadata creation in Mainnet stage 3", () => {
+  it("allows only Mint Authority revocation in Mainnet stage 4", () => {
     expect(MALTY_CONFIG.mainnet.allowCreateMint).toBe(false);
     expect(MALTY_CONFIG.mainnet.allowMintSupply).toBe(false);
-    expect(MALTY_CONFIG.mainnet.allowMetadata).toBe(true);
-    expect(MALTY_CONFIG.mainnet.allowRevokeMintAuthority).toBe(false);
+    expect(MALTY_CONFIG.mainnet.allowMetadata).toBe(false);
+    expect(MALTY_CONFIG.mainnet.allowRevokeMintAuthority).toBe(true);
   });
 
   it("keeps the completed Devnet deployment immutable from the app", () => {
