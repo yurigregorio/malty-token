@@ -1,6 +1,6 @@
 # MALTY Token
 
-Production tooling and deployment record for **Malty (MALTY)**, an SPL token on Solana inspired by Charlotte.
+Production tooling, transparency material and deployment record for **Malty (MALTY)**, an SPL token on Solana inspired by Charlotte.
 
 > **Mainnet v1 status: complete.** The exact 1,000,000,000 MALTY supply has been issued, the Metaplex metadata is present, Freeze Authority is absent, and Mint Authority has been permanently revoked.
 
@@ -13,13 +13,29 @@ Production tooling and deployment record for **Malty (MALTY)**, an SPL token on 
 - **Supply:** 1,000,000,000 MALTY
 - **Mint Authority:** revoked / none
 - **Freeze Authority:** none
+- **Transfer tax:** 0%
 - **Slogan:** Small Dog. Big Community.
 
 The complete verified deployment record is in [`docs/MALTY_MAINNET_V1.md`](docs/MALTY_MAINNET_V1.md).
 
-### Production safeguards
+## Public transparency
 
-The application records the completed Mainnet deployment and keeps all token-creation and authority-changing actions locked. The Mainnet actions UI is also intentionally read-only, so the app does not expose transfer or other signing actions on Mainnet.
+The default home page is the MALTY public-information landing page. It publishes the verified mint, fixed supply, authorities, canonical token allocation and the latest documented reserve status without presenting planned allocations as already-circulating tokens.
+
+Public documentation:
+
+- [`docs/TRANSPARENCY.md`](docs/TRANSPARENCY.md) — concise public transparency reference
+- [`docs/FAQ.md`](docs/FAQ.md) — public project FAQ
+- [`docs/LAUNCH_READINESS.md`](docs/LAUNCH_READINESS.md) — non-transactional launch-readiness record
+- [`docs/RELEASE_NOTES_V1.0_SECURE.md`](docs/RELEASE_NOTES_V1.0_SECURE.md) — secure v1 release snapshot notes
+- [`docs/TOKENOMICS.md`](docs/TOKENOMICS.md) — canonical tokenomics
+- [`docs/WALLET_ARCHITECTURE.md`](docs/WALLET_ARCHITECTURE.md) — reserve and custody architecture
+- [`docs/RECONCILIATION.md`](docs/RECONCILIATION.md) — balance/circulation reconciliation rules
+- [`docs/SECURITY_AUDIT.md`](docs/SECURITY_AUDIT.md) — repository security review
+
+## Production safeguards
+
+The application records the completed Mainnet deployment and keeps all token-creation and authority-changing actions locked. The Mainnet actions UI is intentionally read-only, so the app does not expose transfer or other signing actions on Mainnet.
 
 The Metadata Update Authority remains separate from Mint Authority and is intentionally retained for metadata maintenance. It cannot mint additional MALTY.
 
@@ -32,15 +48,18 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000` and connect a compatible browser wallet. Development and transaction testing should use Devnet or local test infrastructure. Mainnet is retained for read-only inspection and verification in this application.
+The public landing page is available at `http://localhost:3000`. Development wallet tooling is separated under `http://localhost:3000/dev`. Transaction testing should use Devnet or local test infrastructure. Mainnet is retained for read-only inspection and verification in this application.
 
 ## Project structure
 
+- `app/page.tsx` — public MALTY transparency landing page
+- `app/dev/page.tsx` — development-network wallet tooling
 - `app/lib/malty-token.ts` — MALTY identity, supply and metadata constants
 - `app/lib/malty-config.ts` — per-network deployment state and action guards
 - `app/components/actions/actions-panel.tsx` — network-level action boundary; Mainnet is read-only
 - `app/components/actions/token-card.tsx` — token tooling for non-Mainnet development flows
 - `tests/malty-safety.test.ts` — MALTY production invariants
+- `scripts/security-check.mjs` — repository security invariants
 - `docs/MALTY_MAINNET_V1.md` — verified Mainnet deployment record
 
 ## Technical stack
@@ -63,12 +82,13 @@ The app builds one Solana client per selected cluster in `app/lib/solana-client.
 Run the project checks with:
 
 ```shell
+npm run security:check
 npm run typecheck
 npm run test
 npm run build
 ```
 
-The CI pipeline runs these checks for release and safety changes.
+The CI pipeline also performs a high-severity dependency audit and runs these checks for release and safety changes.
 
 ## Network notes
 
