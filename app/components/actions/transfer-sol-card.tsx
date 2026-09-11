@@ -7,18 +7,25 @@ import { toast } from "sonner";
 import { useAppClient } from "../../lib/client-provider";
 import { useSend } from "../../lib/hooks/use-send";
 import { isCustomProgramError } from "../../lib/errors";
+import { useCluster } from "../cluster-context";
 
 const SYSTEM_PROGRAM_ERROR__RESULT_WITH_NEGATIVE_LAMPORTS = 1;
 
 export function TransferSolCard() {
   const client = useAppClient();
   const connected = useConnectedWallet(client);
+  const { cluster } = useCluster();
   const { run, isSending } = useSend();
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("0.01");
   const amountError = getSolAmountError(amount);
 
   const handleTransfer = async () => {
+    if (cluster === "mainnet") {
+      toast.error("SOL transfers are disabled on Mainnet in this application");
+      return;
+    }
+
     const normalizedRecipient = recipient.trim();
     if (!connected?.signer || !normalizedRecipient) return;
     const signer = connected.signer;
@@ -63,7 +70,8 @@ export function TransferSolCard() {
     <div className="rounded-2xl border border-border-low bg-card p-6">
       <h2 className="text-sm font-semibold">Transfer SOL</h2>
       <p className="mt-1 text-xs text-muted">
-        Send SOL from your connected wallet to any address.
+        Send SOL from your connected wallet to any address on non-Mainnet
+        development networks.
       </p>
       <div className="mt-4 space-y-3">
         <label htmlFor="sol-recipient" className="block text-xs font-medium">
@@ -101,10 +109,19 @@ export function TransferSolCard() {
         )}
         <button
           onClick={handleTransfer}
-          disabled={isSending || !recipient.trim() || amountError != null}
+          disabled={
+            isSending ||
+            cluster === "mainnet" ||
+            !recipient.trim() ||
+            amountError != null
+          }
           className="w-full cursor-pointer rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-xs transition hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
         >
-          {isSending ? "Sending..." : "Send SOL"}
+          {cluster === "mainnet"
+            ? "Mainnet transfers disabled"
+            : isSending
+              ? "Sending..."
+              : "Send SOL"}
         </button>
       </div>
     </div>
