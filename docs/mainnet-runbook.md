@@ -1,102 +1,71 @@
-# MALTY Mainnet Runbook
+# MALTY Mainnet Runbook — Completed Deployment Record
 
-This runbook is intentionally staged. Only one irreversible Mainnet capability should be enabled at a time.
+This runbook is retained as the historical sequence used for MALTY Mainnet v1. Token creation is complete; the stages below describe the completed deployment rather than pending actions.
 
-## Stage 0 — Preflight
-
-Status: ready for local validation, Mainnet mutations locked.
-
-Required checks:
-
-1. `git pull origin main`
-2. `npm run typecheck`
-3. `npm test`
-4. `npm run build`
-5. Confirm Phantom is connected to the intended project wallet.
-6. Confirm the application and Phantom both show Solana Mainnet before any production signature.
-7. Confirm the final identity in `app/lib/malty-token.ts`.
-8. Confirm the metadata JSON and image are reachable and display correctly.
-
-Expected production identity:
+## Production identity
 
 - Name: Malty
 - Symbol: MALTY
+- Mainnet mint: `6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz`
 - Decimals: 6
 - Supply: 1,000,000,000 MALTY
-- Freeze authority: none
+- Freeze Authority: none
+- Mint Authority: revoked / none
 - Transfer tax: 0%
+- Metaplex metadata: present
 
-## Stage 1 — Create Mainnet mint
+## Completed stages
 
-Enable only `MALTY_CONFIG.mainnet.allowCreateMint`.
+### Stage 0 — Preflight
 
-Keep all other Mainnet mutation flags false.
+Completed before production deployment. Identity, metadata, project wallet, network configuration, tests and build were reviewed before Mainnet operations.
 
-After the transaction is confirmed:
+### Stage 1 — Mainnet mint creation
 
-- Record the new Mainnet mint address.
-- Verify decimals = 6.
-- Verify freeze authority = none.
-- Commit the verified mint address into `MALTY_CONFIG.mainnet.mint`.
-- Disable `allowCreateMint` again before moving forward.
+Completed. The production SPL mint was created with 6 decimals and no Freeze Authority.
 
-Do not continue if the mint address or authorities do not match expectations.
+### Stage 2 — Fixed supply issuance
 
-## Stage 2 — Mint the fixed supply
+Completed. Exactly 1,000,000,000 MALTY were issued. The fixed supply was verified before proceeding.
 
-Enable only `allowMintSupply` after the verified Mainnet mint address is committed.
+### Stage 3 — Metadata creation
 
-Mint exactly 1,000,000,000 MALTY to the intended project wallet.
+Completed. Metaplex metadata was created and the MALTY name, symbol, metadata URI and Charlotte image were verified.
 
-After confirmation:
+The Metadata Update Authority remains intentionally retained. It is separate from the SPL Mint Authority and cannot mint additional MALTY.
 
-- Verify current supply = 1,000,000,000 MALTY.
-- Verify decimals = 6.
-- Verify the destination wallet balance.
-- Disable `allowMintSupply` before moving forward.
+### Stage 4 — SPL Mint Authority revocation
 
-## Stage 3 — Create metadata
+Completed. The Mint Authority was permanently set to `None` after supply and metadata verification. No additional MALTY can be minted.
 
-Enable only `allowMetadata` after supply verification.
+### Stage 5 — Metadata finalization
 
-Create metadata using the values from `app/lib/malty-token.ts`.
+Current policy: Metadata Update Authority remains retained for metadata maintenance. Any future change to that authority is a separate governance/security decision and does not affect the fixed token supply.
 
-After confirmation:
+### Stage 6 — Distribution and reserves
 
-- Verify name = Malty.
-- Verify symbol = MALTY.
-- Verify the Charlotte image displays correctly.
-- Verify the metadata URI resolves correctly.
-- Verify wallet and explorer presentation.
-- Disable `allowMetadata` before moving forward.
+Not part of token creation. Distribution, liquidity, treasury, ecosystem, community and team allocations are governed by the tokenomics, wallet architecture and policy documents.
 
-The metadata update authority stays available during this verification window so a metadata-only mistake can still be corrected.
+The planned reserve structure is:
 
-## Stage 4 — Revoke SPL mint authority
+- Liquidity: 500,000,000 MALTY
+- Ecosystem: 200,000,000 MALTY
+- Community: 150,000,000 MALTY
+- Treasury: 75,000,000 MALTY
+- Team: 75,000,000 MALTY
 
-This is irreversible.
+Planned initial availability totals 100,000,000 MALTY: 50,000,000 Liquidity, 17,500,000 Ecosystem, 25,000,000 Community, 0 Treasury and 7,500,000 Team eligibility.
 
-Enable only `allowRevokeMintAuthority` after the exact supply and metadata have been independently verified.
+These figures are allocation policy, not proof of current wallet balances or circulating supply. Actual movements must be reconciled against on-chain balances. The reserve wallets currently remain documented with 0 MALTY until an actual transfer occurs.
 
-After confirmation:
+## Source of truth
 
-- Verify Mint Authority = none.
-- Verify Freeze Authority = none.
-- Verify supply remains exactly 1,000,000,000 MALTY.
-- Disable `allowRevokeMintAuthority`.
+For current production state use:
 
-At this point no additional MALTY can be minted.
+- `docs/MALTY_MAINNET_V1.md`
+- `docs/mainnet-status.md`
+- `docs/TOKENOMICS.md`
+- `docs/WALLET_ARCHITECTURE.md`
+- `docs/RECONCILIATION.md`
 
-## Stage 5 — Metadata finalization
-
-Decide separately whether to keep or revoke the metadata update authority.
-
-Do not confuse metadata update authority with SPL mint authority: they control different things.
-
-If metadata is made immutable, that action should happen only after final wallet/explorer verification because correcting the metadata afterward may no longer be possible.
-
-## Stage 6 — Distribution and liquidity
-
-Treat distribution, treasury/team wallets, vesting and any DEX liquidity plan as a separate release from token creation.
-
-Do not combine those operations with mint creation or authority revocation. Keep an auditable record of allocations and disclose insider/team allocations accurately.
+Status: **MALTY Mainnet v1 deployment complete**.
