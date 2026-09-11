@@ -29,10 +29,10 @@ describe("MALTY token invariants", () => {
     expect(MALTY_CONFIG.mainnet.mintAuthorityRevoked).toBe(false);
   });
 
-  it("locks all Mainnet mutations between release stages", () => {
+  it("allows only metadata creation in Mainnet stage 3", () => {
     expect(MALTY_CONFIG.mainnet.allowCreateMint).toBe(false);
     expect(MALTY_CONFIG.mainnet.allowMintSupply).toBe(false);
-    expect(MALTY_CONFIG.mainnet.allowMetadata).toBe(false);
+    expect(MALTY_CONFIG.mainnet.allowMetadata).toBe(true);
     expect(MALTY_CONFIG.mainnet.allowRevokeMintAuthority).toBe(false);
   });
 
