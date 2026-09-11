@@ -10,6 +10,7 @@ import { publicKey } from "@metaplex-foundation/umi";
 import { createMetadataAccountV3 } from "@metaplex-foundation/mpl-token-metadata";
 
 import { useAppClient } from "../../lib/client-provider";
+import { MALTY_CONFIG } from "../../lib/malty-config";
 import { createPhantomUmi } from "../../lib/umi-client";
 import { getClusterUrl } from "../../lib/solana-client";
 
@@ -25,10 +26,6 @@ const TOKEN_SYMBOL = "MALTY";
 
 const TOKEN_URI =
   "https://turbo-gateway.com/rLzUMFUoqgYI04MijeVjLDriWACUApJo2BKK6ycB5MU";
-
-// Mint que já criamos na DEVNET.
-const DEVNET_TEST_MINT =
-  "6DJRHJMAhgjZjCxBktySxoLcDMtDyMBYCSqVQQCoUHd9";
 
 const BASE_UNITS_PER_TOKEN = 10n ** BigInt(DECIMALS);
 const MAX_TOKEN_AMOUNT = (1n << 64n) - 1n;
@@ -87,16 +84,38 @@ export function TokenCard() {
   const { cluster, getExplorerUrl } = useCluster();
   const { run, isSending } = useSend();
 
-  // Carrega automaticamente o Mint que já criamos na Devnet.
-  const [mint, setMint] = useState<Address | null>(
-    address(DEVNET_TEST_MINT)
-  );
+  const maltyConfig =
+    cluster === "devnet"
+      ? MALTY_CONFIG.devnet
+      : cluster === "mainnet"
+        ? MALTY_CONFIG.mainnet
+        : null;
 
-  // Os 1 bilhão já foram emitidos nesse Mint.
-  const [hasMinted, setHasMinted] = useState(true);
+  // A mint created during the current browser session is stored per network.
+  // This prevents a mint from one cluster from leaking into another cluster.
+  const [sessionMints, setSessionMints] = useState<
+    Record<string, Address | null>
+  >({});
 
-  const [mintAuthorityRevoked, setMintAuthorityRevoked] =
-    useState(false);
+  const [sessionMinted, setSessionMinted] = useState<
+    Record<string, boolean>
+  >({});
+
+  const [sessionAuthorityRevoked, setSessionAuthorityRevoked] =
+    useState<Record<string, boolean>>({});
+
+  const mint = maltyConfig?.mint ?? sessionMints[cluster] ?? null;
+
+  // The existing Devnet token has already completed these steps on-chain.
+  const devnetCompleted = cluster === "devnet" && maltyConfig?.mint != null;
+
+  const hasMinted =
+    devnetCompleted || sessionMinted[cluster] === true;
+
+  const metadataCreated = devnetCompleted;
+
+  const mintAuthorityRevoked =
+    devnetCompleted || sessionAuthorityRevoked[cluster] === true;
 
   const [mintAmount] = useState("1000000000");
 
@@ -118,8 +137,8 @@ export function TokenCard() {
       return;
     }
 
-    if (cluster !== "devnet") {
-      toast.error("Mint creation is enabled only on Devnet for now");
+    if (!maltyConfig?.allowCreateMint) {
+      toast.error("MALTY mint creation is locked on this network");
       return;
     }
 
@@ -135,14 +154,24 @@ export function TokenCard() {
             freezeAuthority: null,
           })
           .sendTransaction(),
-
       "Token mint created"
     );
 
     if (signature) {
-      setMint(newMint.address);
-      setHasMinted(false);
-      setMintAuthorityRevoked(false);
+      setSessionMints((current) => ({
+        ...current,
+        [cluster]: newMint.address,
+      }));
+
+      setSessionMinted((current) => ({
+        ...current,
+        [cluster]: false,
+      }));
+
+      setSessionAuthorityRevoked((current) => ({
+        ...current,
+        [cluster]: false,
+      }));
     }
   };
 
@@ -154,6 +183,11 @@ export function TokenCard() {
     const signer = connected?.signer;
 
     if (!signer || !mint) {
+      return;
+    }
+
+    if (!maltyConfig?.allowMintSupply) {
+      toast.error("MALTY supply minting is locked on this network");
       return;
     }
 
@@ -189,12 +223,14 @@ export function TokenCard() {
             decimals: DECIMALS,
           })
           .sendTransaction(),
-
       "Tokens minted to your wallet"
     );
 
     if (signature) {
-      setHasMinted(true);
+      setSessionMinted((current) => ({
+        ...current,
+        [cluster]: true,
+      }));
     }
   };
 
@@ -208,8 +244,8 @@ export function TokenCard() {
       return;
     }
 
-    if (cluster !== "devnet") {
-      toast.error("Metadata creation is enabled only on Devnet for now");
+    if (!maltyConfig?.allowMetadata) {
+      toast.error("MALTY metadata creation is locked on this network");
       return;
     }
 
@@ -218,25 +254,18 @@ export function TokenCard() {
 
       await createMetadataAccountV3(umi, {
         mint: publicKey(mint),
-
         mintAuthority: umi.identity,
-
         updateAuthority: umi.identity.publicKey,
-
         data: {
           name: TOKEN_NAME,
           symbol: TOKEN_SYMBOL,
           uri: TOKEN_URI,
-
           sellerFeeBasisPoints: 0,
-
           creators: null,
           collection: null,
           uses: null,
         },
-
         isMutable: true,
-
         collectionDetails: null,
       }).sendAndConfirm(umi);
 
@@ -264,10 +293,8 @@ export function TokenCard() {
       return;
     }
 
-    if (cluster !== "devnet") {
-      toast.error(
-        "Mint Authority can only be revoked on Devnet for now"
-      );
+    if (!maltyConfig?.allowRevokeMintAuthority) {
+      toast.error("Mint Authority changes are locked on this network");
       return;
     }
 
@@ -293,12 +320,15 @@ export function TokenCard() {
             newAuthority: null,
           })
           .sendTransaction(),
-
       "Mint Authority revoked"
     );
 
     if (signature) {
-      setMintAuthorityRevoked(true);
+      setSessionAuthorityRevoked((current) => ({
+        ...current,
+        [cluster]: true,
+      }));
+
       toast.success(
         "Mint Authority revoked. MALTY supply is now fixed."
       );
@@ -348,9 +378,7 @@ export function TokenCard() {
             decimals: DECIMALS,
           })
           .sendTransaction(),
-
       "Tokens transferred",
-
       (error) =>
         isCustomProgramError(
           error,
@@ -361,23 +389,38 @@ export function TokenCard() {
     );
   };
 
+  const networkActionsLocked =
+    maltyConfig == null ||
+    (!maltyConfig.allowCreateMint &&
+      !maltyConfig.allowMintSupply &&
+      !maltyConfig.allowMetadata &&
+      !maltyConfig.allowRevokeMintAuthority);
+
   return (
     <div className="rounded-2xl border border-border-low bg-card p-6">
       <h2 className="text-sm font-semibold">MALTY Token</h2>
 
       <p className="mt-1 text-xs text-muted">
-        Devnet test for MALTY SPL token, metadata and authorities.
+        MALTY SPL token controls for {cluster}.
       </p>
+
+      {networkActionsLocked && (
+        <p className="mt-3 rounded-lg border border-border-low bg-background px-3 py-2 text-xs text-muted">
+          Creation and authority actions are locked on this network.
+        </p>
+      )}
 
       {!mint ? (
         <button
           onClick={handleCreateMint}
-          disabled={isSending || cluster !== "devnet"}
+          disabled={isSending || !maltyConfig?.allowCreateMint}
           className="mt-4 w-full cursor-pointer rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-xs transition hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
         >
           {isSending
             ? "Creating..."
-            : `Create mint (${DECIMALS} decimals)`}
+            : maltyConfig?.allowCreateMint
+              ? `Create mint (${DECIMALS} decimals)`
+              : "MALTY mint creation locked"}
         </button>
       ) : (
         <div className="mt-4 space-y-5">
@@ -417,7 +460,8 @@ export function TokenCard() {
                 isSending ||
                 mintAmountError != null ||
                 mintAuthorityRevoked ||
-                hasMinted
+                hasMinted ||
+                !maltyConfig?.allowMintSupply
               }
               className="w-full cursor-pointer rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-xs transition hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
             >
@@ -425,17 +469,27 @@ export function TokenCard() {
                 ? "Mint Authority revoked"
                 : hasMinted
                   ? "1B MALTY already minted"
-                  : isSending
-                    ? "Working..."
-                    : "Mint 1B MALTY"}
+                  : maltyConfig?.allowMintSupply
+                    ? isSending
+                      ? "Working..."
+                      : "Mint 1B MALTY"
+                    : "Supply minting locked"}
             </button>
 
             <button
               onClick={handleAddMetadata}
-              disabled={cluster !== "devnet" || isSending}
+              disabled={
+                isSending ||
+                metadataCreated ||
+                !maltyConfig?.allowMetadata
+              }
               className="w-full cursor-pointer rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-xs transition hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
             >
-              Add MALTY metadata
+              {metadataCreated
+                ? "MALTY metadata created"
+                : maltyConfig?.allowMetadata
+                  ? "Add MALTY metadata"
+                  : "Metadata creation locked"}
             </button>
 
             <button
@@ -444,13 +498,15 @@ export function TokenCard() {
                 isSending ||
                 mintAuthorityRevoked ||
                 !hasMinted ||
-                cluster !== "devnet"
+                !maltyConfig?.allowRevokeMintAuthority
               }
               className="w-full cursor-pointer rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-xs transition hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
             >
               {mintAuthorityRevoked
                 ? "Mint Authority revoked"
-                : "Revoke Mint Authority"}
+                : maltyConfig?.allowRevokeMintAuthority
+                  ? "Revoke Mint Authority"
+                  : "Mint Authority changes locked"}
             </button>
           </div>
 
@@ -466,9 +522,7 @@ export function TokenCard() {
               <input
                 id="token-recipient"
                 value={recipient}
-                onChange={(e) =>
-                  setRecipient(e.target.value)
-                }
+                onChange={(e) => setRecipient(e.target.value)}
                 placeholder="Recipient address"
                 autoCapitalize="none"
                 autoCorrect="off"
@@ -486,9 +540,7 @@ export function TokenCard() {
               <input
                 id="token-transfer-amount"
                 value={transferAmount}
-                onChange={(e) =>
-                  setTransferAmount(e.target.value)
-                }
+                onChange={(e) => setTransferAmount(e.target.value)}
                 type="number"
                 min="0"
                 step="0.000001"
@@ -520,9 +572,7 @@ export function TokenCard() {
                 }
                 className="w-full cursor-pointer rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-xs transition hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
               >
-                {isSending
-                  ? "Working..."
-                  : "Transfer MALTY"}
+                {isSending ? "Working..." : "Transfer MALTY"}
               </button>
             </div>
           )}
