@@ -18,17 +18,31 @@ export const CLUSTERS: ClusterMoniker[] = [
   "localnet",
 ];
 
+const PUBLIC_MAINNET_RPC_URL = "https://api.mainnet.solana.com";
+const PUBLIC_MAINNET_WS_URL = "wss://api.mainnet.solana.com";
+
+const configuredMainnetRpcUrl =
+  process.env.NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL?.trim() || null;
+
+const configuredMainnetWsUrl =
+  process.env.NEXT_PUBLIC_SOLANA_MAINNET_WS_URL?.trim() ||
+  (configuredMainnetRpcUrl
+    ? configuredMainnetRpcUrl.replace(/^https?:\/\//, (protocol) =>
+        protocol === "https://" ? "wss://" : "ws://"
+      )
+    : null);
+
 const CLUSTER_URLS: Record<ClusterMoniker, string> = {
   devnet: "https://api.devnet.solana.com",
   testnet: "https://api.testnet.solana.com",
-  mainnet: "https://api.mainnet.solana.com",
+  mainnet: configuredMainnetRpcUrl ?? PUBLIC_MAINNET_RPC_URL,
   localnet: "http://localhost:8899",
 };
 
 const WS_URLS: Record<ClusterMoniker, string> = {
   devnet: "wss://api.devnet.solana.com",
   testnet: "wss://api.testnet.solana.com",
-  mainnet: "wss://api.mainnet.solana.com",
+  mainnet: configuredMainnetWsUrl ?? PUBLIC_MAINNET_WS_URL,
   localnet: "ws://localhost:8900",
 };
 
@@ -51,6 +65,10 @@ export function getWalletChain(cluster: ClusterMoniker) {
   return WALLET_CHAINS[cluster];
 }
 
+export function hasDedicatedMainnetRpc() {
+  return configuredMainnetRpcUrl != null;
+}
+
 export type RpcUrlOverrides = {
   rpcUrl: string;
   rpcSubscriptionsUrl: string;
@@ -61,6 +79,10 @@ export type RpcUrlOverrides = {
  *
  * `urls` overrides the cluster's default RPC endpoints.
  * This is useful for tests/local environments.
+ *
+ * For Mainnet production actions, set NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL.
+ * NEXT_PUBLIC_SOLANA_MAINNET_WS_URL is optional; when omitted, the WebSocket
+ * URL is derived from the configured HTTPS endpoint.
  */
 export function createAppClient(
   cluster: ClusterMoniker,
