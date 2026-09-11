@@ -1,44 +1,88 @@
-# MALTY Mainnet Readiness Status
+# MALTY Mainnet Status
 
-## Completed
+## Production Status
 
-- Devnet token created and validated.
-- Devnet fixed supply: 1,000,000,000 MALTY.
-- Devnet decimals: 6.
-- Devnet freeze authority: none.
-- Devnet metadata validated in Phantom.
-- Devnet transfer validated to a second wallet.
-- Devnet mint authority revoked.
-- Stable Devnet checkpoint committed and tagged.
-- GitHub repository is private.
-- Devnet and Mainnet configuration are separated.
-- Mainnet mutation flags are locked by default.
-- Final token identity and production authority policy are centralized.
-- Token UI consumes centralized production parameters.
-- Automated safety tests were added.
-- Mainnet staged runbook was added.
-- GitHub CI definition was added for typecheck, tests and build.
+MALTY Mainnet deployment is **complete**.
 
-## Mainnet production status
+The production token was created on Solana Mainnet, the fixed supply was minted, metadata was created and verified, and the SPL Mint Authority was revoked.
 
-Mainnet mint: not created.
+## Mainnet Token
 
-Current Mainnet mutation state:
+- **Mint:** `6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz`
+- **Network:** Solana Mainnet
+- **Standard:** Traditional SPL Token
+- **Decimals:** 6
+- **Total Supply:** 1,000,000,000 MALTY
+- **Mint Authority:** revoked
+- **Freeze Authority:** none
+- **Metadata:** present and verified
+- **Metadata Update Authority:** retained / mutable
 
-- Create mint: locked
-- Mint supply: locked
-- Create metadata: locked
-- Revoke mint authority: locked
+The retained Metadata Update Authority is separate from the Mint Authority and does not provide the ability to create additional MALTY.
 
-## Remaining on-chain stages
+## Mainnet Transactions
 
-1. Create the Mainnet mint with 6 decimals and no freeze authority.
-2. Record and independently verify the Mainnet mint address.
-3. Mint exactly 1,000,000,000 MALTY.
-4. Verify the exact on-chain supply.
-5. Create and verify Metaplex metadata.
-6. Revoke SPL mint authority.
-7. Verify fixed supply and both SPL authorities.
-8. Decide separately whether metadata update authority should remain or be revoked.
+- **Create mint:** `mqj2s3CCADZmSrKNmLNVXxfHydjVsv6Zesxevc3BDqa5Rec3xfYxkmKPd8ritR61LLtaYuYg7RxWfWPnBV6v2bU`
+- **Mint 1B supply:** `3W5o17RoPe6x3MYfEp7bmpPCfYaF5e9QWGNaoEn1KjPsh3AauqcWG7pbMyQLx9kzPmPBQTtmVuzvDP2Jt2Z4Wdsj`
+- **Create/verify metadata:** completed successfully on Mainnet
+- **Revoke Mint Authority:** `4Kh8PZgV4N93EXVGpJyLjC4LU2aVFobMjAkjvjxPdRPA4ZA3LmVN2pUYejCwHajiR89YCpBbxEJwcaCXxjmnTpqt`
 
-Each Mainnet stage requires a wallet signature. Those signatures cannot be performed by repository automation and should be completed only after reviewing the Phantom transaction details for the correct network and wallet.
+## Verification
+
+The latest read-only verification confirmed:
+
+- decimals = 6;
+- raw supply = `1000000000000000` base units = 1,000,000,000 MALTY;
+- Mint Authority = `null`;
+- Freeze Authority = `null`;
+- mint account initialized.
+
+## Reserve Architecture
+
+The five project reserve accounts have been created and documented:
+
+- MALTY Liquidity — 500M allocation
+- MALTY Ecosystem — 200M allocation
+- MALTY Community — 150M allocation
+- MALTY Treasury — 75M allocation
+- MALTY Team — 75M allocation
+
+All five reserve accounts currently have **0 MALTY**. No reserve transfer is represented as executed by this document.
+
+The operational/deployer wallet remains separate from the five reserve categories.
+
+## Current Circulation Plan
+
+The approved planned initial availability is **100,000,000 MALTY (10% of total supply)**:
+
+- Liquidity: 50M
+- Ecosystem: 17.5M
+- Community: 25M
+- Treasury: 0
+- Team: 7.5M
+
+These amounts are planned availability, not current balances. Actual circulating supply must be reconciled against verifiable on-chain movements.
+
+## Controls
+
+- Mainnet mutation stages are complete.
+- Mint Authority is permanently revoked at the SPL mint level.
+- Freeze Authority is absent.
+- Metadata Update Authority remains mutable by design and should be disclosed publicly.
+- Reserve custody is currently under the documented temporary single-controller model.
+- Stronger multisig custody remains a future control improvement.
+- Team technical vesting/enforcement remains to be selected.
+
+## Documentation Rule
+
+Any material future token movement should be documented with:
+
+1. date;
+2. tokenomics category;
+3. amount;
+4. destination public address or transaction reference;
+5. purpose;
+6. resulting balance;
+7. whether the movement changes reported circulating supply.
+
+Private keys, seed phrases, recovery phrases and signing credentials must never be stored in GitHub.
