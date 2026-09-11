@@ -47,6 +47,8 @@ The Metadata Update Authority is separate from the SPL Mint Authority. Retaining
 
 The full 1,000,000,000 MALTY supply has been minted, but minted supply is not the same as circulating supply. Tokens assigned to reserves remain reserved until they are actually released for their documented purpose.
 
+The Team & Core Contributors policy defines an initial release eligibility of 7,500,000 MALTY. This does **not** by itself mean that all 7,500,000 MALTY must be counted as circulating at launch; circulating supply should reflect tokens that have actually been distributed and are genuinely available.
+
 Before any public launch, the project should document the initial circulating supply and the categories from which those circulating tokens originate.
 
 ## Allocation Rules
@@ -116,13 +118,31 @@ The 75,000,000 MALTY Team & Core Contributors allocation is planned for 11 peopl
 
 Each allocation is intended for a distinct person contributing to the project. Individual names do not need to be published in this document.
 
-Rules:
+#### Release policy
 
-- This category should represent actual Team and Core Contributor participation.
-- Do not use the Team label to conceal allocations that do not correspond to project contribution.
-- Individual recipient identities do not need to be published, but the aggregate allocation and release policy should remain transparent.
-- Prefer staged release or vesting rather than making the entire allocation immediately available.
-- A final Team release / vesting policy remains **TBD** and should be documented before Team tokens are distributed.
+The approved Team & Core Contributors release policy is:
+
+- **10% initial release eligibility at the official launch**;
+- **90% released in 12 equal monthly tranches**;
+- the first monthly tranche becomes eligible one month after the official launch;
+- the same proportional policy applies to the Team Lead and all 10 Core Contributors.
+
+| Role | Initial 10% | Remaining 90% | Monthly release x 12 | Total |
+| --- | ---: | ---: | ---: | ---: |
+| Team Lead | 2,000,000 | 18,000,000 | 1,500,000 | 20,000,000 |
+| Each Core Contributor | 550,000 | 4,950,000 | 412,500 | 5,500,000 |
+| 10 Core Contributors total | 5,500,000 | 49,500,000 | 4,125,000 | 55,000,000 |
+| **Team total** | **7,500,000** | **67,500,000** | **5,625,000** | **75,000,000** |
+
+After the initial release, 12 monthly releases complete the Team allocation over the following 12 months.
+
+Release rules:
+
+- The initial 10% is the maximum amount eligible for initial Team distribution under this policy; eligibility does not automatically mean the tokens are circulating until actually distributed and available.
+- No unreleased allocation should be accelerated without a documented change to this policy.
+- If a Core Contributor permanently stops contributing before their allocation is fully released, the unreleased portion returns to the Team & Core Contributors Reserve unless a documented project decision states otherwise.
+- Material changes to the schedule must be recorded in the Change History before, or at the same time as, implementation.
+- The technical enforcement mechanism remains to be selected before execution. Until an actual on-chain, multisig or custody mechanism enforces the schedule, this section describes the project's release policy and must not be represented as a technical on-chain lock.
 
 ## Wallet Separation
 
@@ -141,18 +161,13 @@ Material movements should be documented with the category, amount, purpose and t
 
 ## Vesting and Lockups
 
-No final vesting or lockup schedule is defined by this document yet.
+The Team & Core Contributors release schedule is now defined: 10% initial release eligibility followed by 90% in 12 equal monthly tranches.
 
-Before Team & Core Contributors tokens are distributed, a release policy should be selected and documented. The same principle can be applied to Treasury or Ecosystem allocations when long-term restrictions are useful.
+The **technical enforcement mechanism is still TBD**. Before executing the Team allocation, the project should select a verifiable release mechanism appropriate for the schedule.
 
-Possible policy structures include:
+The release policy and the enforcement mechanism are separate concepts. The project should only describe Team tokens as technically locked or vested on-chain if an actual mechanism enforces that restriction.
 
-- a waiting period before the first release;
-- gradual releases over a defined period;
-- milestone-based releases;
-- a combination of waiting period and gradual release.
-
-The selected policy should be simple enough to explain publicly and should not be described as technically locked unless an actual on-chain or custody mechanism enforces the restriction.
+The same principle can be applied to Treasury or Ecosystem allocations when long-term restrictions are useful.
 
 ## Transparency Policy
 
@@ -197,11 +212,13 @@ As of the current Mainnet v1 tokenomics checkpoint:
 - Metadata Update Authority is retained and remains separate from the revoked Mint Authority;
 - the allocation above is the approved working tokenomics plan;
 - initial circulating supply remains **TBD before launch**;
-- Team vesting / release policy remains **TBD**;
+- Team release policy is defined as **10% initial + 90% over 12 monthly tranches**;
+- technical enforcement of the Team release policy remains **TBD before execution**;
 - category-level distribution has **not** been executed as part of this document.
 
 ## Change History
 
 - **v1:** Initial tokenomics structure: 50% Liquidity Reserve, 20% Launch & Ecosystem Reserve, 15% Community, 7.5% Treasury, and 7.5% Team & Core Contributors.
 - **v2:** Team & Core Contributors allocation defined for 11 people: 1 Team Lead with 20,000,000 MALTY and 10 Core Contributors with 5,500,000 MALTY each.
-- **v3:** Added token safety summary, Metadata Update Authority disclosure, initial circulating supply status, Liquidity Reserve clarification, objective material-movement threshold, change governance and tokenomics disclaimer. Team vesting remains TBD.
+- **v3:** Added token safety summary, Metadata Update Authority disclosure, initial circulating supply status, Liquidity Reserve clarification, objective material-movement threshold, change governance and tokenomics disclaimer.
+- **v4:** Defined Team & Core Contributors release policy: 10% initial release eligibility and the remaining 90% in 12 equal monthly tranches. Technical enforcement mechanism remains TBD before execution.
