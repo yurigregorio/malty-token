@@ -20,9 +20,9 @@ describe("MALTY token invariants", () => {
     expect(MALTY_PRODUCTION_POLICY.freezeAuthority).toBeNull();
   });
 
-  it("keeps Mainnet mutations locked until an explicit reviewed release", () => {
+  it("allows only Mainnet mint-account creation in stage 1", () => {
     expect(MALTY_CONFIG.mainnet.mint).toBeNull();
-    expect(MALTY_CONFIG.mainnet.allowCreateMint).toBe(false);
+    expect(MALTY_CONFIG.mainnet.allowCreateMint).toBe(true);
     expect(MALTY_CONFIG.mainnet.allowMintSupply).toBe(false);
     expect(MALTY_CONFIG.mainnet.allowMetadata).toBe(false);
     expect(MALTY_CONFIG.mainnet.allowRevokeMintAuthority).toBe(false);
