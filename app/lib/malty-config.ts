@@ -40,10 +40,11 @@ export const MALTY_CONFIG: Record<
     metadataCreated: false,
     mintAuthorityRevoked: false,
 
-    // Lock every Mainnet mutation between release stages.
+    // Stage 3: only Metaplex metadata creation is enabled.
+    // Supply minting and authority changes remain locked.
     allowCreateMint: false,
     allowMintSupply: false,
-    allowMetadata: false,
+    allowMetadata: true,
     allowRevokeMintAuthority: false,
   },
 };
