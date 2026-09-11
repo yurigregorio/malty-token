@@ -107,17 +107,18 @@ export function TokenCard() {
 
   const mint = maltyConfig?.mint ?? sessionMints[cluster] ?? null;
 
-  // The existing Devnet token has already completed the full validation flow.
-  const devnetCompleted = cluster === "devnet" && maltyConfig?.mint != null;
-
+  // Persisted deployment state comes from the network config; session state
+  // covers actions completed during the current browser session.
   const hasMinted =
-    devnetCompleted || sessionMinted[cluster] === true;
+    maltyConfig?.supplyMinted === true || sessionMinted[cluster] === true;
 
   const metadataCreated =
-    devnetCompleted || sessionMetadataCreated[cluster] === true;
+    maltyConfig?.metadataCreated === true ||
+    sessionMetadataCreated[cluster] === true;
 
   const mintAuthorityRevoked =
-    devnetCompleted || sessionAuthorityRevoked[cluster] === true;
+    maltyConfig?.mintAuthorityRevoked === true ||
+    sessionAuthorityRevoked[cluster] === true;
 
   const mintAmount = MALTY_TOKEN.totalSupplyTokens.toString();
 
