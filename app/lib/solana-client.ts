@@ -21,14 +21,14 @@ export const CLUSTERS: ClusterMoniker[] = [
 const CLUSTER_URLS: Record<ClusterMoniker, string> = {
   devnet: "https://api.devnet.solana.com",
   testnet: "https://api.testnet.solana.com",
-  mainnet: "https://api.mainnet-beta.solana.com",
+  mainnet: "https://api.mainnet.solana.com",
   localnet: "http://localhost:8899",
 };
 
 const WS_URLS: Record<ClusterMoniker, string> = {
   devnet: "wss://api.devnet.solana.com",
   testnet: "wss://api.testnet.solana.com",
-  mainnet: "wss://api.mainnet-beta.solana.com",
+  mainnet: "wss://api.mainnet.solana.com",
   localnet: "ws://localhost:8900",
 };
 
