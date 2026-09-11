@@ -1,69 +1,81 @@
-# malty-token
+# MALTY Token
 
-Next.js starter built on `@solana/kit` v7 with the kit plugin client and [`@solana/react`](https://www.npmjs.com/package/@solana/react). Connect a browser wallet, switch networks, and send real transactions — SOL transfers, SPL token actions, and memos — with zero manual `pipe()` boilerplate.
+Production tooling and deployment record for **Malty (MALTY)**, an SPL token on Solana inspired by Charlotte.
 
-## Getting Started
+> **Mainnet v1 status: complete.** The exact 1,000,000,000 MALTY supply has been issued, the Metaplex metadata is present, Freeze Authority is absent, and Mint Authority has been permanently revoked.
+
+## Mainnet v1
+
+- **Name:** Malty
+- **Symbol:** MALTY
+- **Mint:** `6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz`
+- **Decimals:** 6
+- **Supply:** 1,000,000,000 MALTY
+- **Mint Authority:** revoked / none
+- **Freeze Authority:** none
+- **Slogan:** Small Dog. Big Community.
+
+The complete verified deployment record is in [`docs/MALTY_MAINNET_V1.md`](docs/MALTY_MAINNET_V1.md).
+
+### Production safeguards
+
+The application records the completed Mainnet deployment and keeps all creation and authority-changing actions locked. The metadata Update Authority remains separate from Mint Authority and is intentionally retained during the final metadata verification window.
+
+## Development
 
 Requires Node.js 24 or newer.
-
-```shell
-npx -y create-solana-dapp@latest -t solana-foundation/templates/kit/malty-token
-```
 
 ```shell
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000), connect a wallet, and (on devnet) click **Airdrop 1 SOL** to fund it. Then try the actions. Need devnet SOL another way? [faucet.solana.com](https://faucet.solana.com/).
+Open `http://localhost:3000` and connect a compatible browser wallet. Development and testing should normally use Devnet or local test infrastructure; Mainnet transactions use real SOL and tokens.
 
-To use localnet, start a local validator in another terminal before selecting
-**localnet**:
+## Project structure
 
-```shell
-solana-test-validator
-```
+- `app/lib/malty-token.ts` — MALTY identity, supply and metadata constants
+- `app/lib/malty-config.ts` — per-network deployment state and action guards
+- `app/components/actions/token-card.tsx` — token UI and guarded token actions
+- `tests/malty-safety.test.ts` — MALTY production invariants
+- `docs/MALTY_MAINNET_V1.md` — verified Mainnet deployment record
 
-## What's Included
+## Technical stack
 
-- **Wallet connection** via [`@solana/kit-plugin-wallet`](https://www.npmjs.com/package/@solana/kit-plugin-wallet) (wallet-standard discovery, auto-reconnect)
-- **Network switcher** — devnet, testnet, mainnet, localnet
-- **Transfer SOL** with the [`@solana-program/system`](https://www.npmjs.com/package/@solana-program/system) kit plugin
-- **Token actions** — create a mint, mint tokens, and transfer them with the [`@solana-program/token`](https://www.npmjs.com/package/@solana-program/token) kit plugin (associated token accounts created for you)
-- **Add memo** with the [`@solana-program/memo`](https://www.npmjs.com/package/@solana-program/memo) kit plugin
-- **Live balance** and **toast notifications** with explorer links
-- **Tailwind CSS v4** with light/dark mode
+This project started from the Solana Kit Next.js template and uses:
 
-## How it works
+- `@solana/kit` v7
+- `@solana/kit-plugin-wallet`
+- `@solana/kit-plugin-rpc`
+- `@solana-program/token`
+- Metaplex Token Metadata / Umi
+- Next.js
+- TypeScript
+- Vitest
 
-The app builds one kit client per selected cluster in [`app/lib/solana-client.ts`](app/lib/solana-client.ts) and provides it through `@solana/react`'s `ClientProvider`:
+The app builds one Solana client per selected cluster in `app/lib/solana-client.ts` and provides it through the project client provider. Wallet signing is delegated to the connected wallet; private keys and seed phrases are never stored in the application.
 
-```ts
-createClient()
-  .use(walletSigner({ chain })) // wallet as payer + identity; must precede rpc
-  .use(solanaRpc({ rpcUrl, rpcSubscriptionsUrl })) // rpc, subscriptions, getMinimumBalance, sendTransaction
-  .use(rpcAirdrop()) // client.airdrop (non-mainnet)
-  .use(systemProgram()) // client.system.instructions.transferSol
-  .use(tokenProgram()) // client.token.instructions.{createMint,mintToATA,transferToATA}
-  .use(memoProgram()); // client.memo.instructions.addMemo
-```
+## Validation
 
-Components read the client with `useClient()` and the connected wallet with the `@solana/kit-plugin-wallet/react` hooks (`useWallets`, `useConnect`, `useConnectedWallet`, `useDisconnect`). Sending is a single call — `client.sendTransaction([instruction])` for raw instructions, or `client.token.instructions.createMint({...}).sendTransaction()` for the token plugin's built-in instruction plans.
-
-### Switching networks
-
-A kit client is bound to one chain and RPC endpoint. The cluster dropdown rebuilds the client in a `useMemo` keyed on the cluster and hands the new instance to `ClientProvider`, which reprovisions the subtree. See [`app/lib/client-provider.tsx`](app/lib/client-provider.tsx).
-
-## Testing
+Run the project checks with:
 
 ```shell
+npm run typecheck
 npm run test
+npm run build
 ```
 
-The tests in [`tests/`](tests/) drive the real UI — click **Connect Wallet**, pick a wallet, fill in the transfer form, press **Send SOL** — and assert on-chain state before and after each click. Three pieces make that work without a browser or a wallet extension:
+The CI pipeline runs these checks for release and safety changes.
 
-- **[`@solana/surfpool`](https://www.npmjs.com/package/@solana/surfpool)** embeds a [Surfpool](https://surfpool.run) Solana runtime in-process. Each test file boots its own surfnet on dynamic ports in well under a second, with cheatcodes to fund accounts (`surfnet.fundSol`), set token balances, deploy programs, and time travel. It's a native addon with prebuilt binaries for macOS (x64/arm64) and Linux x64.
-- **A mock wallet-standard wallet** ([`tests/mock-wallet.ts`](tests/mock-wallet.ts)) registers itself like any browser extension would, so the app's real wallet discovery, connect flow, and transaction signing run unmodified — signatures come from an in-memory keypair.
-- **[Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com/docs/react-testing-library/intro/)** render the actual app components in jsdom and interact with them by role and label, the same way a user would.
+## Network notes
 
-The tests point the app's client factory at the surfnet via the optional URL override on `createAppClient` — everything else (plugins, signing, subscriptions, live balance updates) is the production code path.
+- **Devnet:** completed MALTY test deployment; deployment actions locked.
+- **Mainnet:** MALTY Mainnet v1 completed; mint/supply/metadata creation and Mint Authority changes locked.
+- **Other networks:** not part of the MALTY production deployment.
+
+## Token metadata
+
+- Image: `https://arweave.net/w-TXbk_hQOw1mC5vA9YrVmClKzz_Avjfiq5coE1AYec`
+- Metadata: `https://turbo-gateway.com/rLzUMFUoqgYI04MijeVjLDriWACUApJo2BKK6ycB5MU`
+
+For exact on-chain verification values and deployment transaction signatures, see [`docs/MALTY_MAINNET_V1.md`](docs/MALTY_MAINNET_V1.md).
