@@ -16,17 +16,17 @@ export const MALTY_PRODUCTION_POLICY = {
   // MALTY must never have a freeze authority.
   freezeAuthority: null,
 
-  // Keep metadata editable during the final verification window so a bad URI,
-  // typo or image issue can still be corrected before the project is locked.
+  // Metadata was created as mutable and the Metadata Update Authority is
+  // intentionally retained for metadata maintenance. This authority is
+  // separate from the SPL Mint Authority and cannot increase token supply.
   metadataMutableAtCreation: true,
 
-  // The metadata update authority is separate from the SPL mint authority.
-  // We keep it initially and decide whether to revoke it only after verifying
-  // the final Mainnet metadata in wallets and explorers.
+  // Historical creation policy: do not revoke the Metadata Update Authority
+  // automatically as part of token creation.
   revokeMetadataUpdateAuthorityAtCreation: false,
 
-  // The SPL mint authority is revoked only after the exact full supply has
-  // been minted and independently verified on Mainnet.
+  // Historical deployment policy: revoke the SPL Mint Authority only after
+  // the exact fixed supply has been minted and independently verified.
   revokeMintAuthorityAfterSupplyVerification: true,
 } as const;
 
