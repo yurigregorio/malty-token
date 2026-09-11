@@ -11,6 +11,10 @@ import { createMetadataAccountV3 } from "@metaplex-foundation/mpl-token-metadata
 
 import { useAppClient } from "../../lib/client-provider";
 import { MALTY_CONFIG } from "../../lib/malty-config";
+import {
+  MALTY_PRODUCTION_POLICY,
+  MALTY_TOKEN,
+} from "../../lib/malty-token";
 import { createPhantomUmi } from "../../lib/umi-client";
 import { getClusterUrl } from "../../lib/solana-client";
 
@@ -19,14 +23,7 @@ import { useSend } from "../../lib/hooks/use-send";
 import { ellipsify } from "../../lib/explorer";
 import { isCustomProgramError } from "../../lib/errors";
 
-const DECIMALS = 6;
-
-const TOKEN_NAME = "Malty";
-const TOKEN_SYMBOL = "MALTY";
-
-const TOKEN_URI =
-  "https://turbo-gateway.com/rLzUMFUoqgYI04MijeVjLDriWACUApJo2BKK6ycB5MU";
-
+const DECIMALS = MALTY_TOKEN.decimals;
 const BASE_UNITS_PER_TOKEN = 10n ** BigInt(DECIMALS);
 const MAX_TOKEN_AMOUNT = (1n << 64n) - 1n;
 
@@ -91,8 +88,8 @@ export function TokenCard() {
         ? MALTY_CONFIG.mainnet
         : null;
 
-  // A mint created during the current browser session is stored per network.
-  // This prevents a mint from one cluster from leaking into another cluster.
+  // Session state is isolated by cluster so a token from one network can never
+  // be accidentally reused after switching networks in the UI.
   const [sessionMints, setSessionMints] = useState<
     Record<string, Address | null>
   >({});
@@ -101,23 +98,28 @@ export function TokenCard() {
     Record<string, boolean>
   >({});
 
+  const [sessionMetadataCreated, setSessionMetadataCreated] = useState<
+    Record<string, boolean>
+  >({});
+
   const [sessionAuthorityRevoked, setSessionAuthorityRevoked] =
     useState<Record<string, boolean>>({});
 
   const mint = maltyConfig?.mint ?? sessionMints[cluster] ?? null;
 
-  // The existing Devnet token has already completed these steps on-chain.
+  // The existing Devnet token has already completed the full validation flow.
   const devnetCompleted = cluster === "devnet" && maltyConfig?.mint != null;
 
   const hasMinted =
     devnetCompleted || sessionMinted[cluster] === true;
 
-  const metadataCreated = devnetCompleted;
+  const metadataCreated =
+    devnetCompleted || sessionMetadataCreated[cluster] === true;
 
   const mintAuthorityRevoked =
     devnetCompleted || sessionAuthorityRevoked[cluster] === true;
 
-  const [mintAmount] = useState("1000000000");
+  const mintAmount = MALTY_TOKEN.totalSupplyTokens.toString();
 
   const [recipient, setRecipient] = useState("");
   const [transferAmount, setTransferAmount] = useState("10");
@@ -149,9 +151,9 @@ export function TokenCard() {
         client.token.instructions
           .createMint({
             newMint,
-            decimals: DECIMALS,
+            decimals: MALTY_TOKEN.decimals,
             mintAuthority: signer.address,
-            freezeAuthority: null,
+            freezeAuthority: MALTY_PRODUCTION_POLICY.freezeAuthority,
           })
           .sendTransaction(),
       "Token mint created"
@@ -168,6 +170,11 @@ export function TokenCard() {
         [cluster]: false,
       }));
 
+      setSessionMetadataCreated((current) => ({
+        ...current,
+        [cluster]: false,
+      }));
+
       setSessionAuthorityRevoked((current) => ({
         ...current,
         [cluster]: false,
@@ -176,7 +183,7 @@ export function TokenCard() {
   };
 
   // -------------------------------------------------------
-  // MINT 1 BILLION MALTY
+  // MINT FIXED MALTY SUPPLY
   // -------------------------------------------------------
 
   const handleMint = async () => {
@@ -197,7 +204,7 @@ export function TokenCard() {
     }
 
     if (hasMinted) {
-      toast.error("The 1 billion MALTY supply has already been minted");
+      toast.error("The MALTY supply has already been minted");
       return;
     }
 
@@ -220,7 +227,7 @@ export function TokenCard() {
             owner: signer.address,
             mintAuthority: signer,
             amount,
-            decimals: DECIMALS,
+            decimals: MALTY_TOKEN.decimals,
           })
           .sendTransaction(),
       "Tokens minted to your wallet"
@@ -257,17 +264,22 @@ export function TokenCard() {
         mintAuthority: umi.identity,
         updateAuthority: umi.identity.publicKey,
         data: {
-          name: TOKEN_NAME,
-          symbol: TOKEN_SYMBOL,
-          uri: TOKEN_URI,
+          name: MALTY_TOKEN.name,
+          symbol: MALTY_TOKEN.symbol,
+          uri: MALTY_TOKEN.metadataUri,
           sellerFeeBasisPoints: 0,
           creators: null,
           collection: null,
           uses: null,
         },
-        isMutable: true,
+        isMutable: MALTY_PRODUCTION_POLICY.metadataMutableAtCreation,
         collectionDetails: null,
       }).sendAndConfirm(umi);
+
+      setSessionMetadataCreated((current) => ({
+        ...current,
+        [cluster]: true,
+      }));
 
       toast.success("MALTY metadata created");
     } catch (error) {
@@ -375,7 +387,7 @@ export function TokenCard() {
             authority: signer,
             recipient: destination,
             amount,
-            decimals: DECIMALS,
+            decimals: MALTY_TOKEN.decimals,
           })
           .sendTransaction(),
       "Tokens transferred",
@@ -419,7 +431,7 @@ export function TokenCard() {
           {isSending
             ? "Creating..."
             : maltyConfig?.allowCreateMint
-              ? `Create mint (${DECIMALS} decimals)`
+              ? `Create mint (${MALTY_TOKEN.decimals} decimals)`
               : "MALTY mint creation locked"}
         </button>
       ) : (
@@ -468,11 +480,11 @@ export function TokenCard() {
               {mintAuthorityRevoked
                 ? "Mint Authority revoked"
                 : hasMinted
-                  ? "1B MALTY already minted"
+                  ? "MALTY supply already minted"
                   : maltyConfig?.allowMintSupply
                     ? isSending
                       ? "Working..."
-                      : "Mint 1B MALTY"
+                      : `Mint ${mintAmount} MALTY`
                     : "Supply minting locked"}
             </button>
 
