@@ -35,15 +35,17 @@ export const MALTY_CONFIG: Record<
       "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz"
     ),
 
-    // Stage 3 verified on-chain: exact supply and Metaplex metadata exist.
+    // Mainnet deployment verified on-chain: exact supply, Metaplex metadata,
+    // no freeze authority, and Mint Authority permanently revoked.
     supplyMinted: true,
     metadataCreated: true,
-    mintAuthorityRevoked: false,
+    mintAuthorityRevoked: true,
 
-    // Stage 4: only permanent Mint Authority revocation is enabled.
+    // Production deployment is complete. Creation and authority actions are
+    // permanently locked from the app.
     allowCreateMint: false,
     allowMintSupply: false,
     allowMetadata: false,
-    allowRevokeMintAuthority: true,
+    allowRevokeMintAuthority: false,
   },
 };
