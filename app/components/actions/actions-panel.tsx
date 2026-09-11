@@ -39,20 +39,27 @@ export function ActionsPanel() {
   if (!connected) {
     return (
       <div className="mt-8 rounded-2xl border border-border-low bg-card p-6 text-sm text-muted">
-        Connect a wallet to try the on-chain actions.
+        Connect a wallet to inspect the selected network.
       </div>
+    );
+  }
+
+  if (cluster === "mainnet") {
+    return (
+      <section className="mt-8 rounded-2xl border border-border-low bg-card p-6">
+        <h2 className="text-sm font-semibold">MALTY Mainnet</h2>
+        <p className="mt-2 text-sm text-muted">
+          Mainnet v1 is complete. Transaction actions are intentionally disabled
+          in this application. Use Mainnet here only for read-only inspection
+          and verification.
+        </p>
+      </section>
     );
   }
 
   return (
     <section className="mt-8 grid gap-4 sm:grid-cols-2">
-      {cluster === "mainnet" && (
-        <p className="sm:col-span-2 rounded-lg border border-border-low bg-card px-4 py-3 text-sm text-muted">
-          Mainnet transactions use real SOL and tokens. Review every wallet
-          prompt before signing.
-        </p>
-      )}
-      {cluster !== "mainnet" && <AirdropCard />}
+      <AirdropCard />
       {connected.signer ? (
         <>
           <TransferSolCard />
@@ -62,7 +69,8 @@ export function ActionsPanel() {
       ) : (
         <p className="sm:col-span-2 rounded-lg border border-border-low bg-card px-4 py-3 text-sm text-muted">
           This wallet account is connected in read-only mode and cannot sign
-          transactions. Connect a signing-capable account to use these actions.
+          transactions. Connect a signing-capable account to use non-Mainnet
+          development actions.
         </p>
       )}
     </section>
