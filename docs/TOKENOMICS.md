@@ -43,13 +43,24 @@ The Metadata Update Authority is separate from the SPL Mint Authority. Retaining
 
 ## Initial Circulating Supply
 
-**Initial circulating supply: TBD before launch.**
+**Planned initial circulating supply: 100,000,000 MALTY (10% of total supply).**
 
-The full 1,000,000,000 MALTY supply has been minted, but minted supply is not the same as circulating supply. Tokens assigned to reserves remain reserved until they are actually released for their documented purpose.
+The planned launch composition is:
 
-The Team & Core Contributors policy defines an initial release eligibility of 7,500,000 MALTY. This does **not** by itself mean that all 7,500,000 MALTY must be counted as circulating at launch; circulating supply should reflect tokens that have actually been distributed and are genuinely available.
+| Source category | Initial circulating MALTY | % of total supply | Remaining category reserve |
+| --- | ---: | ---: | ---: |
+| Liquidity Reserve | 50,000,000 | 5.00% | 450,000,000 |
+| Community | 25,000,000 | 2.50% | 125,000,000 |
+| Launch & Ecosystem Reserve | 17,500,000 | 1.75% | 182,500,000 |
+| Team & Core Contributors | 7,500,000 | 0.75% | 67,500,000 |
+| Treasury | 0 | 0.00% | 75,000,000 |
+| **Total** | **100,000,000** | **10.00%** | **900,000,000** |
 
-Before any public launch, the project should document the initial circulating supply and the categories from which those circulating tokens originate.
+The full 1,000,000,000 MALTY supply has been minted, but minted supply is not the same as circulating supply. The 900,000,000 MALTY not included in the initial circulating plan remain reserved or subject to the documented release schedule until actually released for their intended purpose.
+
+The 7,500,000 MALTY Team amount corresponds to the approved 10% initial Team release eligibility. It should only be reported as circulating to the extent that it has actually been distributed and is genuinely available.
+
+Likewise, the Liquidity, Community and Launch & Ecosystem amounts become part of actual circulating supply only when they are deployed or distributed for their documented launch purpose and are genuinely available. If launch execution differs from this plan, the actual circulating supply and category balances should be updated before they are represented publicly as final launch figures.
 
 ## Allocation Rules
 
@@ -59,7 +70,7 @@ These rules are intended to make the allocation understandable and auditable. Th
 
 Purpose: reserve MALTY for future market liquidity and launch-related liquidity needs.
 
-The 500,000,000 MALTY allocation is a **maximum reserve allocation**, not a commitment to place all 500,000,000 MALTY into liquidity at launch or at any single point in time. Any amount not actually deployed remains part of the Liquidity Reserve.
+The 500,000,000 MALTY allocation is a **maximum reserve allocation**, not a commitment to place all 500,000,000 MALTY into liquidity at launch or at any single point in time. The current initial circulating plan assigns **50,000,000 MALTY** from this category to launch liquidity. Any amount not actually deployed remains part of the Liquidity Reserve.
 
 Rules:
 
@@ -67,7 +78,7 @@ Rules:
 - Do not use this allocation for personal compensation or unrelated project expenses.
 - Any use should be documented with the amount, purpose, destination and transaction signature.
 - A transfer out of this reserve does not automatically mean that the entire transferred amount is circulating supply; actual circulation should be described based on how the tokens are used.
-- The amount initially deployed to liquidity should be documented separately before launch.
+- The amount actually deployed to launch liquidity should be reconciled against the planned 50,000,000 MALTY before final launch figures are published.
 
 ### 2. Launch & Ecosystem Reserve — 20%
 
@@ -211,10 +222,10 @@ As of the current Mainnet v1 tokenomics checkpoint:
 - Metaplex metadata is present;
 - Metadata Update Authority is retained and remains separate from the revoked Mint Authority;
 - the allocation above is the approved working tokenomics plan;
-- initial circulating supply remains **TBD before launch**;
+- planned initial circulating supply is defined as **100,000,000 MALTY (10%)**, sourced from 50,000,000 Liquidity, 25,000,000 Community, 17,500,000 Launch & Ecosystem and 7,500,000 Team;
 - Team release policy is defined as **10% initial + 90% over 12 monthly tranches**;
 - technical enforcement of the Team release policy remains **TBD before execution**;
-- category-level distribution has **not** been executed as part of this document.
+- the initial circulating plan and category-level distribution have **not yet been executed on-chain as part of this document**.
 
 ## Change History
 
@@ -222,3 +233,4 @@ As of the current Mainnet v1 tokenomics checkpoint:
 - **v2:** Team & Core Contributors allocation defined for 11 people: 1 Team Lead with 20,000,000 MALTY and 10 Core Contributors with 5,500,000 MALTY each.
 - **v3:** Added token safety summary, Metadata Update Authority disclosure, initial circulating supply status, Liquidity Reserve clarification, objective material-movement threshold, change governance and tokenomics disclaimer.
 - **v4:** Defined Team & Core Contributors release policy: 10% initial release eligibility and the remaining 90% in 12 equal monthly tranches. Technical enforcement mechanism remains TBD before execution.
+- **v5:** Defined the planned initial circulating supply as 100,000,000 MALTY (10%): 50,000,000 Liquidity, 25,000,000 Community, 17,500,000 Launch & Ecosystem and 7,500,000 Team. Treasury remains fully reserved at launch.
