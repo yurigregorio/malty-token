@@ -1,6 +1,6 @@
 # MALTY Tokenomics
 
-This document defines the working token allocation and governance rules for MALTY after completion of the Mainnet v1 deployment.
+This document defines the working token allocation, transparency principles and governance rules for MALTY after completion of the Mainnet v1 deployment.
 
 ## Supply
 
@@ -14,6 +14,22 @@ This document defines the working token allocation and governance rules for MALT
 
 Because the Mint Authority has been revoked, no additional MALTY can be created.
 
+## Token Properties & Safety Summary
+
+| Property | Status |
+| --- | --- |
+| Token standard | Traditional SPL Token (not Token-2022) |
+| Total supply | 1,000,000,000 MALTY |
+| Decimals | 6 |
+| Transfer tax | 0% |
+| Mint Authority | Revoked / none |
+| Freeze Authority | None |
+| Metadata | Present |
+| Metadata Update Authority | Retained |
+| Metadata mutability | Mutable while the Metadata Update Authority is retained |
+
+The Metadata Update Authority is separate from the SPL Mint Authority. Retaining it does **not** allow additional MALTY to be minted. It allows token metadata to be corrected or updated while that authority remains active. Any future decision to revoke or otherwise change the Metadata Update Authority should be documented separately before execution.
+
 ## Allocation
 
 | Allocation | Percentage | MALTY |
@@ -25,13 +41,23 @@ Because the Mint Authority has been revoked, no additional MALTY can be created.
 | Team & Core Contributors | 7.5% | 75,000,000 |
 | **Total** | **100%** | **1,000,000,000** |
 
+## Initial Circulating Supply
+
+**Initial circulating supply: TBD before launch.**
+
+The full 1,000,000,000 MALTY supply has been minted, but minted supply is not the same as circulating supply. Tokens assigned to reserves remain reserved until they are actually released for their documented purpose.
+
+Before any public launch, the project should document the initial circulating supply and the categories from which those circulating tokens originate.
+
 ## Allocation Rules
 
-These rules are intended to make the allocation understandable and auditable. They describe how each allocation should be treated before any distribution is executed.
+These rules are intended to make the allocation understandable and auditable. They describe how each allocation should be treated before and after distribution.
 
 ### 1. Liquidity Reserve — 50%
 
 Purpose: reserve MALTY for future market liquidity and launch-related liquidity needs.
+
+The 500,000,000 MALTY allocation is a **maximum reserve allocation**, not a commitment to place all 500,000,000 MALTY into liquidity at launch or at any single point in time. Any amount not actually deployed remains part of the Liquidity Reserve.
 
 Rules:
 
@@ -39,6 +65,7 @@ Rules:
 - Do not use this allocation for personal compensation or unrelated project expenses.
 - Any use should be documented with the amount, purpose, destination and transaction signature.
 - A transfer out of this reserve does not automatically mean that the entire transferred amount is circulating supply; actual circulation should be described based on how the tokens are used.
+- The amount initially deployed to liquidity should be documented separately before launch.
 
 ### 2. Launch & Ecosystem Reserve — 20%
 
@@ -49,7 +76,7 @@ Rules:
 - Use only for activities connected to MALTY's launch or ecosystem development.
 - Significant allocations to partners, campaigns or initiatives should be documented before distribution.
 - Unused tokens remain part of the reserve and should not be silently reclassified.
-- Any reallocation to another tokenomics category should be recorded in this document's change history.
+- Any reallocation to another tokenomics category should be recorded in this document's change history before implementation.
 
 ### 3. Community — 15%
 
@@ -60,7 +87,7 @@ Rules:
 - Community distributions should have a stated purpose and eligibility rule.
 - Avoid undisclosed insider distributions from the Community allocation.
 - Document material distributions or campaigns, including the amount reserved or distributed.
-- Tokens not yet distributed remain in the Community reserve.
+- Tokens not yet distributed remain in the Community Reserve.
 
 ### 4. Treasury — 7.5%
 
@@ -95,13 +122,22 @@ Rules:
 - Do not use the Team label to conceal allocations that do not correspond to project contribution.
 - Individual recipient identities do not need to be published, but the aggregate allocation and release policy should remain transparent.
 - Prefer staged release or vesting rather than making the entire allocation immediately available.
-- Any future vesting schedule should be documented before the Team allocation is distributed.
+- A final Team release / vesting policy remains **TBD** and should be documented before Team tokens are distributed.
 
 ## Wallet Separation
 
 Before executing the allocation, MALTY should use separate wallets or clearly separated token accounts for major categories whenever practical. The goal is to make movements easier to audit and reduce accidental mixing between Liquidity, Ecosystem, Community, Treasury and Team allocations.
 
 Public documentation may identify category wallets once they are created. Private keys, seed phrases and other wallet credentials must never be committed to this repository or published.
+
+## Material Movement Policy
+
+For the purpose of this document, a movement is considered **material** when either of the following is true:
+
+- a single transaction, or a set of directly related transactions, moves **5% or more of the original allocation of a category**; or
+- tokens are reallocated from one tokenomics category to another, regardless of amount.
+
+Material movements should be documented with the category, amount, purpose and transaction signature. This threshold is a documentation rule; it does not prevent smaller movements from also being disclosed when useful.
 
 ## Vesting and Lockups
 
@@ -129,20 +165,43 @@ MALTY should distinguish clearly between:
 
 These terms should not be treated as interchangeable.
 
-Material changes to the allocation percentages, category purposes or release policies should be documented in GitHub before or alongside implementation.
+The project should avoid presenting reserved or merely allocated tokens as circulating supply.
+
+## Change Governance
+
+The allocation percentages, category purposes and release policies should not be changed silently after publication.
+
+Any material tokenomics change should:
+
+1. be documented in this file;
+2. include a new entry in the Change History;
+3. explain what changed and why; and
+4. be documented before, or at the same time as, the corresponding implementation.
+
+A documentation change does not itself create an on-chain restriction. Where the project describes tokens as technically locked, that statement should only be used when an actual on-chain or custody mechanism enforces the restriction.
+
+## Tokenomics Disclaimer
+
+This document describes the intended allocation and governance of the MALTY token supply. It is not a promise or guarantee of token price, market liquidity, appreciation, yield, profit or financial return.
+
+Token allocations describe intended use of supply and should not be interpreted as a commitment that every reserved token will be distributed or enter circulation.
 
 ## Current Status
 
-As of the Mainnet v1 checkpoint:
+As of the current Mainnet v1 tokenomics checkpoint:
 
 - the full 1,000,000,000 MALTY supply has been minted;
 - Mint Authority has been permanently revoked;
 - Freeze Authority is absent;
-- metadata is present;
+- Metaplex metadata is present;
+- Metadata Update Authority is retained and remains separate from the revoked Mint Authority;
 - the allocation above is the approved working tokenomics plan;
+- initial circulating supply remains **TBD before launch**;
+- Team vesting / release policy remains **TBD**;
 - category-level distribution has **not** been executed as part of this document.
 
 ## Change History
 
 - **v1:** Initial tokenomics structure: 50% Liquidity Reserve, 20% Launch & Ecosystem Reserve, 15% Community, 7.5% Treasury, and 7.5% Team & Core Contributors.
 - **v2:** Team & Core Contributors allocation defined for 11 people: 1 Team Lead with 20,000,000 MALTY and 10 Core Contributors with 5,500,000 MALTY each.
+- **v3:** Added token safety summary, Metadata Update Authority disclosure, initial circulating supply status, Liquidity Reserve clarification, objective material-movement threshold, change governance and tokenomics disclaimer. Team vesting remains TBD.
