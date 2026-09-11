@@ -20,12 +20,12 @@ describe("MALTY token invariants", () => {
     expect(MALTY_PRODUCTION_POLICY.freezeAuthority).toBeNull();
   });
 
-  it("records the verified Mainnet mint and locks all mutations between stages", () => {
+  it("allows only supply minting in Mainnet stage 2", () => {
     expect(MALTY_CONFIG.mainnet.mint?.toString()).toBe(
       "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz"
     );
     expect(MALTY_CONFIG.mainnet.allowCreateMint).toBe(false);
-    expect(MALTY_CONFIG.mainnet.allowMintSupply).toBe(false);
+    expect(MALTY_CONFIG.mainnet.allowMintSupply).toBe(true);
     expect(MALTY_CONFIG.mainnet.allowMetadata).toBe(false);
     expect(MALTY_CONFIG.mainnet.allowRevokeMintAuthority).toBe(false);
   });
