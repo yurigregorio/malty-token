@@ -5,45 +5,28 @@ import { Providers } from "./components/providers";
 import { AppHeader } from "./components/app-header";
 import { GridBackground } from "./components/grid-background";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "MALTY — Small Dog. Big Community.",
-  description:
-    "MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.",
-  icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
-  },
+  description: "MALTY is a community-driven Solana memecoin built around transparency, identity, community and a long-term mission for positive animal impact.",
+  icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" },
   openGraph: {
     title: "MALTY — Small Dog. Big Community.",
-    description:
-      "MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.",
+    description: "A community-driven Solana memecoin built transparently, with a long-term mission for positive animal impact.",
     type: "website",
+    images: ["/opengraph-image"],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "MALTY — Small Dog. Big Community.",
-    description:
-      "MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.",
+    description: "Community. Transparency. Positive animal impact.",
+    images: ["/opengraph-image"],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
