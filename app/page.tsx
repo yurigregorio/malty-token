@@ -90,20 +90,20 @@ export default function Home() {
 
     <section id="top" className="relative border-b border-white/[0.07]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_42%,rgba(217,165,61,0.15),transparent_31%)]" />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 py-11 sm:px-8 sm:py-14 lg:grid-cols-[1.06fr_.94fr] lg:gap-9 lg:py-16">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.06fr_.94fr] lg:gap-9 lg:py-12">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#e9b949]/18 bg-[#e9b949]/[0.04] px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">
+          <div className="inline-flex select-none items-center gap-2 rounded-full border border-[#e9b949]/18 bg-[#e9b949]/[0.04] px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />{t.badge}
           </div>
-          <h1 className="mt-[18px] text-5xl font-extrabold leading-[0.98] tracking-[-0.045em] sm:text-6xl lg:text-[4.6rem]">MALTY<span className="text-[#e9b949]">.</span></h1>
-          <p className="mt-2.5 text-xl font-semibold tracking-[-0.02em] text-white/92 sm:text-2xl">{t.headline}</p>
+          <h1 className="mt-[18px] select-none text-5xl font-extrabold leading-[0.98] tracking-[-0.045em] sm:text-6xl lg:text-[4.6rem]">MALTY<span className="text-[#e9b949]">.</span></h1>
+          <p className="mt-2.5 select-none text-xl font-semibold tracking-[-0.02em] text-white/92 sm:text-2xl">{t.headline}</p>
           <p className={`mt-3 max-w-2xl ${textBody}`}>{t.intro}</p>
           <div className="mt-[22px] flex flex-wrap gap-3">
-            <a href="#story" className="inline-flex items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">
+            <a href="#story" className="inline-flex select-none items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">
               <span className="h-3.5 w-3.5 rounded-full bg-[conic-gradient(from_200deg,#ffe59a,#d9a53d_45%,#6f4210_80%,#ffe59a)] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.25)]" />
               {t.primaryCta}
             </a>
-            <a href="/transparency" className="rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} →</a>
+            <a href="/transparency" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} →</a>
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-white/45">
             <span><strong className="font-semibold text-white/92">0%</strong> Tax</span>
