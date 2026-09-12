@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "MALTY Transparency Center — Verify, Don’t Just Trust",
+  description: "Verify MALTY supply, authorities, reserve architecture, public review status and project disclosures.",
+  openGraph: { title: "MALTY Transparency Center", description: "Verifiable token facts, reserve architecture and public project disclosures.", images: ["/opengraph-image"] },
+};
+
 const MINT = "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz";
 const reserves = [
   ["Liquidity", "500M planned", "8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU"],
