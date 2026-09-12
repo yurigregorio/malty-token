@@ -17,13 +17,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Solana Kit Starter",
+  title: "MALTY — Small Dog. Big Community.",
   description:
-    "Wallet connection and on-chain actions with @solana/kit, the kit plugin client, and @solana/react",
+    "MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",
     apple: "/icon.svg",
+  },
+  openGraph: {
+    title: "MALTY — Small Dog. Big Community.",
+    description:
+      "MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "MALTY — Small Dog. Big Community.",
+    description:
+      "MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.",
   },
 };
 
