@@ -8,7 +8,7 @@ import { WalletButton } from "./wallet-button";
 export function AppHeader() {
   const pathname = usePathname();
 
-  if (pathname === "/") {
+  if (!pathname.startsWith("/dev")) {
     return null;
   }
 
