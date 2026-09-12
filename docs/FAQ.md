@@ -2,7 +2,7 @@
 
 ## What is MALTY?
 
-MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy. The project slogan is **Small Dog. Big Community.**
+MALTY is the name of the project, brand and community-driven Solana memecoin. The project slogan is **Small Dog. Big Community.**
 
 ## What is the official Mainnet mint?
 
@@ -48,6 +48,10 @@ Up to **100,000,000 MALTY** is planned as initial availability across Liquidity,
 
 At the latest documented reconciliation, no reserve transfer had been executed and the five published reserve accounts each held 0 MALTY. Public status should be updated only after actual on-chain movements are observed.
 
+## What is MALTY Gives?
+
+MALTY Gives is a planned animal-welfare initiative. It is not active yet, and no fixed contribution amount or percentage is currently promised. The project has published a policy-first activation standard before any program begins.
+
 ## Is the liquidity locked?
 
 The project does not claim that liquidity is locked, permanent or guaranteed unless a separate verifiable mechanism is implemented and publicly documented.
@@ -62,4 +66,4 @@ No. MALTY is a memecoin. There is no promise or guarantee of price, liquidity, r
 
 ## Where are the technical records?
 
-The repository contains the Mainnet deployment record, tokenomics, wallet architecture, reconciliation notes, allocation policies and security audit. `docs/TRANSPARENCY.md` is the concise public transparency reference.
+The repository contains the Mainnet deployment record, tokenomics, wallet architecture, reconciliation notes, allocation policies, MALTY Gives policy, public change history and security audit. `docs/TRANSPARENCY.md` is the concise public transparency reference.
