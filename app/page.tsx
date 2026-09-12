@@ -36,7 +36,7 @@ const copy = {
     givesTitle: "Community-powered. Pet-focused.", givesText: "MALTY Gives is being designed as the impact layer of the project. The community can help surface meaningful animal-welfare initiatives, while selection rules and completed actions are documented publicly.",
     givesStatus: "PLANNED INITIATIVE", givesNote: "The program is not active yet. Funding rules, beneficiary criteria and reporting standards will be published before the first initiative begins.",
     givesTimeline: ["Planned", "Selection criteria", "First initiative", "Public evidence", "Impact dashboard"], roadmapEyebrow: "ROADMAP", roadmapTitle: "Build the community. Create impact. Prove it.", updates: "Project updates",
-    faqTitle: "Quick answers", transparency: "Transparency center", docs: "Public documentation", copyMint: "Copy mint", copied: "Copied", copyFailed: "Copy failed",
+    faqTitle: "Quick answers", transparency: "Transparency center", docs: "Public documentation", copyMint: "Copy address", copied: "Copied", copyFailed: "Copy failed",
     risk: "MALTY is a community-driven digital token on Solana. Project information is provided for transparency and does not promise price, returns, liquidity or future value. MALTY Gives is planned and is not currently an active donation program.",
     footerProject: "Project", footerVerify: "Verify", footerStatus: "Status", footerMint: "Official mint",
   },
@@ -55,7 +55,7 @@ const copy = {
     givesTitle: "Movido pela comunidade. Focado em pets.", givesText: "MALTY Gives está sendo estruturado como a frente de impacto do projeto. A comunidade poderá ajudar a identificar iniciativas relevantes, enquanto regras de seleção e ações concluídas serão documentadas publicamente.",
     givesStatus: "INICIATIVA PLANEJADA", givesNote: "O programa ainda não está ativo. Regras de financiamento, critérios de beneficiários e padrões de prestação de contas serão publicados antes da primeira iniciativa.",
     givesTimeline: ["Planejado", "Critérios de seleção", "Primeira iniciativa", "Evidência pública", "Dashboard de impacto"], roadmapEyebrow: "ROADMAP", roadmapTitle: "Construir a comunidade. Gerar impacto. Comprovar.", updates: "Atualizações do projeto",
-    faqTitle: "Respostas rápidas", transparency: "Central de transparência", docs: "Documentação pública", copyMint: "Copiar mint", copied: "Copiado", copyFailed: "Falha ao copiar",
+    faqTitle: "Respostas rápidas", transparency: "Central de transparência", docs: "Documentação pública", copyMint: "Copiar endereço", copied: "Copiado", copyFailed: "Falha ao copiar",
     risk: "MALTY é um token digital comunitário construído na Solana. As informações do projeto são publicadas por transparência e não prometem preço, retorno, liquidez ou valor futuro. MALTY Gives é planejado e ainda não é um programa ativo de doações.",
     footerProject: "Projeto", footerVerify: "Verificar", footerStatus: "Status", footerMint: "Mint oficial",
   }
@@ -127,13 +127,80 @@ export default function Home() {
       </div>
     </section>
 
-    <section className="border-b border-white/[0.07] bg-[#0c0f13]"><div className="mx-auto max-w-6xl px-5 py-10 sm:px-8"><div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between"><div><Eyebrow>{t.statusEyebrow}</Eyebrow><p className="mt-2 text-lg font-semibold tracking-[-0.02em]">{t.publicStatusLabel} · {getReviewDateShort(language)}</p></div><div className="grid grid-cols-2 gap-2 sm:grid-cols-4"><Status label="Mainnet" value="Live"/><Status label="Mint Authority" value="Revoked"/><Status label="Freeze Authority" value="None"/><Status label="MALTY Gives" value="Planned"/></div></div><div className="mt-5 flex flex-wrap gap-5 text-sm"><a href="/transparency" className="font-medium text-[#e9b949]">{t.verifyTransparency} →</a><a href="/updates" className="font-medium text-white/55 hover:text-white">{t.changeHistory} →</a></div></div></section>
+    <section className="border-b border-white/[0.07] bg-[#0c0f13]">
+      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 sm:p-7">
+          <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-center sm:gap-10">
+            <div>
+              <Eyebrow>{t.statusEyebrow}</Eyebrow>
+              <p className="mt-2 flex items-center gap-2.5 text-lg font-semibold tracking-[-0.02em]">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                {t.publicStatusLabel} · {getReviewDateShort(language)}
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <StatusFact label="Mainnet" value="Live" tone="green" />
+              <StatusFact label="MALTY Gives" value="Planned" tone="gold" />
+            </div>
+          </div>
+          <div className="mt-5 flex flex-wrap gap-5 border-t border-white/[0.07] pt-4 text-sm">
+            <a href="/transparency" className="font-medium text-[#e9b949]">{t.verifyTransparency} →</a>
+            <a href="/updates" className="font-medium text-white/55 hover:text-white">{t.changeHistory} →</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="story" className="border-b border-black/10 bg-[#f2ecdf] text-[#17130d]"><div className={`mx-auto grid max-w-6xl gap-12 ${sectionPad} lg:grid-cols-[.82fr_1.18fr] lg:items-center`}><div><LightEyebrow>{t.storyEyebrow}</LightEyebrow><h2 className="mt-3 max-w-xl text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-4xl">{t.storyTitle}</h2><p className={`mt-5 max-w-2xl ${lightBody}`}>{t.storyText}</p><a href="/about" className="mt-6 inline-flex text-sm font-semibold text-[#8b5a12]">{t.about} →</a></div><div className="grid gap-3 sm:grid-cols-2"><Pillar title="MALTY Token" text={language==="pt"?"Transparência":"Transparency"}/><Pillar title="MALTY Community" text={language==="pt"?"Participação":"Participation"}/><Pillar title="MALTY Gives" text={language==="pt"?"Apoio a pets":"Pet support"}/><Pillar title="MALTY Impact" text={language==="pt"?"Prova pública":"Public proof"}/></div></div></section>
 
     <section className="border-b border-white/[0.07]"><div className={`mx-auto grid max-w-6xl gap-4 ${sectionPad} lg:grid-cols-2`}><div className={`${darkSurface} p-6 sm:p-8`}><Eyebrow>{t.verifiedEyebrow}</Eyebrow><h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{t.verifiedTitle}</h2><div className="mt-6 grid gap-2 sm:grid-cols-2">{t.verifiedItems.map(x=><Fact key={x} text={x}/>)}</div></div><div className={`${darkSurface} p-6 sm:p-8`}><Eyebrow>{language==="pt"?"PRÓXIMOS PASSOS":"NEXT"}</Eyebrow><h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{t.nextTitle}</h2><div className="mt-6 space-y-4">{t.nextItems.map((x,i)=><div key={x} className="flex items-start gap-4"><span className="mt-0.5 text-[11px] font-semibold text-[#e9b949]">0{i+1}</span><p className="text-sm leading-6 text-white/65">{x}</p></div>)}</div></div></div></section>
 
-    <section id="token" className="border-b border-white/[0.07] bg-[#0c0f13]"><div className={`mx-auto max-w-6xl ${sectionPad}`}><Eyebrow>{t.tokenEyebrow}</Eyebrow><h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.tokenTitle}</h2><p className={`mt-5 max-w-2xl ${textBody}`}>{t.tokenText}</p><div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3"><Stat label="Supply" value="1B MALTY"/><Stat label="Transfer tax" value="0%"/><Stat label="Decimals" value="6"/><Stat label="Mint Authority" value="Revoked"/><Stat label="Freeze Authority" value="None"/><Stat label="Network" value="Solana"/></div><div className="mt-5 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5"><p className="break-all font-mono text-xs leading-5 text-white/65">{MINT}</p><div className="mt-4 flex flex-wrap gap-5"><button onClick={copyMint} className="text-sm font-medium text-[#e9b949]">{copyState==="copied"?t.copied:copyState==="error"?t.copyFailed:t.copyMint}</button><a href={`https://explorer.solana.com/address/${MINT}`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-white/55 hover:text-white">Solana Explorer ↗</a></div></div></div></section>
+    <section id="token" className="border-b border-white/[0.07] bg-[#0c0f13]">
+      <div className={`mx-auto max-w-6xl ${sectionPad}`}>
+        <Eyebrow>{t.tokenEyebrow}</Eyebrow>
+        <h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.tokenTitle}</h2>
+        <p className={`mt-5 max-w-2xl ${textBody}`}>{t.tokenText}</p>
+
+        <div className="mt-8 overflow-hidden rounded-2xl border border-white/[0.08]">
+          <div className="flex flex-col sm:flex-row">
+            <div className="flex min-w-[190px] flex-col justify-center gap-1.5 border-b border-white/[0.08] bg-[#e9b949]/[0.03] p-6 sm:border-b-0 sm:border-r">
+              <span className="text-3xl font-extrabold tracking-[-0.02em] text-[#e9b949]">$MALTY</span>
+              <span className="text-[13px] text-white/40">{language==="pt"?"Token na Solana":"Token on Solana"}</span>
+            </div>
+            <div className="flex-1">
+              <div className="grid divide-y divide-white/[0.07] sm:grid-cols-2 sm:divide-y-0">
+                <TokenFact label={language==="pt"?"Rede":"Network"} value={<span className="inline-flex items-center gap-1.5"><SolanaMark className="h-[13px] w-[13px]" id="solg-token" />Solana Mainnet</span>} right />
+                <TokenFact label={language==="pt"?"Taxa de transferência":"Transfer tax"} value="0%" />
+              </div>
+              <div className="grid divide-y divide-white/[0.07] border-t border-white/[0.07] sm:grid-cols-2 sm:divide-y-0">
+                <TokenFact label={language==="pt"?"Emissão adicional":"Additional issuance"} value={language==="pt"?"Desativada":"Disabled"} right />
+                <TokenFact label={language==="pt"?"Autoridade de congelamento":"Freeze authority"} value={language==="pt"?"Inexistente":"None"} />
+              </div>
+              <div className="grid divide-y divide-white/[0.07] border-t border-white/[0.07] sm:grid-cols-2 sm:divide-y-0">
+                <TokenFact label={language==="pt"?"Oferta total":"Total supply"} value={language==="pt"?"1 bilhão de MALTY":"1 billion MALTY"} right />
+                <TokenFact label={language==="pt"?"Decimais":"Decimals"} value="6" />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3.5 border-t border-white/[0.08] bg-white/[0.015] p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-[11px] font-medium text-white/45">{language==="pt"?"Endereço oficial":"Official address"}</p>
+              <p className="mt-0.5 break-all font-mono text-xs text-white/80">{MINT.slice(0, 8)}...{MINT.slice(-8)}</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-4">
+              <button onClick={copyMint} className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3.5 py-2 text-[13px] font-semibold text-white/90">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3.5 w-3.5"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></svg>
+                {copyState==="copied"?t.copied:copyState==="error"?t.copyFailed:t.copyMint}
+              </button>
+              <a href={`https://explorer.solana.com/address/${MINT}`} target="_blank" rel="noopener noreferrer" className="text-[13px] font-semibold text-[#e9b949]">{language==="pt"?"Ver no Explorer":"View on Explorer"} ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section className="border-b border-white/[0.07]"><div className={`mx-auto max-w-6xl ${sectionPad}`}><Eyebrow>{t.allocationEyebrow}</Eyebrow><div className="mt-3 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"><div><h2 className="text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.allocationTitle}</h2><p className={`mt-5 max-w-2xl ${textBody}`}>{t.allocationNote}</p></div><a href="/transparency" className="shrink-0 text-sm font-medium text-[#e9b949]">{t.reserveArchitecture} →</a></div><div className="mt-9 flex h-2.5 overflow-hidden rounded-full bg-white/[0.05]">{allocation.map(([name,,,width],i)=><div key={name} title={`${name} ${width}%`} style={{width:`${width}%`}} className={`${i%2===0?"bg-[#e9b949]":"bg-[#a9701f]"} border-r border-black/15 last:border-0`}/>)}</div><div className="mt-6 grid gap-3 sm:grid-cols-5">{allocation.map(([name,pct,amount])=><Allocation key={name} name={name} pct={pct} amount={amount}/>)}</div></div></section>
 
@@ -149,9 +216,9 @@ export default function Home() {
 
 function Eyebrow({children}:{children:React.ReactNode}){return <p className="text-[11px] font-semibold tracking-[0.14em] text-[#e9b949]">{children}</p>}
 function LightEyebrow({children}:{children:React.ReactNode}){return <p className="text-[11px] font-semibold tracking-[0.14em] text-[#8b5a12]">{children}</p>}
-function SolanaMark({className}:{className?:string}){return <svg className={className} viewBox="0 0 13 13" fill="none"><defs><linearGradient id="solg-hero" x1="0" y1="13" x2="13" y2="0"><stop offset="0" stopColor="#9945FF"/><stop offset="1" stopColor="#14F195"/></linearGradient></defs><rect x="0.4" y="1.2" width="10.5" height="2" rx="1" transform="skewX(-18)" fill="url(#solg-hero)"/><rect x="0.4" y="5.5" width="10.5" height="2" rx="1" transform="skewX(-18)" fill="url(#solg-hero)" opacity=".55"/><rect x="0.4" y="9.8" width="10.5" height="2" rx="1" transform="skewX(-18)" fill="url(#solg-hero)"/></svg>}
-function Status({label,value}:{label:string;value:string}){return <div className="min-w-28 rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3"><p className="text-[11px] font-medium text-white/45">{label}</p><p className="mt-1.5 text-sm font-semibold text-emerald-300">{value}</p></div>}
-function Stat({label,value}:{label:string;value:string}){return <div className={`${darkSurface} p-4 transition-transform hover:-translate-y-0.5`}><p className="text-[11px] font-medium text-white/45">{label}</p><p className="mt-2 text-base font-semibold tracking-[-0.02em] text-white/92">{value}</p></div>}
+function SolanaMark({className,id="solg-hero"}:{className?:string;id?:string}){return <svg className={className} viewBox="0 0 13 13" fill="none"><defs><linearGradient id={id} x1="0" y1="13" x2="13" y2="0"><stop offset="0" stopColor="#9945FF"/><stop offset="1" stopColor="#14F195"/></linearGradient></defs><rect x="0.4" y="1.2" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`}/><rect x="0.4" y="5.5" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`} opacity=".55"/><rect x="0.4" y="9.8" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`}/></svg>}
+function StatusFact({label,value,tone}:{label:string;value:string;tone:"green"|"gold"}){return <div className="w-fit rounded-lg border border-white/[0.07] bg-white/[0.02] px-3.5 py-2"><p className="text-[11px] font-medium text-white/45">{label}</p><p className={`mt-0.5 flex items-center gap-1.5 text-sm font-semibold ${tone==="green"?"text-emerald-300":"text-[#e9b949]"}`}><span className={`h-1.5 w-1.5 rounded-full ${tone==="green"?"bg-emerald-300":"bg-[#e9b949]"}`}/>{value}</p></div>}
+function TokenFact({label,value,right}:{label:string;value:React.ReactNode;right?:boolean}){return <div className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${right?"sm:border-r sm:border-white/[0.07]":""}`}><span className="text-[13px] text-white/45">{label}</span><span className="text-sm font-bold text-white/92">{value}</span></div>}
 function Allocation({name,pct,amount}:{name:string;pct:string;amount:string}){return <div className={`${darkSurface} p-4 transition-transform hover:-translate-y-0.5`}><p className="text-sm font-semibold text-[#e9b949]">{pct}</p><p className="mt-3 text-sm font-semibold text-white/90">{name}</p><p className="mt-1.5 text-[11px] leading-5 text-white/45">{amount} MALTY · planned</p></div>}
 function Pillar({title,text}:{title:string;text:string}){return <div className="rounded-2xl border border-black/10 bg-white/55 p-5"><p className="text-sm font-semibold text-[#8b5a12]">{title}</p><p className="mt-2 text-sm leading-6 text-black/70">{text}</p></div>}
 function Fact({text}:{text:string}){return <div className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-black/10 px-3.5 py-3"><span className="text-emerald-300">✓</span><p className="text-sm font-medium text-white/70">{text}</p></div>}
