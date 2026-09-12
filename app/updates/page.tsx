@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "MALTY Project Updates — Public Changelog",
+  description: "Follow material MALTY milestones, published policies and project changes in a public changelog that separates completed work from future plans.",
+  openGraph: { title: "MALTY Project Updates", description: "A public changelog of material MALTY milestones and project changes.", images: ["/opengraph-image"] },
+};
+
 const updates = [
   ["2026-09", "Foundation", "Completed", "MALTY deployed on Solana Mainnet with a fixed 1B supply, 6 decimals and no Freeze Authority."],
   ["2026-09", "Supply security", "Completed", "Mint Authority permanently revoked. Application creation and authority-changing actions are locked for Mainnet."],
