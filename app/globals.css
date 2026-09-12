@@ -90,6 +90,16 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Addresses and other copyable values stay selectable. */
+  .font-mono,
+  input,
+  textarea {
+    -webkit-user-select: text;
+    user-select: text;
   }
 }
 
