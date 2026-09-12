@@ -7,8 +7,10 @@ import { GridBackground } from "./components/grid-background";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://malty-token.vercel.app";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "MALTY — Small Dog. Big Community.",
   description: "MALTY is a community-driven Solana project focused on transparency, community and a long-term mission for verifiable positive impact for animals.",
   applicationName: "MALTY",
@@ -18,6 +20,7 @@ export const metadata: Metadata = {
     title: "MALTY — Small Dog. Big Community.",
     description: "A community-driven Solana project built transparently, with a long-term mission for verifiable positive impact for animals.",
     type: "website",
+    url: siteUrl,
     images: ["/opengraph-image"],
   },
   twitter: {
@@ -29,9 +32,23 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "MALTY",
+    url: siteUrl,
+    description: "A community-driven Solana project built around transparency, community and a long-term mission for verifiable animal-welfare impact.",
+    about: {
+      "@type": "Thing",
+      name: "MALTY",
+      description: "Community-driven digital token project on Solana.",
+    },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <Providers>
           <div className="relative min-h-screen bg-background text-foreground">
             <GridBackground />
