@@ -1,4 +1,5 @@
 const docs = [
+  ["About MALTY", "Mission, identity and the principles behind the project.", "/about"],
   ["Transparency", "Verified token facts, allocation and reserve-state rules.", "/transparency"],
   ["MALTY Gives", "Planned animal-welfare initiative and activation standard.", "/gives"],
   ["Tokenomics", "Canonical allocation: 50 / 20 / 15 / 7.5 / 7.5.", "/transparency"],
