@@ -20,6 +20,21 @@ const allocation = [
   ["Team", "7.5%", "75M", 7.5],
 ] as const;
 
+const missionPillars = {
+  en: [
+    ["Token", "Verifiable information", "Token data, tokenomics and contracts available for public review."],
+    ["Community", "Participation and dialogue", "A space to exchange ideas, contribute and follow the next steps."],
+    ["MALTY Gives", "Planned · Animal-welfare support", "A planned initiative to support animal welfare, with clear execution criteria."],
+    ["Reporting", "Evidence after every action", "Public records and evidence for every completed initiative."],
+  ],
+  pt: [
+    ["Token", "Informações verificáveis", "Dados do token, tokenomics e contratos disponíveis para consulta pública."],
+    ["Comunidade", "Participação e diálogo", "Espaço para trocar ideias, contribuir e acompanhar os próximos passos."],
+    ["MALTY Gives", "Planejado · Apoio ao bem-estar animal", "Iniciativa planejada para apoiar o bem-estar animal, com critérios claros de execução."],
+    ["Prestação de contas", "Evidências após cada ação", "Registros e evidências públicas de cada iniciativa realizada."],
+  ],
+} as const;
+
 const copy = {
   en: {
     nav: ["Project", "Token", "Gives", "Roadmap", "FAQ"], navIds: ["story", "token", "gives", "roadmap", "faq"], menu: "Menu", close: "Close",
@@ -154,7 +169,23 @@ export default function Home() {
       </div>
     </section>
 
-    <section id="story" className="border-b border-black/10 bg-[#f2ecdf] text-[#17130d]"><div className={`mx-auto grid max-w-6xl gap-12 ${sectionPad} lg:grid-cols-[.82fr_1.18fr] lg:items-center`}><div><LightEyebrow>{t.storyEyebrow}</LightEyebrow><h2 className="mt-3 max-w-xl text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-4xl">{t.storyTitle}</h2><p className={`mt-5 max-w-2xl ${lightBody}`}>{t.storyText}</p><a href="/about" className="mt-6 inline-flex text-sm font-semibold text-[#8b5a12]">{t.about} →</a></div><div className="grid gap-3 sm:grid-cols-2"><Pillar title="MALTY Token" text={language==="pt"?"Transparência":"Transparency"}/><Pillar title="MALTY Community" text={language==="pt"?"Participação":"Participation"}/><Pillar title="MALTY Gives" text={language==="pt"?"Apoio a pets":"Pet support"}/><Pillar title="MALTY Impact" text={language==="pt"?"Prova pública":"Public proof"}/></div></div></section>
+    <section id="story" className="border-b border-black/10 bg-[#f2ecdf] text-[#17130d]">
+      <div className={`mx-auto max-w-6xl ${sectionPad}`}>
+        <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
+          <div>
+            <LightEyebrow>{t.storyEyebrow}</LightEyebrow>
+            <h2 className="mt-3 max-w-xl text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-4xl">{t.storyTitle}</h2>
+            <p className={`mt-5 max-w-2xl ${lightBody}`}>{t.storyText}</p>
+            <a href="/about" className="mt-6 inline-flex text-sm font-semibold text-[#8b5a12]">{t.about} →</a>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {missionPillars[language].map(([title, tag, text], i) => (
+              <MissionPillar key={title} icon={missionIcons[i]} title={title} tag={tag} text={text} last={i === missionPillars[language].length - 1} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section className="border-b border-white/[0.07]"><div className={`mx-auto grid max-w-6xl gap-4 ${sectionPad} lg:grid-cols-2`}><div className={`${darkSurface} p-6 sm:p-8`}><Eyebrow>{t.verifiedEyebrow}</Eyebrow><h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{t.verifiedTitle}</h2><div className="mt-6 grid gap-2 sm:grid-cols-2">{t.verifiedItems.map(x=><Fact key={x} text={x}/>)}</div></div><div className={`${darkSurface} p-6 sm:p-8`}><Eyebrow>{language==="pt"?"PRÓXIMOS PASSOS":"NEXT"}</Eyebrow><h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{t.nextTitle}</h2><div className="mt-6 space-y-4">{t.nextItems.map((x,i)=><div key={x} className="flex items-start gap-4"><span className="mt-0.5 text-[11px] font-semibold text-[#e9b949]">0{i+1}</span><p className="text-sm leading-6 text-white/65">{x}</p></div>)}</div></div></div></section>
 
@@ -220,7 +251,14 @@ function SolanaMark({className,id="solg-hero"}:{className?:string;id?:string}){r
 function StatusFact({label,value,tone}:{label:string;value:string;tone:"green"|"gold"}){return <div className="w-fit rounded-lg border border-white/[0.07] bg-white/[0.02] px-3.5 py-2"><p className="text-[11px] font-medium text-white/45">{label}</p><p className={`mt-0.5 flex items-center gap-1.5 text-sm font-semibold ${tone==="green"?"text-emerald-300":"text-[#e9b949]"}`}><span className={`h-1.5 w-1.5 rounded-full ${tone==="green"?"bg-emerald-300":"bg-[#e9b949]"}`}/>{value}</p></div>}
 function TokenFact({label,value,right}:{label:string;value:React.ReactNode;right?:boolean}){return <div className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${right?"sm:border-r sm:border-white/[0.07]":""}`}><span className="text-[13px] text-white/45">{label}</span><span className="text-sm font-bold text-white/92">{value}</span></div>}
 function Allocation({name,pct,amount}:{name:string;pct:string;amount:string}){return <div className={`${darkSurface} p-4 transition-transform hover:-translate-y-0.5`}><p className="text-sm font-semibold text-[#e9b949]">{pct}</p><p className="mt-3 text-sm font-semibold text-white/90">{name}</p><p className="mt-1.5 text-[11px] leading-5 text-white/45">{amount} MALTY · planned</p></div>}
-function Pillar({title,text}:{title:string;text:string}){return <div className="rounded-2xl border border-black/10 bg-white/55 p-5"><p className="text-sm font-semibold text-[#8b5a12]">{title}</p><p className="mt-2 text-sm leading-6 text-black/70">{text}</p></div>}
+function MissionPillar({icon,title,tag,text,last}:{icon:React.ReactNode;title:string;tag:string;text:string;last?:boolean}){return <div className={last?"":"lg:border-r lg:border-black/10 lg:pr-6"}><span className="text-[#17130d]">{icon}</span><p className="mt-3 text-base font-bold text-[#17130d]">{title}</p><p className="mt-0.5 text-xs text-black/45">{tag}</p><p className="mt-2.5 text-[13px] leading-6 text-black/55">{text}</p></div>}
+
+const missionIcons = [
+  <svg key="token" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>,
+  <svg key="community" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  <svg key="gives" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><circle cx="11" cy="4.5" r="2"/><circle cx="17.5" cy="8" r="2"/><circle cx="19.5" cy="15" r="2"/><path d="M9 9.5a4.5 4.5 0 0 1 4.5 4.5v3.2a3.2 3.2 0 0 1-6.24.95Q6 17.5 4.2 16.9A3.2 3.2 0 0 1 5.1 9.5Z"/></svg>,
+  <svg key="reporting" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 16v-3M12 16V8M16 16v-5"/></svg>,
+] as const;
 function Fact({text}:{text:string}){return <div className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-black/10 px-3.5 py-3"><span className="text-emerald-300">✓</span><p className="text-sm font-medium text-white/70">{text}</p></div>}
 function Timeline({n,title,active}:{n:number;title:string;active:boolean}){return <div className={`flex items-center gap-4 rounded-2xl border p-5 ${active?"border-[#9a6517]/30 bg-white/65":"border-black/10 bg-white/35"}`}><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${active?"bg-[#8b5a12] text-white":"bg-black/10 text-black/60"}`}>{n}</span><div><p className="text-sm font-semibold">{title}</p><p className="mt-1 text-xs text-black/60">{active?"Current stage":"Future stage"}</p></div></div>}
 function Road({state,title}:{state:string;title:string}){return <div className={`${darkSurface} p-5`}><p className="text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">{state}</p><p className="mt-4 text-sm font-semibold text-white/90">{title}</p></div>}
