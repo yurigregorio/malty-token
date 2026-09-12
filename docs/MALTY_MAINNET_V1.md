@@ -17,14 +17,16 @@ This document records the verified production state of the MALTY SPL token deplo
 | Freeze Authority | None |
 | Mint Authority | Revoked / None |
 | Metadata | Metaplex metadata present |
-| Metadata mutable | Yes, during the final verification window |
+| Metadata Update Authority | Retained for metadata maintenance; cannot mint MALTY |
 
 ## Project metadata
 
-- Description: `MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.`
+- Public project identity: `MALTY`
 - Slogan: `Small Dog. Big Community.`
 - Image URI: `https://arweave.net/w-TXbk_hQOw1mC5vA9YrVmClKzz_Avjfiq5coE1AYec`
 - Metadata URI: `https://turbo-gateway.com/rLzUMFUoqgYI04MijeVjLDriWACUApJo2BKK6ycB5MU`
+
+The public brand uses MALTY as the sole project, token and mascot identity. The metadata URI above is the deployment URI and should be checked directly for its current externally hosted contents.
 
 ## Verified deployment stages
 
@@ -32,43 +34,29 @@ This document records the verified production state of the MALTY SPL token deplo
 
 Created the Mainnet SPL mint with 6 decimals and no freeze authority.
 
-Transaction:
-`mqj2s3CCADZmSrKNmLNVXxfHydjVsv6Zesxevc3BDqa5Rec3xfYxkmKPd8ritR61LLtaYuYg7RxWfWPnBV6v2bU`
+Transaction: `mqj2s3CCADZmSrKNmLNVXxfHydjVsv6Zesxevc3BDqa5Rec3xfYxkmKPd8ritR61LLtaYuYg7RxWfWPnBV6v2bU`
 
-Post-stage verification:
-- supply = 0
-- decimals = 6
+Post-stage verification: supply = 0; decimals = 6.
 
 ### Stage 2 — Fixed supply issuance
 
 Issued exactly 1,000,000,000 MALTY to the project wallet.
 
-Transaction:
-`3W5o17RoPe6x3MYfEp7bmpPCfYaF5e9QWGNaoEn1KjPsh3AauqcWG7pbMyQLx9kzPmPBQTtmVuzvDP2Jt2Z4Wdsj`
+Transaction: `3W5o17RoPe6x3MYfEp7bmpPCfYaF5e9QWGNaoEn1KjPsh3AauqcWG7pbMyQLx9kzPmPBQTtmVuzvDP2Jt2Z4Wdsj`
 
-Post-stage verification:
-- supply = `1000000000000000` base units
-- decimals = 6
-- UI supply = `1000000000`
+Post-stage verification: supply = `1000000000000000` base units; decimals = 6; UI supply = `1000000000`.
 
 ### Stage 3 — Metaplex metadata
 
-Created the Metaplex metadata account for the production mint.
+Created the Metaplex metadata account for the production mint. Solana Explorer verification confirmed name = Malty, symbol = MALTY, MALTY artwork present, and metadata transaction completed successfully.
 
-Verified in Solana Explorer:
-- name = Malty
-- symbol = MALTY
-- Charlotte logo is displayed
-- metadata transaction completed successfully
-
-The metadata Update Authority remains separate from the SPL Mint Authority and is intentionally retained during the final verification window.
+The Metadata Update Authority is separate from the SPL Mint Authority and remains retained for metadata maintenance.
 
 ### Stage 4 — Permanent Mint Authority revocation
 
 Revoked the SPL Mint Authority by setting the `MintTokens` authority to `None`.
 
-Transaction:
-`4Kh8PZgV4N93EXVGpJyLjC4LU2aVFobMjAkjvjxPdRPA4ZA3LmVN2pUYejCwHajiR89YCpBbxEJwcaCXxjmnTpqt`
+Transaction: `4Kh8PZgV4N93EXVGpJyLjC4LU2aVFobMjAkjvjxPdRPA4ZA3LmVN2pUYejCwHajiR89YCpBbxEJwcaCXxjmnTpqt`
 
 Final RPC verification:
 
@@ -84,25 +72,19 @@ This makes the MALTY token supply permanently fixed at 1,000,000,000 tokens.
 
 ## Production safety state
 
-The application records the Mainnet deployment as completed and locks all token-creation and authority-changing actions:
-
 - Create Mint: locked
 - Mint additional supply: locked
 - Create metadata again: locked
 - Change Mint Authority: locked
 - Freeze Authority: does not exist
 
-Normal token transfers remain independent of these deployment locks.
-
 ## Source-of-truth files
 
-- `app/lib/malty-token.ts` — immutable token identity and metadata URIs
+- `app/lib/malty-token.ts` — token identity and metadata URIs
 - `app/lib/malty-config.ts` — network deployment state and action guards
 - `tests/malty-safety.test.ts` — production invariants
 
 ## Mainnet v1 checkpoint
-
-The deployment is considered complete when all of the following are true:
 
 - [x] Mainnet mint created
 - [x] 6 decimals verified
