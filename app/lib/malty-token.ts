@@ -32,3 +32,36 @@ export const MALTY_PRODUCTION_POLICY = {
 
 export const MALTY_TOTAL_SUPPLY_BASE_UNITS =
   MALTY_TOKEN.totalSupplyTokens * 10n ** BigInt(MALTY_TOKEN.decimals);
+
+// Plain-string mint address for display/links on public pages. Must match
+// MALTY_CONFIG.mainnet.mint in app/lib/malty-config.ts.
+export const MALTY_PUBLIC_MINT = "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz";
+
+// Single source of truth for the "last public review" date shown across the
+// public pages. Update only this constant when the review date changes.
+export const MALTY_PUBLIC_REVIEW_DATE_ISO = "2026-09-12";
+
+const MONTHS: Record<"en" | "pt", { short: string[]; long: string[] }> = {
+  en: {
+    short: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    long: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  },
+  pt: {
+    short: ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"],
+    long: ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"],
+  },
+};
+
+function formatReviewDate(language: "en" | "pt", style: "short" | "long"): string {
+  const [year, month, day] = MALTY_PUBLIC_REVIEW_DATE_ISO.split("-").map(Number);
+  const monthName = MONTHS[language][style][month - 1];
+  return language === "pt" ? `${day} de ${monthName} de ${year}` : `${day} ${monthName} ${year}`;
+}
+
+export function getReviewDateShort(language: "en" | "pt"): string {
+  return formatReviewDate(language, "short");
+}
+
+export function getReviewDateLong(language: "en" | "pt"): string {
+  return formatReviewDate(language, "long");
+}

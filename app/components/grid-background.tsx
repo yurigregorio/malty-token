@@ -1,6 +1,16 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 export function GridBackground() {
+  const pathname = usePathname();
+
+  // Public pages paint their own opaque background, so this decorative grid
+  // would only ever be visible on the /dev tooling page.
+  if (!pathname.startsWith("/dev")) {
+    return null;
+  }
+
   return (
     <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
       {/* Ambient glow */}

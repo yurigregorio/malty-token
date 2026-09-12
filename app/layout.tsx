@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./components/providers";
@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   description: "MALTY is a community-driven Solana project focused on transparency, community and a long-term mission for verifiable positive impact for animals.",
   applicationName: "MALTY",
   keywords: ["MALTY", "Solana", "community", "animal welfare", "transparency"],
-  icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" },
+  icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
+  manifest: "/manifest.webmanifest",
   openGraph: {
     title: "MALTY — Small Dog. Big Community.",
     description: "A community-driven Solana project built transparently, with a long-term mission for verifiable positive impact for animals.",
@@ -29,6 +30,10 @@ export const metadata: Metadata = {
     description: "Community. Transparency. Verifiable positive animal impact.",
     images: ["/opengraph-image"],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#080a0d",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
