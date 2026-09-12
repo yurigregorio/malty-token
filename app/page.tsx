@@ -90,7 +90,7 @@ export default function Home() {
 
     <section id="top" className="relative border-b border-white/[0.07]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_42%,rgba(217,165,61,0.15),transparent_31%)]" />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.06fr_.94fr] lg:gap-9 lg:py-24">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 py-11 sm:px-8 sm:py-14 lg:grid-cols-[1.06fr_.94fr] lg:gap-9 lg:py-16">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-[#e9b949]/18 bg-[#e9b949]/[0.04] px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />{t.badge}
