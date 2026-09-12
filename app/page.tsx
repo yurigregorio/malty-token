@@ -23,8 +23,8 @@ const allocation = [
 const copy = {
   en: {
     nav: ["Project", "Token", "Gives", "Roadmap", "FAQ"], navIds: ["story", "token", "gives", "roadmap", "faq"], menu: "Menu", close: "Close",
-    badge: "COMMUNITY-POWERED · PET-FOCUSED", headline: "Small Dog. Big Community.",
-    intro: "MALTY is a community-driven Solana project built around transparency, a recognizable identity and a long-term mission to build a community capable of creating visible, verifiable impact for animals.",
+    badge: "COMMUNITY-POWERED · ANIMAL WELFARE", headline: "Small Dog. Big Community.",
+    intro: "MALTY is a community on Solana built on one simple principle: prove, don't promise. The long-term goal is to turn that transparency into real, verifiable impact for animal welfare.",
     primaryCta: "Explore MALTY", secondaryCta: "Transparency", statusEyebrow: "PROJECT STATUS", publicStatusLabel: "Public status",
     verifyTransparency: "Verify transparency", changeHistory: "View change history", storyEyebrow: "THE MALTY MISSION", storyTitle: "Community with a purpose.",
     storyText: "MALTY connects four parts of one project: a transparent token, a strong identity, an open community and MALTY Gives — a planned initiative designed to support animal-welfare projects with public evidence of real-world impact.", about: "About MALTY",
@@ -42,8 +42,8 @@ const copy = {
   },
   pt: {
     nav: ["Projeto", "Token", "Gives", "Roadmap", "FAQ"], navIds: ["story", "token", "gives", "roadmap", "faq"], menu: "Menu", close: "Fechar",
-    badge: "MOVIDO PELA COMUNIDADE · FOCO EM PETS", headline: "Cão pequeno. Grande comunidade.",
-    intro: "MALTY é um projeto comunitário na Solana construído sobre transparência, identidade própria e uma missão de longo prazo: formar uma comunidade capaz de gerar impacto visível e verificável para animais.",
+    badge: "MOVIDO PELA COMUNIDADE · BEM-ESTAR ANIMAL", headline: "Cão pequeno. Grande comunidade.",
+    intro: "MALTY é uma comunidade na Solana construída sobre um princípio simples: provar, não prometer. O objetivo de longo prazo é transformar essa transparência em impacto real e verificável para o bem-estar animal.",
     primaryCta: "Conhecer MALTY", secondaryCta: "Transparência", statusEyebrow: "STATUS DO PROJETO", publicStatusLabel: "Status público",
     verifyTransparency: "Verificar transparência", changeHistory: "Ver histórico de alterações", storyEyebrow: "A MISSÃO MALTY", storyTitle: "Comunidade com propósito.",
     storyText: "MALTY conecta quatro partes de um mesmo projeto: token transparente, identidade forte, comunidade aberta e MALTY Gives — uma iniciativa planejada para apoiar projetos de bem-estar animal com evidências públicas do impacto gerado.", about: "Sobre o MALTY",
@@ -88,7 +88,44 @@ export default function Home() {
       {menuOpen&&<div className="border-t border-white/[0.06] px-5 py-3 md:hidden"><nav className="mx-auto grid max-w-6xl gap-1">{t.nav.map((x,i)=><a key={x} href={`#${t.navIds[i]}`} onClick={()=>setMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-white/70 hover:bg-white/[0.04] hover:text-white">{x}</a>)}</nav></div>}
     </header>
 
-    <section id="top" className="relative border-b border-white/[0.07]"><div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_42%,rgba(217,165,61,0.15),transparent_31%)]"/><div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.06fr_.94fr] lg:gap-12 lg:py-24"><div><div className="inline-flex items-center gap-2 rounded-full border border-[#e9b949]/18 bg-[#e9b949]/[0.04] px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400"/>{t.badge}</div><h1 className="mt-7 text-5xl font-extrabold leading-[0.98] tracking-[-0.045em] sm:text-6xl lg:text-[4.6rem]">MALTY<span className="text-[#e9b949]">.</span></h1><p className="mt-5 text-xl font-semibold tracking-[-0.02em] text-white/92 sm:text-2xl">{t.headline}</p><p className={`mt-5 max-w-2xl ${textBody}`}>{t.intro}</p><div className="mt-8 flex flex-wrap gap-3"><a href="#story" className="rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">{t.primaryCta}</a><a href="/transparency" className="rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} →</a></div><div className="mt-10 grid max-w-2xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.07] sm:grid-cols-4"><Metric label="Supply" value="1B"/><Metric label="Tax" value="0%"/><Metric label="Decimals" value="6"/><Metric label="Network" value="Solana"/></div></div><div className="relative flex items-center justify-center py-4 lg:min-h-[340px] lg:py-0"><div className="absolute h-64 w-64 rounded-full bg-[#e9b949]/10 blur-[70px] sm:h-80 sm:w-80 sm:blur-[85px]"/><div className="relative h-56 w-56 rounded-full border-[6px] border-[#b87d21] bg-gradient-to-br from-[#ffe59a] via-[#d9a53d] to-[#6f4210] p-2 shadow-2xl transition-transform duration-500 hover:scale-[1.015] sm:h-72 sm:w-72"><Image src={TOKEN_IMAGE} alt="Official MALTY token artwork" width={288} height={288} priority className="h-full w-full rounded-full border-4 border-black/20 object-cover"/></div></div></div></section>
+    <section id="top" className="relative border-b border-white/[0.07]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_42%,rgba(217,165,61,0.15),transparent_31%)]" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.06fr_.94fr] lg:gap-9 lg:py-24">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#e9b949]/18 bg-[#e9b949]/[0.04] px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />{t.badge}
+          </div>
+          <h1 className="mt-[18px] text-5xl font-extrabold leading-[0.98] tracking-[-0.045em] sm:text-6xl lg:text-[4.6rem]">MALTY<span className="text-[#e9b949]">.</span></h1>
+          <p className="mt-2.5 text-xl font-semibold tracking-[-0.02em] text-white/92 sm:text-2xl">{t.headline}</p>
+          <p className={`mt-3 max-w-2xl ${textBody}`}>{t.intro}</p>
+          <div className="mt-[22px] flex flex-wrap gap-3">
+            <a href="#story" className="inline-flex items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">
+              <span className="h-3.5 w-3.5 rounded-full bg-[conic-gradient(from_200deg,#ffe59a,#d9a53d_45%,#6f4210_80%,#ffe59a)] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.25)]" />
+              {t.primaryCta}
+            </a>
+            <a href="/transparency" className="rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} →</a>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-white/45">
+            <span><strong className="font-semibold text-white/92">0%</strong> Tax</span>
+            <span className="text-white/20">·</span>
+            <span className="inline-flex items-center gap-1.5"><SolanaMark className="h-[11px] w-[11px]" /><strong className="font-semibold text-white/92">Solana</strong></span>
+          </div>
+        </div>
+        <div className="relative flex items-center justify-center py-4 lg:min-h-[380px] lg:py-0">
+          <div className="absolute h-72 w-72 rounded-full bg-[#e9b949]/[0.18] blur-[80px] sm:h-[360px] sm:w-[360px] sm:blur-[90px]" />
+          <div className="absolute bottom-[6%] h-[30px] w-[200px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.55),transparent_72%)] blur-[2px] sm:h-[34px] sm:w-[230px]" />
+          <div className="relative h-60 w-60 rounded-full shadow-[0_36px_60px_rgba(0,0,0,0.55),inset_0_0_0_1px_rgba(255,255,255,0.06)] [transform-style:preserve-3d] [transform:rotateX(8deg)_rotateY(-11deg)] transition-shadow duration-500 animate-[coin-float_5.5s_ease-in-out_infinite] before:absolute before:inset-0 before:rounded-full before:bg-[radial-gradient(circle_at_70%_74%,rgba(0,0,0,0.4),transparent_58%)] before:content-[''] after:absolute after:left-[15%] after:top-[7%] after:h-[26%] after:w-[42%] after:rounded-full after:bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.75),rgba(255,255,255,0)_72%)] after:content-[''] after:[mix-blend-mode:overlay] motion-reduce:animate-none sm:h-[300px] sm:w-[300px]">
+            <Image src={TOKEN_IMAGE} alt="Official MALTY token artwork" width={300} height={300} priority className="relative h-full w-full rounded-full object-cover shadow-[inset_0_0_0_3px_rgba(66,36,8,0.4),inset_0_3px_8px_rgba(0,0,0,0.3)]" />
+          </div>
+          <span className="absolute left-1/2 top-1/2 flex h-[26px] w-[26px] translate-x-[calc(-50%+90px)] translate-y-[calc(-50%+78px)] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)] sm:h-8 sm:w-8 sm:translate-x-[calc(-50%+113px)] sm:translate-y-[calc(-50%+98px)]">
+            <svg viewBox="0 0 24 24" fill="none" className="h-full w-full">
+              <circle cx="12" cy="12" r="10.4" fill="#e9b949" stroke="#3d2608" strokeWidth="1.3" />
+              <path d="M7 12.5l3 3 7-7.5" stroke="#1a1204" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </section>
 
     <section className="border-b border-white/[0.07] bg-[#0c0f13]"><div className="mx-auto max-w-6xl px-5 py-10 sm:px-8"><div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between"><div><Eyebrow>{t.statusEyebrow}</Eyebrow><p className="mt-2 text-lg font-semibold tracking-[-0.02em]">{t.publicStatusLabel} · {getReviewDateShort(language)}</p></div><div className="grid grid-cols-2 gap-2 sm:grid-cols-4"><Status label="Mainnet" value="Live"/><Status label="Mint Authority" value="Revoked"/><Status label="Freeze Authority" value="None"/><Status label="MALTY Gives" value="Planned"/></div></div><div className="mt-5 flex flex-wrap gap-5 text-sm"><a href="/transparency" className="font-medium text-[#e9b949]">{t.verifyTransparency} →</a><a href="/updates" className="font-medium text-white/55 hover:text-white">{t.changeHistory} →</a></div></div></section>
 
@@ -112,7 +149,7 @@ export default function Home() {
 
 function Eyebrow({children}:{children:React.ReactNode}){return <p className="text-[11px] font-semibold tracking-[0.14em] text-[#e9b949]">{children}</p>}
 function LightEyebrow({children}:{children:React.ReactNode}){return <p className="text-[11px] font-semibold tracking-[0.14em] text-[#8b5a12]">{children}</p>}
-function Metric({label,value}:{label:string;value:string}){return <div className="bg-[#0d1014] px-4 py-4"><p className="text-[11px] font-medium text-white/45">{label}</p><p className="mt-1 text-base font-semibold tracking-[-0.02em] text-white/92">{value}</p></div>}
+function SolanaMark({className}:{className?:string}){return <svg className={className} viewBox="0 0 13 13" fill="none"><defs><linearGradient id="solg-hero" x1="0" y1="13" x2="13" y2="0"><stop offset="0" stopColor="#9945FF"/><stop offset="1" stopColor="#14F195"/></linearGradient></defs><rect x="0.4" y="1.2" width="10.5" height="2" rx="1" transform="skewX(-18)" fill="url(#solg-hero)"/><rect x="0.4" y="5.5" width="10.5" height="2" rx="1" transform="skewX(-18)" fill="url(#solg-hero)" opacity=".55"/><rect x="0.4" y="9.8" width="10.5" height="2" rx="1" transform="skewX(-18)" fill="url(#solg-hero)"/></svg>}
 function Status({label,value}:{label:string;value:string}){return <div className="min-w-28 rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3"><p className="text-[11px] font-medium text-white/45">{label}</p><p className="mt-1.5 text-sm font-semibold text-emerald-300">{value}</p></div>}
 function Stat({label,value}:{label:string;value:string}){return <div className={`${darkSurface} p-4 transition-transform hover:-translate-y-0.5`}><p className="text-[11px] font-medium text-white/45">{label}</p><p className="mt-2 text-base font-semibold tracking-[-0.02em] text-white/92">{value}</p></div>}
 function Allocation({name,pct,amount}:{name:string;pct:string;amount:string}){return <div className={`${darkSurface} p-4 transition-transform hover:-translate-y-0.5`}><p className="text-sm font-semibold text-[#e9b949]">{pct}</p><p className="mt-3 text-sm font-semibold text-white/90">{name}</p><p className="mt-1.5 text-[11px] leading-5 text-white/45">{amount} MALTY · planned</p></div>}

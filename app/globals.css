@@ -97,3 +97,13 @@
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
+
+@keyframes coin-float {
+  0%,
+  100% {
+    transform: rotateX(8deg) rotateY(-11deg) translateY(-2px);
+  }
+  50% {
+    transform: rotateX(7deg) rotateY(-10deg) translateY(-12px);
+  }
+}
