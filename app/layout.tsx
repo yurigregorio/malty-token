@@ -10,18 +10,20 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 export const metadata: Metadata = {
   title: "MALTY — Small Dog. Big Community.",
-  description: "MALTY is a community-driven Solana memecoin built around transparency, identity, community and a long-term mission for positive animal impact.",
+  description: "MALTY is a community-driven Solana project focused on transparency, community and a long-term mission for verifiable positive impact for animals.",
+  applicationName: "MALTY",
+  keywords: ["MALTY", "Solana", "community", "animal welfare", "transparency"],
   icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" },
   openGraph: {
     title: "MALTY — Small Dog. Big Community.",
-    description: "A community-driven Solana memecoin built transparently, with a long-term mission for positive animal impact.",
+    description: "A community-driven Solana project built transparently, with a long-term mission for verifiable positive impact for animals.",
     type: "website",
     images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "MALTY — Small Dog. Big Community.",
-    description: "Community. Transparency. Positive animal impact.",
+    description: "Community. Transparency. Verifiable positive animal impact.",
     images: ["/opengraph-image"],
   },
 };
