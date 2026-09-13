@@ -204,15 +204,11 @@ export default function Home() {
             <div className="flex-1">
               <div className="grid divide-y divide-white/[0.07] sm:grid-cols-2 sm:divide-y-0">
                 <TokenFact label={language==="pt"?"Rede":"Network"} value={<span className="inline-flex items-center gap-1.5"><SolanaMark className="h-[13px] w-[13px]" id="solg-token" />Solana Mainnet</span>} right />
-                <TokenFact label={language==="pt"?"Taxa de transferência":"Transfer tax"} value="0%" />
+                <TokenFact label={language==="pt"?"Oferta total":"Total supply"} value={language==="pt"?"1 bilhão de MALTY":"1 billion MALTY"} />
               </div>
               <div className="grid divide-y divide-white/[0.07] border-t border-white/[0.07] sm:grid-cols-2 sm:divide-y-0">
                 <TokenFact label={language==="pt"?"Emissão adicional":"Additional issuance"} value={language==="pt"?"Desativada":"Disabled"} right />
                 <TokenFact label={language==="pt"?"Autoridade de congelamento":"Freeze authority"} value={language==="pt"?"Inexistente":"None"} />
-              </div>
-              <div className="grid divide-y divide-white/[0.07] border-t border-white/[0.07] sm:grid-cols-2 sm:divide-y-0">
-                <TokenFact label={language==="pt"?"Oferta total":"Total supply"} value={language==="pt"?"1 bilhão de MALTY":"1 billion MALTY"} right />
-                <TokenFact label={language==="pt"?"Decimais":"Decimals"} value="6" />
               </div>
             </div>
           </div>
