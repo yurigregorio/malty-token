@@ -21,6 +21,14 @@ const allocation = [
   ["Team", "7.5%", "75M", 7.5],
 ] as const;
 
+const allocationIcons = [
+  <svg key="liquidity" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2.1-1.1-4.1-3-5.7-1.6-1.4-3-3.6-4-6-1 2.4-2.4 4.6-4 6-1.9 1.6-3 3.6-3 5.7a7 7 0 0 0 7 7Z"/></svg>,
+  <svg key="ecosystem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></svg>,
+  <svg key="community" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  <svg key="treasury" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="M2 8 12 3l10 5"/><path d="M2 8h20"/></svg>,
+  <svg key="team" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
+];
+
 const missionPillars = {
   en: [
     ["Token", "Verifiable information", "Token data, tokenomics and contracts available for public review."],
@@ -57,7 +65,8 @@ const copy = {
       ["Publish verifiable impact evidence", "Show what's been achieved, on-chain and beyond."],
     ],
     tokenEyebrow: "OFFICIAL TOKEN", tokenTitle: "Clear facts. Publicly verifiable.", tokenText: "The essentials of the official MALTY token, presented openly and without hiding the project structure behind marketing.",
-    allocationEyebrow: "TOKENOMICS", allocationTitle: "Published allocation plan", allocationNote: "These are planned allocations, not claims that reserve balances have already been distributed.", reserveArchitecture: "Full reserve architecture",
+    allocationEyebrow: "TOKENOMICS", allocationTitle: "Published allocation plan", allocationNote: "Planned allocations. Distribution is not confirmed.", reserveArchitecture: "Full reserve architecture",
+    totalSupplyLabel: "Total supply", allocationStatus: "Status", allocationStatusPlanned: "Planned", viewReserveDetails: "View reserve details",
     givesTitle: "Community-powered. Pet-focused.", givesText: "MALTY Gives is being designed as the impact layer of the project. The community can help surface meaningful animal-welfare initiatives, while selection rules and completed actions are documented publicly.",
     givesStatus: "PLANNED INITIATIVE", givesNote: "The program is not active yet. Funding rules, beneficiary criteria and reporting standards will be published before the first initiative begins.",
     givesTimeline: ["Planned", "Selection criteria", "First initiative", "Public evidence", "Impact dashboard"], roadmapEyebrow: "ROADMAP", roadmapTitle: "Build the community. Create impact. Prove it.", updates: "Project updates",
@@ -85,7 +94,8 @@ const copy = {
       ["Publicar evidências verificáveis de impacto", "Mostrar o que foi realizado, on-chain e além."],
     ],
     tokenEyebrow: "TOKEN OFICIAL", tokenTitle: "Dados claros. Verificáveis publicamente.", tokenText: "O essencial sobre o token oficial MALTY, apresentado de forma aberta e sem esconder a estrutura do projeto atrás do marketing.",
-    allocationEyebrow: "TOKENOMICS", allocationTitle: "Plano de alocação publicado", allocationNote: "Estas são alocações planejadas, não uma afirmação de que os saldos das reservas já foram distribuídos.", reserveArchitecture: "Arquitetura completa das reservas",
+    allocationEyebrow: "TOKENOMICS", allocationTitle: "Plano de alocação publicado", allocationNote: "Alocações planejadas. A distribuição não está confirmada.", reserveArchitecture: "Arquitetura completa das reservas",
+    totalSupplyLabel: "Supply total", allocationStatus: "Status", allocationStatusPlanned: "Planejado", viewReserveDetails: "Ver detalhes da reserva",
     givesTitle: "Movido pela comunidade. Focado em pets.", givesText: "MALTY Gives está sendo estruturado como a frente de impacto do projeto. A comunidade poderá ajudar a identificar iniciativas relevantes, enquanto regras de seleção e ações concluídas serão documentadas publicamente.",
     givesStatus: "INICIATIVA PLANEJADA", givesNote: "O programa ainda não está ativo. Regras de financiamento, critérios de beneficiários e padrões de prestação de contas serão publicados antes da primeira iniciativa.",
     givesTimeline: ["Planejado", "Critérios de seleção", "Primeira iniciativa", "Evidência pública", "Dashboard de impacto"], roadmapEyebrow: "ROADMAP", roadmapTitle: "Construir a comunidade. Gerar impacto. Comprovar.", updates: "Atualizações do projeto",
@@ -104,6 +114,7 @@ export default function Home() {
   const { language, setLanguage } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
+  const [expandedAllocation, setExpandedAllocation] = useState<string | null>(allocation[0][0]);
   const t = copy[language];
 
   async function copyMint() {
@@ -279,7 +290,40 @@ export default function Home() {
       </div>
     </section>
 
-    <section className="border-b border-white/[0.07]"><div className={`mx-auto max-w-6xl ${sectionPad}`}><Eyebrow>{t.allocationEyebrow}</Eyebrow><div className="mt-3 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"><div><h2 className="text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.allocationTitle}</h2><p className={`mt-5 max-w-2xl ${textBody}`}>{t.allocationNote}</p></div><a href="/transparency" className="shrink-0 text-sm font-medium text-[#e9b949]">{t.reserveArchitecture} →</a></div><div className="mt-9 flex h-2.5 overflow-hidden rounded-full bg-white/[0.05]">{allocation.map(([name,,,width],i)=><div key={name} title={`${name} ${width}%`} style={{width:`${width}%`}} className={`${i%2===0?"bg-[#e9b949]":"bg-[#a9701f]"} border-r border-black/15 last:border-0`}/>)}</div><div className="mt-6 grid gap-3 sm:grid-cols-5">{allocation.map(([name,pct,amount])=><Allocation key={name} name={name} pct={pct} amount={amount}/>)}</div></div></section>
+    <section className="border-b border-white/[0.07]">
+      <div className={`mx-auto max-w-6xl ${sectionPad}`}>
+        <div className="flex flex-wrap items-start justify-between gap-5">
+          <div>
+            <Eyebrow>{t.allocationEyebrow}</Eyebrow>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.allocationTitle}</h2>
+            <p className={`mt-3 max-w-xl ${textBody}`}>{t.allocationNote}</p>
+          </div>
+          <div className={`${darkSurface} shrink-0 px-5 py-3.5`}>
+            <p className="text-xs text-white/45">{t.totalSupplyLabel}</p>
+            <p className="mt-1 text-lg font-extrabold tracking-[-0.02em] text-[#e9b949]">1B MALTY</p>
+          </div>
+        </div>
+        <div className="mt-7 flex flex-col gap-2.5">
+          {allocation.map(([name, pct, amount], i) => (
+            <AllocationRow
+              key={name}
+              icon={allocationIcons[i]}
+              name={name}
+              pct={pct}
+              amount={amount}
+              expanded={expandedAllocation === name}
+              onToggle={() => setExpandedAllocation(expandedAllocation === name ? null : name)}
+              statusLabel={t.allocationStatus}
+              statusValue={t.allocationStatusPlanned}
+              detailLabel={t.viewReserveDetails}
+            />
+          ))}
+        </div>
+        <div className="mt-5 flex justify-end">
+          <a href="/transparency" className="text-sm font-medium text-[#e9b949]">{t.reserveArchitecture} →</a>
+        </div>
+      </div>
+    </section>
 
     <section id="gives" className="border-b border-black/10 bg-[#f2ecdf] text-[#17130d]"><div className={`mx-auto max-w-6xl ${sectionPad}`}><div className="grid gap-12 lg:grid-cols-2 lg:items-center"><div><div className="inline-flex rounded-full bg-[#9a6517]/10 px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#8b5a12]">🐾 MALTY GIVES · {t.givesStatus}</div><h2 className="mt-5 text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-4xl">{t.givesTitle}</h2><p className={`mt-5 ${lightBody}`}>{t.givesText}</p><p className="mt-5 rounded-2xl border border-[#9a6517]/15 bg-white/45 p-4 text-sm leading-6 text-black/70">{t.givesNote}</p><a href="/gives" className="mt-6 inline-flex text-sm font-semibold text-[#8b5a12]">MALTY Gives →</a></div><div className="space-y-3">{t.givesTimeline.map((step,i)=><Timeline key={step} n={i+1} title={step} active={i===0}/>)}</div></div></div></section>
 
@@ -295,7 +339,21 @@ function Eyebrow({children}:{children:React.ReactNode}){return <p className="tex
 function LightEyebrow({children}:{children:React.ReactNode}){return <p className="text-[11px] font-semibold tracking-[0.14em] text-[#8b5a12]">{children}</p>}
 function SolanaMark({className,id="solg-hero"}:{className?:string;id?:string}){return <svg className={className} viewBox="0 0 13 13" fill="none"><defs><linearGradient id={id} x1="0" y1="13" x2="13" y2="0"><stop offset="0" stopColor="#9945FF"/><stop offset="1" stopColor="#14F195"/></linearGradient></defs><rect x="0.4" y="1.2" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`}/><rect x="0.4" y="5.5" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`} opacity=".55"/><rect x="0.4" y="9.8" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`}/></svg>}
 function TokenFact({label,value,right}:{label:string;value:React.ReactNode;right?:boolean}){return <div className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${right?"sm:border-r sm:border-white/[0.07]":""}`}><span className="text-[13px] text-white/45">{label}</span><span className="text-sm font-bold text-white/92">{value}</span></div>}
-function Allocation({name,pct,amount}:{name:string;pct:string;amount:string}){return <div className={`${darkSurface} p-4 transition-transform hover:-translate-y-0.5`}><p className="text-sm font-semibold text-[#e9b949]">{pct}</p><p className="mt-3 text-sm font-semibold text-white/90">{name}</p><p className="mt-1.5 text-[11px] leading-5 text-white/45">{amount} MALTY · planned</p></div>}
+function AllocationRow({icon,name,pct,amount,expanded,onToggle,statusLabel,statusValue,detailLabel}:{icon:React.ReactNode;name:string;pct:string;amount:string;expanded:boolean;onToggle:()=>void;statusLabel:string;statusValue:string;detailLabel:string}){
+  return <div className={`overflow-hidden rounded-2xl border transition-colors ${expanded?"border-[#e9b949]/45":"border-white/[0.08]"} bg-white/[0.02]`}>
+    <button type="button" onClick={onToggle} aria-expanded={expanded} className="flex w-full items-center gap-3.5 px-4 py-3.5 text-left sm:gap-4 sm:px-5">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[9px] bg-[#e9b949]/10 text-[#e9b949] [&_svg]:h-[17px] [&_svg]:w-[17px]">{icon}</span>
+      <span className="flex-1 text-[15px] font-bold">{name}</span>
+      <span className="text-[15px] font-bold">{pct}</span>
+      <span className="hidden min-w-[84px] text-right text-[13px] text-white/45 sm:block">{amount} MALTY</span>
+      <span className={`text-white/45 transition-transform ${expanded?"rotate-180 text-[#e9b949]":""}`}>⌄</span>
+    </button>
+    {expanded && <div className="flex flex-wrap items-center justify-between gap-3 px-4 pb-4 pl-[3.4rem] text-[13px] sm:px-5 sm:pl-[4.6rem]">
+      <span className="text-white/45">{statusLabel}: <strong className="font-semibold text-white/85">{statusValue}</strong></span>
+      <a href="/transparency" className="font-semibold text-[#e9b949]">{detailLabel} ↗</a>
+    </div>}
+  </div>;
+}
 function MissionPillar({icon,title,tag,text,last}:{icon:React.ReactNode;title:string;tag:string;text:string;last?:boolean}){return <div className={last?"":"lg:border-r lg:border-black/10 lg:pr-6"}><span className="text-[#17130d]">{icon}</span><p className="mt-3 text-base font-bold text-[#17130d]">{title}</p><p className="mt-0.5 text-xs text-black/45">{tag}</p><p className="mt-2.5 text-[13px] leading-6 text-black/55">{text}</p></div>}
 
 const missionIcons = [
