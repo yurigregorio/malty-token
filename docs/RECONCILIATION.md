@@ -4,19 +4,19 @@ This document records planned versus actual reserve balances at the current proj
 
 ## Current Checkpoint
 
-The canonical tokenomics include six reserve categories. Four 1-MALTY destination tests were completed for Liquidity, Ecosystem, Community and MALTY Impact before the final top-ups. The reserve distribution has now been completed according to the canonical allocation.
+The canonical tokenomics include six reserve categories. Four 1-MALTY destination tests were completed for Liquidity, Ecosystem, Community and MALTY Impact before the final top-ups. The reserve distribution has now been completed and verified against the Solscan Holders view for the official MALTY mint.
 
-| Category | Public address | Canonical allocation | Planned initial availability | Current documented balance |
-| --- | --- | ---: | ---: | ---: |
-| Liquidity Reserve | `8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU` | 500,000,000 MALTY | 50,000,000 MALTY | 500,000,000 MALTY |
-| Ecosystem Reserve | `44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g` | 150,000,000 MALTY | 17,500,000 MALTY | 150,000,000 MALTY |
-| Community Reserve | `BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg` | 150,000,000 MALTY | 25,000,000 MALTY | 150,000,000 MALTY |
-| MALTY Impact Reserve | `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik` | 50,000,000 MALTY | 0 MALTY | 50,000,000 MALTY |
-| Treasury Reserve | `6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6` | 75,000,000 MALTY | 0 MALTY | 75,000,000 MALTY |
-| Team & Core Contributors Reserve | `CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw` | 75,000,000 MALTY | up to 7,500,000 MALTY | 75,000,000 MALTY |
-| **Reserve total** | | **1,000,000,000 MALTY** | **100,000,000 MALTY** | **1,000,000,000 MALTY** |
+| Category | Public address | Canonical allocation | Verified balance |
+| --- | --- | ---: | ---: |
+| Liquidity Reserve | `8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU` | 500,000,000 MALTY | 500,000,000 MALTY |
+| Ecosystem Reserve | `44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g` | 150,000,000 MALTY | 150,000,000 MALTY |
+| Community Reserve | `BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg` | 150,000,000 MALTY | 150,000,000 MALTY |
+| MALTY Impact Reserve | `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik` | 50,000,000 MALTY | 50,000,000 MALTY |
+| Treasury Reserve | `6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6` | 75,000,000 MALTY | 75,000,000 MALTY |
+| Team & Core Contributors Reserve | `CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw` | 75,000,000 MALTY | 75,000,000 MALTY |
+| **Reserve total** | | **1,000,000,000 MALTY** | **1,000,000,000 MALTY** |
 
-The operational distribution wallet is expected to hold 0 MALTY after the completed reserve allocation.
+The Solscan Holders view showed six holders collectively holding 100% of the fixed 1,000,000,000 MALTY supply, matching the canonical allocation above. The operational distribution wallet was also confirmed to hold 0 MALTY after distribution.
 
 ## Interpretation
 
@@ -26,7 +26,7 @@ The 50,000,000 MALTY in the MALTY Impact Reserve is a dedicated project reserve.
 
 ## Distribution Status
 
-| Reserve | Target | Documented balance | Remaining top-up |
+| Reserve | Target | Verified balance | Remaining top-up |
 | --- | ---: | ---: | ---: |
 | Liquidity | 500,000,000 | 500,000,000 | 0 |
 | Ecosystem | 150,000,000 | 150,000,000 | 0 |
@@ -38,7 +38,9 @@ The 50,000,000 MALTY in the MALTY Impact Reserve is a dedicated project reserve.
 
 ## Verification Note
 
-The balances above were recorded from the completed operator-confirmed distribution workflow. Before using them in external claims that require independent on-chain verification, reconcile each public address in a Solana explorer and retain the relevant transaction signatures or explorer evidence.
+On 2026-09-13, the completed reserve distribution was independently checked in the Solscan Holders view for the official MALTY mint `6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz`. The six holder balances and percentages matched the canonical tokenomics exactly: 50%, 15%, 15%, 7.5%, 7.5% and 5%, totaling 100% of supply.
+
+Future material movements must be reconciled again from on-chain state before public balance claims are updated.
 
 ## Reconciliation Rule
 
@@ -48,13 +50,14 @@ No private keys, seed phrases, signing secrets or recovery codes belong in this 
 
 ## Status
 
-- Six reserve categories: fully funded according to canonical tokenomics.
+- Six reserve categories: fully funded and verified against the Solscan Holders view.
 - Liquidity Reserve: 500,000,000 MALTY.
 - Ecosystem Reserve: 150,000,000 MALTY.
 - Community Reserve: 150,000,000 MALTY.
 - MALTY Impact Reserve: 50,000,000 MALTY.
 - Treasury Reserve: 75,000,000 MALTY.
 - Team & Core Contributors Reserve: 75,000,000 MALTY.
+- Operational distribution wallet: 0 MALTY.
 - Remaining reserve top-up: 0 MALTY.
 - Planned initial availability: 100,000,000 MALTY; this is not automatically circulating supply.
 - Multisig custody: not yet implemented; current custody remains single-controller.
