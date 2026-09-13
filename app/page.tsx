@@ -171,7 +171,7 @@ export default function Home() {
     </div>
 
     <section id="story" className="border-b border-black/10 bg-[#f2ecdf] text-[#17130d]">
-      <div className={`mx-auto max-w-6xl ${sectionPad}`}>
+      <div className="mx-auto max-w-6xl px-5 py-9 sm:px-8 sm:py-11 lg:py-12">
         <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
           <div>
             <LightEyebrow>{t.storyEyebrow}</LightEyebrow>
