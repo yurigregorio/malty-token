@@ -1,187 +1,106 @@
 # MALTY Wallet Architecture
 
-This document defines the planned wallet and custody separation for MALTY before any category-level token distribution is executed.
-
-It complements `docs/TOKENOMICS.md`. It is a documentation and control model only; it does not itself create wallets, move tokens, or enforce a lock on-chain.
+This document defines the planned wallet and custody separation for MALTY. It complements `docs/TOKENOMICS.md` and does not by itself move tokens or enforce a lock on-chain.
 
 ## Objectives
 
 The wallet architecture is intended to:
 
-- keep each tokenomics category clearly separated by public address;
+- keep each tokenomics category separated by public address;
 - make reserve balances and movements easier to reconcile and audit;
-- avoid mixing Team, Treasury, Community, Ecosystem and Liquidity purposes;
-- support the approved initial circulating-supply plan;
-- support the Team release schedule without treating unreleased Team tokens as circulating;
-- keep private keys, seed phrases and other credentials outside the repository.
+- avoid mixing Team, Treasury, Community, Ecosystem, MALTY Impact and Liquidity purposes;
+- support the approved initial-availability plan;
+- keep private keys, seed phrases and signing credentials outside the repository.
 
-## Current Reserve Custody
+## Reserve Custody
 
-MALTY currently uses five dedicated Solana accounts for the five project reserve categories.
+MALTY uses six dedicated Solana addresses for its six reserve categories.
 
-| Reserve | Label | Public address |
-| --- | --- | --- |
-| Liquidity Reserve | `MALTY Liquidity` | `8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU` |
-| Launch & Ecosystem Reserve | `MALTY Ecosystem` | `44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g` |
-| Community Reserve | `MALTY Community` | `BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg` |
-| Treasury Reserve | `MALTY Treasury` | `6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6` |
-| Team & Core Contributors Reserve | `MALTY Team` | `CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw` |
+| Reserve | Label | Public address | Canonical allocation |
+| --- | --- | --- | ---: |
+| Liquidity Reserve | `MALTY Liquidity` | `8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU` | 500,000,000 MALTY |
+| Launch & Ecosystem Reserve | `MALTY Ecosystem` | `44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g` | 150,000,000 MALTY |
+| Community Reserve | `MALTY Community` | `BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg` | 150,000,000 MALTY |
+| MALTY Impact Reserve | `MALTY Impact` | `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik` | 50,000,000 MALTY |
+| Treasury Reserve | `MALTY Treasury` | `6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6` | 75,000,000 MALTY |
+| Team & Core Contributors Reserve | `MALTY Team` | `CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw` | 75,000,000 MALTY |
+| **Total** | | | **1,000,000,000 MALTY** |
 
-These addresses provide category-level on-chain separation once MALTY is actually held in the respective accounts. They remain under the current temporary single-controller custody model and are not multisig-protected.
+These addresses provide category-level separation once MALTY is held in the respective accounts. They remain under the current temporary single-controller custody model and are not multisig-protected.
 
-The public addresses are safe to disclose for transparency. No seed phrase, private key, wallet-export file, signing secret or recovery code may be committed to this repository.
+## Initial Availability Plan
 
-## Project Reserve Structure
-
-| Reserve | Original allocation | Planned initial availability | Planned remaining reserve after launch |
+| Reserve | Allocation | Planned initial availability | Planned remaining reserve |
 | --- | ---: | ---: | ---: |
-| Liquidity Reserve | 500,000,000 MALTY | 50,000,000 MALTY | 450,000,000 MALTY |
-| Launch & Ecosystem Reserve | 200,000,000 MALTY | 17,500,000 MALTY | 182,500,000 MALTY |
-| Community Reserve | 150,000,000 MALTY | 25,000,000 MALTY | 125,000,000 MALTY |
-| Treasury Reserve | 75,000,000 MALTY | 0 MALTY | 75,000,000 MALTY |
-| Team & Core Contributors Reserve | 75,000,000 MALTY | up to 7,500,000 MALTY | 67,500,000 MALTY subject to the release schedule |
-| **Total** | **1,000,000,000 MALTY** | **100,000,000 MALTY** | **900,000,000 MALTY** |
+| Liquidity | 500,000,000 | 50,000,000 | 450,000,000 |
+| Ecosystem | 150,000,000 | 17,500,000 | 132,500,000 |
+| Community | 150,000,000 | 25,000,000 | 125,000,000 |
+| MALTY Impact | 50,000,000 | 0 | 50,000,000 |
+| Treasury | 75,000,000 | 0 | 75,000,000 |
+| Team | 75,000,000 | 7,500,000 | 67,500,000 |
+| **Total** | **1,000,000,000** | **100,000,000** | **900,000,000** |
 
-The initial-availability column represents the approved launch plan. An amount becomes actual circulating supply only when it has genuinely been deployed or distributed for its documented purpose and is available accordingly.
+Planned availability is not the same as actual circulating supply. Actual balances and movements must be reconciled from on-chain state.
 
-The allocations above remain planned figures until the corresponding on-chain balances and movements actually exist.
+## Reserve Purposes
 
-## 1. Liquidity Reserve
+### MALTY Liquidity
+Market-liquidity needs. It must not be described as locked or permanent unless a verifiable mechanism exists.
 
-Purpose: MALTY reserved for market-liquidity needs.
+### MALTY Ecosystem
+Partnerships, integrations, launch initiatives, development, infrastructure and other documented ecosystem purposes.
 
-- Address: `8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU`.
-- Original category allocation: 500,000,000 MALTY.
-- Planned launch allocation: up to 50,000,000 MALTY.
-- Planned reserve after launch: 450,000,000 MALTY, subject to reconciliation with actual launch execution.
-- This allocation must not be used for Team compensation, Treasury expenses or Community distributions.
+### MALTY Community
+Documented community programs, participation initiatives, educational activities, events and transparent rewards.
 
-## 2. Launch & Ecosystem Reserve
+### MALTY Impact
+Dedicated reserve for future documented animal-welfare initiatives under MALTY Impact / MALTY Gives. Funding this wallet is a reserve allocation, not a donation by itself. The program remains planned until its operating criteria and first initiative are published.
 
-Purpose: MALTY reserved for integrations, partnerships, launch initiatives, campaigns and ecosystem development.
+### MALTY Treasury
+Long-term operational and strategic project reserve, separate from Team compensation.
 
-- Address: `44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g`.
-- Original category allocation: 200,000,000 MALTY.
-- Planned initial availability: up to 17,500,000 MALTY.
-- Planned reserve after launch: 182,500,000 MALTY, subject to reconciliation with actual launch execution.
-- Cross-category reallocation must follow the tokenomics Change Governance policy.
-
-## 3. Community Reserve
-
-Purpose: MALTY reserved for documented Community programs and distributions.
-
-- Address: `BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg`.
-- Original category allocation: 150,000,000 MALTY.
-- Planned initial availability: up to 25,000,000 MALTY.
-- Planned reserve after launch: 125,000,000 MALTY, subject to reconciliation with actual launch execution.
-- Community distributions should retain a stated purpose and eligibility rule.
-
-## 4. Treasury Reserve
-
-Purpose: long-term operational and strategic project reserve.
-
-- Address: `6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6`.
-- Original category allocation: 75,000,000 MALTY.
-- Planned initial availability: 0 MALTY.
-- Planned reserve at launch: 75,000,000 MALTY.
-- Treasury remains outside the planned initial circulating supply.
-- Treasury must remain logically and operationally distinct from Team allocations.
-
-## 5. Team & Core Contributors Reserve
-
-Purpose: hold the Team allocation that has not yet become eligible under the approved release policy.
-
-- Address: `CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw`.
-- Original category allocation: 75,000,000 MALTY.
-- Initial release eligibility: up to 7,500,000 MALTY in total.
-- Remaining scheduled allocation: 67,500,000 MALTY.
-- The remaining allocation follows 12 equal monthly release tranches under `docs/TOKENOMICS.md`.
-
-The Team Reserve is distinct from the 11 eventual recipient wallets. The recipient structure is:
-
-| Recipient class | People | Total allocation | Initial eligibility | Remaining scheduled allocation |
-| --- | ---: | ---: | ---: | ---: |
-| Team Lead | 1 | 20,000,000 MALTY | 2,000,000 MALTY | 18,000,000 MALTY |
-| Core Contributors | 10 | 55,000,000 MALTY | 5,500,000 MALTY total | 49,500,000 MALTY total |
-| **Total** | **11** | **75,000,000 MALTY** | **7,500,000 MALTY** | **67,500,000 MALTY** |
-
-Individual recipient addresses do not need to be committed to this repository. Recipients may later be represented with neutral labels such as `Team Lead`, `Contributor 01` through `Contributor 10`, while the project separately verifies the real recipient mapping.
+### MALTY Team
+Contributor incentives and Team allocation. Up to 7.5M MALTY is initially eligible; the remaining 67.5M follows the documented 12-tranche release policy. This must not be described as technically locked until a verifiable enforcement mechanism exists.
 
 ## Operational / Fee-Payer Wallet
 
-The existing operational/deployer wallet remains separate from the five reserves.
+The operational/deployer wallet remains separate from the six reserves.
 
-- Label: `MALTY Ops` / operational-deployer.
-- Public address: `2bSPJckP1YfGbiHTYm2Ftuj4JSsmUsuX24VhYKwTaBSa`.
-- Purpose: network fees and administrative transaction execution.
+- Label: `MALTY Ops` / operational-deployer
+- Public address: `2bSPJckP1YfGbiHTYm2Ftuj4JSsmUsuX24VhYKwTaBSa`
+- Purpose: network fees and administrative transaction execution
 
-The operational wallet is not a tokenomics category and should not receive a MALTY allocation merely because it pays transaction fees.
-
-## MALTY Impact Reference Wallet
-
-MALTY Impact is a dedicated public reference wallet for the project's planned animal-welfare transparency initiative (see `docs/MALTY_GIVES_POLICY.md`).
-
-- Label: `MALTY Impact`.
-- Public address: `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`.
-- Status: planned / not active. No animal-welfare initiative has been funded or completed through this address.
-- Purpose: provide a stable public reference so future, documented animal-welfare contributions can be independently verified once MALTY Gives is active.
-
-This wallet is not one of the five tokenomics reserve categories and does not itself carry a token allocation. Its publication does not indicate that funds have been committed, moved, or that an initiative has begun.
+The operational wallet is not a tokenomics category.
 
 ## Custody and Authorization Model
 
-The five reserve addresses currently provide category-level account separation but remain under a temporary single-controller custody model.
+The six reserve addresses currently remain within a temporary single-controller security boundary. This improves accounting separation but does not provide multisig protection.
 
-This improves auditability and reduces accidental category mixing, but it does not provide multisig protection. Compromise of the controlling credential could therefore affect the reserve accounts under that credential.
-
-Before material public distribution, the project should review whether to migrate reserve custody to a control model that reduces dependence on a single credential, such as an appropriately configured multisig or another verifiable custody arrangement. The Team release mechanism should also be selected before the release policy is represented as technically enforced.
-
-Until such a mechanism is implemented, the repository must not describe project reserves as multisig-protected or Team tokens as technically locked on-chain.
+A future migration to multisig or another verifiable custody arrangement remains recommended, especially for long-term Treasury, Team, Impact and Liquidity reserves. Until implemented, the project must not describe these reserves as multisig-protected.
 
 ## Address Publication Policy
 
-Public project wallet addresses may be recorded in project documentation to improve transparency and allow independent balance verification.
-
-The repository must never contain:
-
-- seed phrases;
-- private keys;
-- wallet-export files containing credentials;
-- signing secrets;
-- recovery codes.
-
-Public addresses and transaction signatures are safe to document when needed for transparency.
+Public project addresses and transaction signatures may be published for transparency. The repository must never contain seed phrases, private keys, wallet-export files, signing secrets or recovery codes.
 
 ## Reconciliation Standard
 
-After any launch or material reserve movement, the project should reconcile planned versus actual balances.
+After any material reserve movement, record:
 
-A reconciliation record should identify:
-
-- tokenomics category;
-- amount before the movement;
+- category;
+- balance before movement;
 - amount moved;
 - documented purpose;
 - destination or public transaction reference where appropriate;
-- resulting category balance;
+- resulting balance;
 - whether the movement changes reported circulating supply.
 
-A movement between tokenomics categories is a reallocation and must follow the Change Governance policy in `docs/TOKENOMICS.md`.
+A movement that merely funds a reserve wallet according to the canonical allocation does not automatically make those tokens circulating.
 
 ## Current Status
 
-- the five-category reserve architecture now has one dedicated public address per category;
-- the reserve accounts are currently under temporary single-controller custody;
-- the operational/deployer wallet remains separate from the reserve accounts;
-- the planned initial circulating supply remains 100,000,000 MALTY;
-- the Team release schedule remains 10% initial eligibility plus 90% over 12 monthly tranches;
-- stronger multisig custody remains a future control improvement;
-- the technical Team vesting mechanism remains to be selected;
-- registering these addresses does not itself execute any on-chain transfer or token distribution.
-
-## Change History
-
-- **v1:** Defined the five project reserve categories, Team recipient separation, optional fee-payer wallet, custody principles, address-publication policy and reconciliation standard.
-- **v2:** Registered the interim `MALTY - Project Reserve` public address and documented the temporary single-controller custody model while preserving the five tokenomics categories as separate accounting allocations.
-- **v3:** Replaced the shared interim reserve address model with five dedicated reserve addresses and documented the operational/deployer wallet separately.
-- **v4:** Documented the MALTY Impact public reference wallet for the planned animal-welfare transparency initiative.
+- six reserve categories and public addresses are documented;
+- MALTY Impact is a canonical 50M / 5% reserve;
+- Ecosystem is now 150M / 15%;
+- planned initial availability remains 100M / 10%;
+- reserve custody is currently single-controller, not multisig;
+- actual balances are tracked in `docs/RECONCILIATION.md`.
