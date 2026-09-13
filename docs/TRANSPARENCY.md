@@ -16,36 +16,25 @@ This document is the public transparency reference for the MALTY Mainnet v1 toke
 - Metaplex metadata: present
 - Metadata Update Authority: intentionally retained for metadata maintenance; it cannot mint additional MALTY
 
-## Canonical allocation
+## Canonical allocation and verified balances
 
-| Allocation | MALTY | Share |
-| --- | ---: | ---: |
-| Liquidity | 500,000,000 | 50% |
-| Ecosystem | 150,000,000 | 15% |
-| Community | 150,000,000 | 15% |
-| MALTY Impact | 50,000,000 | 5% |
-| Treasury | 75,000,000 | 7.5% |
-| Team | 75,000,000 | 7.5% |
-| **Total** | **1,000,000,000** | **100%** |
+| Allocation | Public address | MALTY | Share |
+| --- | --- | ---: | ---: |
+| Liquidity | `8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU` | 500,000,000 | 50% |
+| Ecosystem | `44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g` | 150,000,000 | 15% |
+| Community | `BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg` | 150,000,000 | 15% |
+| MALTY Impact | `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik` | 50,000,000 | 5% |
+| Treasury | `6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6` | 75,000,000 | 7.5% |
+| Team | `CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw` | 75,000,000 | 7.5% |
+| **Total** | | **1,000,000,000** | **100%** |
+
+On 2026-09-13, the Solscan Holders view for the official MALTY mint showed six holders collectively holding 100% of the fixed supply, with balances matching the canonical allocation above. The operational distribution wallet was also confirmed at 0 MALTY after distribution. See `docs/RECONCILIATION.md` for the checkpoint record.
 
 The 5% MALTY Impact allocation was created by reducing the previous Ecosystem allocation from 20% to 15%. The fixed total supply did not change.
 
-## Reserve addresses
-
-| Reserve | Public address | Canonical allocation |
-| --- | --- | ---: |
-| Liquidity | `8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU` | 500,000,000 |
-| Ecosystem | `44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g` | 150,000,000 |
-| Community | `BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg` | 150,000,000 |
-| MALTY Impact | `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik` | 50,000,000 |
-| Treasury | `6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6` | 75,000,000 |
-| Team | `CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw` | 75,000,000 |
-
-Canonical allocations are policy targets, not a claim that every reserve wallet already contains the full allocated amount. Current balances must be read from on-chain state and reconciled in `docs/RECONCILIATION.md`.
-
 ## Planned initial availability
 
-The project plan still allows up to **100,000,000 MALTY (10%)** of initial availability:
+The project plan allows up to **100,000,000 MALTY (10%)** of initial availability:
 
 - Liquidity: up to 50,000,000
 - Ecosystem: up to 17,500,000
@@ -56,7 +45,7 @@ The project plan still allows up to **100,000,000 MALTY (10%)** of initial avail
 
 The entire 50M MALTY Impact allocation is intended to remain reserved at launch. Funding the MALTY Impact reserve wallet is not itself a donation and does not automatically make those tokens circulating.
 
-Planned availability is not automatically circulating supply. Circulating supply should only be updated when tokens are actually transferred, distributed or otherwise made available according to the documented policy.
+Planned availability is not automatically circulating supply. Circulating supply should only be updated when tokens are actually deployed, distributed or otherwise made available according to the documented policy.
 
 ## MALTY Impact disclosure
 
