@@ -34,7 +34,7 @@ The 5% MALTY Impact allocation was created by reducing the previous Ecosystem al
 
 | Reserve | Public address | Canonical allocation |
 | --- | --- | ---: |
-| Liquidity | `8zMNiAh2uH1MoKh9eRjU4WQAYVV2u4SKSiRfU` | 500,000,000 |
+| Liquidity | `8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU` | 500,000,000 |
 | Ecosystem | `44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g` | 150,000,000 |
 | Community | `BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg` | 150,000,000 |
 | MALTY Impact | `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik` | 50,000,000 |

@@ -17,7 +17,7 @@ This record highlights material project changes that are useful for public trans
 - Current canonical allocation: Liquidity 50%, Ecosystem 15%, Community 15%, MALTY Impact 5%, Treasury 7.5%, Team 7.5%.
 - Six reserve addresses are documented for accounting and public reconciliation.
 - Planned initial availability remains 100,000,000 MALTY (10%); MALTY Impact has 0 planned initial availability.
-- Initial 1-MALTY destination-validation transfers were completed for Liquidity, Ecosystem and Community before full reserve distribution.
+- Initial 1-MALTY destination-validation transfers were completed for Liquidity, Ecosystem, Community and MALTY Impact before full reserve distribution.
 - Liquidity, Community, Ecosystem, Team and MALTY Impact policies are published.
 
 ## Security and application

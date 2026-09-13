@@ -6,13 +6,13 @@ import { useLanguage } from "../lib/language";
 import { SiteHeader } from "../components/site-header";
 
 const MINT = MALTY_PUBLIC_MINT;
-const IMPACT_WALLET = MALTY_IMPACT_WALLET;
 const reserves = [
-  ["Liquidity", "500M planned", "8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU"],
-  ["Ecosystem", "200M planned", "44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g"],
-  ["Community", "150M planned", "BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg"],
-  ["Treasury", "75M planned", "6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6"],
-  ["Team", "75M planned", "CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw"],
+  ["Liquidity", "500M planned", "8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU", "1 MALTY"],
+  ["Ecosystem", "150M planned", "44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g", "1 MALTY"],
+  ["Community", "150M planned", "BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg", "1 MALTY"],
+  ["MALTY Impact", "50M planned", MALTY_IMPACT_WALLET, "1 MALTY"],
+  ["Treasury", "75M planned", "6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6", "0 MALTY"],
+  ["Team", "75M planned", "CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw", "0 MALTY"],
 ] as const;
 
 const copy = {
@@ -26,19 +26,16 @@ const copy = {
     verifyExplorer: "Verify on Solana Explorer ↗",
     reserveEyebrow: "RESERVE ARCHITECTURE",
     reserveTitle: "Planned allocation vs. documented state",
-    reserveText: "At the latest documented reconciliation, each published reserve account held 0 MALTY and no reserve transfer had been executed.",
-    documented: "Documented: 0 MALTY",
-    custodyNote: "Custody model: these five reserve accounts are currently under one temporary single-controller custody boundary. They are not multisig-protected. This page will be updated if custody moves to a different model.",
-    impactEyebrow: "MALTY IMPACT — PUBLIC REFERENCE WALLET",
-    impactStatus: "Not active",
-    impactNote: "Reserved for future, documented MALTY Gives contributions. Publication does not mean an initiative has been funded or completed.",
+    reserveText: "At the latest documented reconciliation, Liquidity, Ecosystem, Community and MALTY Impact each hold 1 MALTY from destination-validation test transfers. Treasury and Team remain at 0 MALTY. No reserve has reached its full planned allocation.",
+    documentedLabel: "Documented",
+    custodyNote: "Custody model: these six reserve accounts are currently under one temporary single-controller custody boundary. They are not multisig-protected. This page will be updated if custody moves to a different model.",
     historyEyebrow: "PUBLIC HISTORY",
     historyTitle: "Material milestones",
     milestones: [
       ["Mainnet foundation", "1B fixed supply, 6 decimals, no Freeze Authority."],
       ["Supply authority", "Mint Authority permanently revoked."],
-      ["Allocation", "50% Liquidity · 20% Ecosystem · 15% Community · 7.5% Treasury · 7.5% Team."],
-      ["MALTY Gives", "Policy-first initiative remains Planned; no contribution percentage promised."],
+      ["Allocation", "50% Liquidity · 15% Ecosystem · 15% Community · 5% MALTY Impact · 7.5% Treasury · 7.5% Team."],
+      ["MALTY Gives", "MALTY Impact is a funded 5% reserve; the contribution program itself remains Planned, with no fixed percentage promised."],
     ],
     changelog: "View public changelog →",
     stewardshipEyebrow: "STEWARDSHIP DISCLOSURE",
@@ -59,19 +56,16 @@ const copy = {
     verifyExplorer: "Verificar no Solana Explorer ↗",
     reserveEyebrow: "ARQUITETURA DE RESERVAS",
     reserveTitle: "Alocação planejada vs. estado documentado",
-    reserveText: "Na última reconciliação documentada, cada conta de reserva publicada tinha 0 MALTY e nenhuma transferência de reserva havia sido executada.",
-    documented: "Documentado: 0 MALTY",
-    custodyNote: "Modelo de custódia: essas cinco contas de reserva estão atualmente sob um único limite temporário de controlador. Elas não são protegidas por multisig. Esta página será atualizada caso a custódia migre para outro modelo.",
-    impactEyebrow: "MALTY IMPACT — CARTEIRA PÚBLICA DE REFERÊNCIA",
-    impactStatus: "Não ativa",
-    impactNote: "Reservada para futuras contribuições documentadas do MALTY Gives. A publicação não significa que uma iniciativa já foi financiada ou concluída.",
+    reserveText: "Na última reconciliação documentada, Liquidez, Ecossistema, Comunidade e MALTY Impact têm 1 MALTY cada, de transferências de teste de destino. Treasury e Equipe seguem em 0 MALTY. Nenhuma reserva atingiu sua alocação planejada completa.",
+    documentedLabel: "Documentado",
+    custodyNote: "Modelo de custódia: essas seis contas de reserva estão atualmente sob um único limite temporário de controlador. Elas não são protegidas por multisig. Esta página será atualizada caso a custódia migre para outro modelo.",
     historyEyebrow: "HISTÓRICO PÚBLICO",
     historyTitle: "Marcos materiais",
     milestones: [
       ["Fundação Mainnet", "Supply fixo de 1B, 6 decimais, sem Freeze Authority."],
       ["Autoridade de supply", "Mint Authority permanentemente revogada."],
-      ["Alocação", "50% Liquidez · 20% Ecossistema · 15% Comunidade · 7,5% Treasury · 7,5% Equipe."],
-      ["MALTY Gives", "Iniciativa orientada por política segue Planejada; nenhum percentual de contribuição prometido."],
+      ["Alocação", "50% Liquidez · 15% Ecossistema · 15% Comunidade · 5% MALTY Impact · 7,5% Treasury · 7,5% Equipe."],
+      ["MALTY Gives", "MALTY Impact é uma reserva financiada de 5%; o programa de contribuição em si segue Planejado, sem percentual fixo prometido."],
     ],
     changelog: "Ver changelog público →",
     stewardshipEyebrow: "DIVULGAÇÃO DE GOVERNANÇA",
@@ -117,25 +111,17 @@ export function TransparencyContent() {
           <h2 className="mt-2 text-2xl font-black">{t.reserveTitle}</h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-white/45">{t.reserveText}</p>
           <div className="mt-6 space-y-2">
-            {reserves.map(([name, planned, wallet]) => (
+            {reserves.map(([name, planned, wallet, documented]) => (
               <div key={name} className="rounded-xl border border-white/[.08] bg-white/[.025] p-4">
                 <div className="flex flex-wrap justify-between gap-2">
                   <p className="text-sm font-black">{name}</p>
-                  <p className="text-[11px]"><span className="text-[#e9b949]">{planned}</span><span className="ml-3 text-white/45">{t.documented}</span></p>
+                  <p className="text-[11px]"><span className="text-[#e9b949]">{planned}</span><span className="ml-3 text-white/45">{t.documentedLabel}: {documented}</span></p>
                 </div>
                 <p className="mt-2 break-all font-mono text-[11px] text-white/45">{wallet}</p>
               </div>
             ))}
           </div>
           <p className="mt-5 max-w-2xl text-xs leading-5 text-white/45">{t.custodyNote}</p>
-          <div className="mt-5 rounded-xl border border-[#e9b949]/15 bg-[#e9b949]/[.03] p-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-[11px] font-black tracking-[.16em] text-[#e9b949]">{t.impactEyebrow}</p>
-              <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-white/45">{t.impactStatus}</span>
-            </div>
-            <p className="mt-2 break-all font-mono text-[11px] text-white/50">{IMPACT_WALLET}</p>
-            <p className="mt-2 text-xs leading-5 text-white/55">{t.impactNote}</p>
-          </div>
         </section>
 
         <section className="mt-12">

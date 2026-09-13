@@ -16,8 +16,9 @@ const TOKEN_IMAGE = MALTY_TOKEN.imageUri;
 
 const allocation = [
   ["Liquidity", "50%", "500M", 50],
-  ["Ecosystem", "20%", "200M", 20],
+  ["Ecosystem", "15%", "150M", 15],
   ["Community", "15%", "150M", 15],
+  ["MALTY Impact", "5%", "50M", 5],
   ["Treasury", "7.5%", "75M", 7.5],
   ["Team", "7.5%", "75M", 7.5],
 ] as const;
@@ -26,6 +27,7 @@ const allocationIcons = [
   <svg key="liquidity" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2.1-1.1-4.1-3-5.7-1.6-1.4-3-3.6-4-6-1 2.4-2.4 4.6-4 6-1.9 1.6-3 3.6-3 5.7a7 7 0 0 0 7 7Z"/></svg>,
   <svg key="ecosystem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></svg>,
   <svg key="community" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  <svg key="impact" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M20.8 4.6a5 5 0 0 0-7.07 0L12 5.3l-1.73-.7a5 5 0 0 0-7.07 7.07L12 20.4l8.8-8.73a5 5 0 0 0 0-7.07Z"/></svg>,
   <svg key="treasury" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="M2 8 12 3l10 5"/><path d="M2 8h20"/></svg>,
   <svg key="team" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
 ];
