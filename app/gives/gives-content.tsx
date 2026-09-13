@@ -126,7 +126,7 @@ export function GivesContent() {
             </div>
             <span className="rounded-full border border-[#e9b949]/20 bg-[#e9b949]/[0.05] px-3 py-1 text-[11px] font-black text-[#e9b949]">{t.planned}</span>
           </div>
-          <p className="mt-3 text-xs leading-5 text-white/42">{t.statusNote}</p>
+          <p className="mt-3 text-xs leading-5 text-white/55">{t.statusNote}</p>
         </section>
         <section className="mt-6 rounded-2xl border border-[#e9b949]/15 bg-[#e9b949]/[0.03] p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -135,7 +135,7 @@ export function GivesContent() {
           </div>
           <p className="mt-2 text-sm font-black">{t.walletTitle}</p>
           <p className="mt-2 break-all font-mono text-[11px] leading-5 text-white/50">{IMPACT_WALLET}</p>
-          <p className="mt-3 max-w-2xl text-xs leading-5 text-white/42">{t.walletNote}</p>
+          <p className="mt-3 max-w-2xl text-xs leading-5 text-white/55">{t.walletNote}</p>
         </section>
         <div className="mt-10 flex flex-wrap gap-3">
           <Link href="/transparency" className="rounded-xl bg-[#e9b949] px-4 py-2.5 text-sm font-black text-black">{t.ctaTransparency}</Link>
@@ -147,6 +147,6 @@ export function GivesContent() {
   );
 }
 
-function Phase({ state, title, text }: { state: string; title: string; text: string }) { return <div className="rounded-2xl border border-[#e9b949]/15 bg-[#e9b949]/[0.035] p-5"><p className="text-[11px] font-black tracking-wider text-[#e9b949]">{state}</p><p className="mt-3 font-black">{title}</p><p className="mt-2 text-xs leading-5 text-white/42">{text}</p></div>; }
-function Step({ n, title, text }: { n: string; title: string; text: string }) { return <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5"><p className="text-[11px] font-black text-[#e9b949]">{n}</p><p className="mt-5 font-black">{title}</p><p className="mt-2 text-xs leading-5 text-white/42">{text}</p></div>; }
+function Phase({ state, title, text }: { state: string; title: string; text: string }) { return <div className="rounded-2xl border border-[#e9b949]/15 bg-[#e9b949]/[0.035] p-5"><p className="text-[11px] font-black tracking-wider text-[#e9b949]">{state}</p><p className="mt-3 font-black">{title}</p><p className="mt-2 text-xs leading-5 text-white/55">{text}</p></div>; }
+function Step({ n, title, text }: { n: string; title: string; text: string }) { return <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5"><p className="text-[11px] font-black text-[#e9b949]">{n}</p><p className="mt-5 font-black">{title}</p><p className="mt-2 text-xs leading-5 text-white/55">{text}</p></div>; }
 function Info({ title, text }: { title: string; text: string }) { return <div className="rounded-2xl border border-[#e9b949]/15 bg-[#e9b949]/[0.035] p-5"><p className="text-sm font-black text-[#e9b949]">{title}</p><p className="mt-2 text-xs leading-5 text-white/45">{text}</p></div>; }

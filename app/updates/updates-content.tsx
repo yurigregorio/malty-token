@@ -68,8 +68,8 @@ export function UpdatesContent() {
         <div className="mt-8 space-y-3">
           {t.updates.map(([date, title, status, text], i) => (
             <article key={title} className="grid gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 sm:grid-cols-[72px_1fr_auto] sm:items-start">
-              <div><span className="text-xs font-black text-[#e9b949]">0{i + 1}</span><p className="mt-1 text-[11px] text-white/42">{date}</p></div>
-              <div><h2 className="font-black">{title}</h2><p className="mt-2 text-xs leading-5 text-white/42">{text}</p></div>
+              <div><span className="text-xs font-black text-[#e9b949]">0{i + 1}</span><p className="mt-1 text-[11px] text-white/55">{date}</p></div>
+              <div><h2 className="font-black">{title}</h2><p className="mt-2 text-xs leading-5 text-white/55">{text}</p></div>
               <span className="w-fit rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-white/45">{status}</span>
             </article>
           ))}

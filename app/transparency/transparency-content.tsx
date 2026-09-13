@@ -134,7 +134,7 @@ export function TransparencyContent() {
               <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-white/45">{t.impactStatus}</span>
             </div>
             <p className="mt-2 break-all font-mono text-[11px] text-white/50">{IMPACT_WALLET}</p>
-            <p className="mt-2 text-xs leading-5 text-white/42">{t.impactNote}</p>
+            <p className="mt-2 text-xs leading-5 text-white/55">{t.impactNote}</p>
           </div>
         </section>
 
@@ -165,4 +165,4 @@ export function TransparencyContent() {
 
 function Badge({ text }: { text: string }) { return <span className="rounded-full border border-emerald-400/15 bg-emerald-400/[.05] px-2.5 py-1 text-[11px] font-black text-emerald-300">{text}</span>; }
 function Card({ label, value }: { label: string; value: string }) { return <div className="rounded-xl border border-white/[.08] bg-white/[.025] p-4"><p className="text-[11px] text-white/45">{label}</p><p className="mt-1 text-sm font-black text-[#e9b949]">{value}</p></div>; }
-function Info({ title, text }: { title: string; text: string }) { return <div className="rounded-2xl border border-white/[.08] bg-white/[.025] p-5"><p className="text-sm font-black text-[#e9b949]">{title}</p><p className="mt-2 text-xs leading-5 text-white/42">{text}</p></div>; }
+function Info({ title, text }: { title: string; text: string }) { return <div className="rounded-2xl border border-white/[.08] bg-white/[.025] p-5"><p className="text-sm font-black text-[#e9b949]">{title}</p><p className="mt-2 text-xs leading-5 text-white/55">{text}</p></div>; }

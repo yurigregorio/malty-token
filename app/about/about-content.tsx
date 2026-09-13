@@ -150,6 +150,6 @@ export function AboutContent() {
   );
 }
 
-function Pillar({ title, text }: { title: string; text: string }) { return <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5"><p className="font-black text-[#e9b949]">{title}</p><p className="mt-2 text-xs leading-5 text-white/42">{text}</p></div>; }
-function Steward({ title, text }: { title: string; text: string }) { return <div className="rounded-2xl border border-white/[0.08] p-5"><p className="text-sm font-black">{title}</p><p className="mt-2 text-xs leading-5 text-white/42">{text}</p></div>; }
-function Flow({ n, title, text }: { n: string; title: string; text: string }) { return <div className="rounded-2xl border border-white/[0.08] p-5"><p className="text-[11px] font-black text-[#e9b949]">{n}</p><p className="mt-4 font-black">{title}</p><p className="mt-2 text-xs leading-5 text-white/42">{text}</p></div>; }
+function Pillar({ title, text }: { title: string; text: string }) { return <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5"><p className="font-black text-[#e9b949]">{title}</p><p className="mt-2 text-xs leading-5 text-white/55">{text}</p></div>; }
+function Steward({ title, text }: { title: string; text: string }) { return <div className="rounded-2xl border border-white/[0.08] p-5"><p className="text-sm font-black">{title}</p><p className="mt-2 text-xs leading-5 text-white/55">{text}</p></div>; }
+function Flow({ n, title, text }: { n: string; title: string; text: string }) { return <div className="rounded-2xl border border-white/[0.08] p-5"><p className="text-[11px] font-black text-[#e9b949]">{n}</p><p className="mt-4 font-black">{title}</p><p className="mt-2 text-xs leading-5 text-white/55">{text}</p></div>; }

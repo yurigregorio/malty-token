@@ -203,16 +203,16 @@ export default function Home() {
               <span className="relative inline-flex h-[7px] w-[7px] rounded-full bg-emerald-400" />
             </span>
             {language==="pt"?"Token na Solana":"Token on Solana"}
-            <span className="text-[11px] font-normal text-white/40">{language==="pt"?"Publicado":"Published"}</span>
+            <span className="text-[11px] font-normal text-white/55">{language==="pt"?"Publicado":"Published"}</span>
           </span>
           <span className="hidden h-4 w-px bg-white/[0.1] sm:block" />
           <span className="flex items-center gap-2 text-[13px] font-semibold">
             <span className="h-[7px] w-[7px] rounded-full bg-[#e9b949]" />
             MALTY Gives
-            <span className="text-[11px] font-normal text-white/40">{language==="pt"?"Planejado":"Planned"}</span>
+            <span className="text-[11px] font-normal text-white/55">{language==="pt"?"Planejado":"Planned"}</span>
           </span>
           <div className="ml-auto flex flex-wrap items-center gap-4">
-            <span className="text-[11px] text-white/40">{language==="pt"?"Atualizado":"Updated"} · {getReviewDateShort(language)}</span>
+            <span className="text-[11px] text-white/55">{language==="pt"?"Atualizado":"Updated"} · {getReviewDateShort(language)}</span>
             <a href="/transparency" className="text-[13px] font-semibold text-[#e9b949]">{t.verifyTransparency} ↗</a>
             <a href="/updates" className="text-[13px] font-semibold text-white/55 hover:text-white">{language==="pt"?"Histórico":"History"} ↗</a>
           </div>
@@ -281,7 +281,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row">
             <div className="flex min-w-[190px] flex-col justify-center gap-1.5 border-b border-white/[0.08] bg-[#e9b949]/[0.03] p-6 sm:border-b-0 sm:border-r">
               <span className="text-3xl font-extrabold tracking-[-0.02em] text-[#e9b949]">$MALTY</span>
-              <span className="text-[13px] text-white/40">{language==="pt"?"Token na Solana":"Token on Solana"}</span>
+              <span className="text-[13px] text-white/55">{language==="pt"?"Token na Solana":"Token on Solana"}</span>
             </div>
             <div className="flex-1">
               <div className="grid divide-y divide-white/[0.07] sm:grid-cols-2 sm:divide-y-0">
@@ -393,7 +393,7 @@ export default function Home() {
       </div>
     </section>
 
-    <footer className="border-t border-white/[0.07] px-5 py-12 sm:px-8 sm:py-14"><div className="mx-auto max-w-6xl"><div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4"><div><p className="text-lg font-bold tracking-[-0.02em] text-[#e9b949]">MALTY</p><p className="mt-2 text-sm font-medium text-white/90">Small Dog. Big Community.</p><p className="mt-4 max-w-xs text-sm leading-6 text-white/50">Community-powered, pet-focused and built around public verification.</p><a href="https://x.com/MaltyCoin" target="_blank" rel="noopener noreferrer" aria-label="MALTY on X" className="mt-5 flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/50 transition-colors hover:border-[#e9b949]/35 hover:text-white"><svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M13.3174 10.7749L19.1457 4H17.7646L12.7852 9.88256L8.80309 4H4.21053L10.3186 12.8955L4.21053 20H5.59183L10.6337 13.7899L14.7942 20H19.3893L13.3174 10.7749ZM11.5116 12.9776L10.7118 11.8656L6.09846 5.05078H8.03556L11.7852 10.4988L12.5849 11.6109L17.7658 19.1489H15.8288L11.5116 12.9776Z"/></svg></a></div><FooterCol title={t.footerProject} links={[[language==="pt"?"Sobre":"About","/about"],["MALTY Gives","/gives"],[language==="pt"?"Atualizações":"Updates","/updates"]]}/><FooterCol title={t.footerVerify} links={[[language==="pt"?"Transparência":"Transparency","/transparency"],[language==="pt"?"Documentação":"Documentation","/docs"],["Solana Explorer",`https://explorer.solana.com/address/${MINT}`]]}/><div><p className="text-sm font-semibold text-white/75">{t.footerStatus}</p><p className="mt-4 text-sm text-white/55">Solana Mainnet · Live</p><p className="mt-4 text-xs font-medium text-white/40">{t.footerMint}</p><p className="mt-2 break-all font-mono text-[11px] leading-5 text-white/45">{MINT}</p></div></div><div className="mt-10 border-t border-white/[0.07] pt-6"><p className="max-w-4xl text-xs leading-5 text-white/40">{t.risk}</p></div></div></footer>
+    <footer className="border-t border-white/[0.07] px-5 py-12 sm:px-8 sm:py-14"><div className="mx-auto max-w-6xl"><div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4"><div><p className="text-lg font-bold tracking-[-0.02em] text-[#e9b949]">MALTY</p><p className="mt-2 text-sm font-medium text-white/90">Small Dog. Big Community.</p><p className="mt-4 max-w-xs text-sm leading-6 text-white/50">Community-powered, pet-focused and built around public verification.</p><a href="https://x.com/MaltyCoin" target="_blank" rel="noopener noreferrer" aria-label="MALTY on X" className="mt-5 flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/50 transition-colors hover:border-[#e9b949]/35 hover:text-white"><svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M13.3174 10.7749L19.1457 4H17.7646L12.7852 9.88256L8.80309 4H4.21053L10.3186 12.8955L4.21053 20H5.59183L10.6337 13.7899L14.7942 20H19.3893L13.3174 10.7749ZM11.5116 12.9776L10.7118 11.8656L6.09846 5.05078H8.03556L11.7852 10.4988L12.5849 11.6109L17.7658 19.1489H15.8288L11.5116 12.9776Z"/></svg></a></div><FooterCol title={t.footerProject} links={[[language==="pt"?"Sobre":"About","/about"],["MALTY Gives","/gives"],[language==="pt"?"Atualizações":"Updates","/updates"]]}/><FooterCol title={t.footerVerify} links={[[language==="pt"?"Transparência":"Transparency","/transparency"],[language==="pt"?"Documentação":"Documentation","/docs"],["Solana Explorer",`https://explorer.solana.com/address/${MINT}`]]}/><div><p className="text-sm font-semibold text-white/75">{t.footerStatus}</p><p className="mt-4 text-sm text-white/55">Solana Mainnet · Live</p><p className="mt-4 text-xs font-medium text-white/55">{t.footerMint}</p><p className="mt-2 break-all font-mono text-[11px] leading-5 text-white/45">{MINT}</p></div></div><div className="mt-10 border-t border-white/[0.07] pt-6"><p className="max-w-4xl text-xs leading-5 text-white/55">{t.risk}</p></div></div></footer>
   </main>;
 }
 
@@ -436,14 +436,14 @@ function RoadmapCard({n,icon,status,title,subtitle,items,statusLabel,proofLabel}
       <span className={`rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.05em] ${badgeClass}`}>{statusLabel}</span>
     </div>
     <div className="mt-3.5 flex items-start justify-between gap-2.5">
-      <div><h3 className="text-[15px] font-bold tracking-[-0.01em]">{title}</h3><p className="mt-1 text-[12px] leading-5 text-white/40">{subtitle}</p></div>
+      <div><h3 className="text-[15px] font-bold tracking-[-0.01em]">{title}</h3><p className="mt-1 text-[12px] leading-5 text-white/55">{subtitle}</p></div>
       <span className={`h-7 w-7 shrink-0 ${iconClass}`}>{icon}</span>
     </div>
     <div className="mt-3.5 flex flex-col gap-2 border-t border-white/[0.08] pt-3.5">
       {items.map(([text, done]) => (
         <div key={text} className="flex items-center gap-2.5 text-[12.5px]">
           <span className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full text-[9px] ${done ? (status === "completed" ? "bg-emerald-400/20 text-emerald-300" : "bg-[#e9b949]/20 text-[#e9b949]") : "border border-white/[0.18]"}`}>{done ? "✓" : ""}</span>
-          <span className={done ? "text-white/85" : "text-white/40"}>{text}</span>
+          <span className={done ? "text-white/85" : "text-white/55"}>{text}</span>
         </div>
       ))}
     </div>

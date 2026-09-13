@@ -29,6 +29,8 @@ export const metadata: Metadata = {
     title: "MALTY — Small Dog. Big Community.",
     description: "Community. Transparency. Verifiable positive animal impact.",
     images: ["/opengraph-image"],
+    site: "@MaltyCoin",
+    creator: "@MaltyCoin",
   },
 };
 
