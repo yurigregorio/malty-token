@@ -16,7 +16,7 @@ This document is the public transparency reference for the MALTY Mainnet v1 toke
 - Metaplex metadata: present
 - Metadata Update Authority: intentionally retained for metadata maintenance; it cannot mint additional MALTY
 
-## Canonical allocation and verified balances
+## Canonical allocation
 
 | Allocation | Public address | MALTY | Share |
 | --- | --- | ---: | ---: |
@@ -28,9 +28,37 @@ This document is the public transparency reference for the MALTY Mainnet v1 toke
 | Team | `CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw` | 75,000,000 | 7.5% |
 | **Total** | | **1,000,000,000** | **100%** |
 
-On 2026-09-13, the Solscan Holders view for the official MALTY mint showed six holders collectively holding 100% of the fixed supply, with balances matching the canonical allocation above. The operational distribution wallet was also confirmed at 0 MALTY after distribution. See `docs/RECONCILIATION.md` for the checkpoint record.
+On 2026-09-13, before market liquidity was deployed, the Solscan Holders view for the official MALTY mint showed six holders collectively holding 100% of the fixed supply, with balances matching the canonical allocation above. The operational distribution wallet was also confirmed at 0 MALTY after distribution. That six-holder state is a historical checkpoint and changed when liquidity was deployed to the public pool. See `docs/RECONCILIATION.md`.
 
 The 5% MALTY Impact allocation was created by reducing the previous Ecosystem allocation from 20% to 15%. The fixed total supply did not change.
+
+## Active MALTY/SOL market
+
+On 2026-09-13, the project created its first MALTY/SOL liquidity pool on Raydium using the CPMM / Standard AMM model.
+
+| Field | Value |
+| --- | --- |
+| DEX | Raydium |
+| Pair | MALTY / SOL |
+| Pool type | CPMM / Standard AMM |
+| Pool / AMM ID | `DGK42Xe3BMXTJeUVjVNSZL1FmwXVQxUaV88qp6hAdp9W` |
+| Initial MALTY liquidity | 5,000,000 MALTY |
+| Initial SOL liquidity | 0.50 SOL |
+| Initial ratio | 10,000,000 MALTY per 1 SOL |
+| Initial implied price | 0.0000001 SOL per MALTY |
+| Fee tier | 0.25% |
+
+Pool creation transaction:
+
+`4zaDUJpvZ2s3ePQZ5bEhen8EAzCX8Ramufwjjo4sWB1MXmKisK6PyDgAD4bvCwpejk9T2s2Gy2iF2eezMTK68hrX`
+
+A two-way trading check was completed after creation:
+
+- buy test: 0.002 SOL -> approximately 15,672.72727 MALTY, successful;
+- buy transaction: `4HyrCpxTRB5cP3yMFY4kucMpvMqzDoM7twfy8z41uk75Fe9bWNKZ7hx3F2NDSRvjcWBqc9xRHzgboV13QA4rFZf5`;
+- sell test: 10,000 MALTY -> approximately 0.00109 SOL, successful.
+
+Pool balances change with every swap, so the initial liquidity figures are launch values rather than permanent current balances. See `docs/LIQUIDITY.md` for the dedicated liquidity record.
 
 ## Planned initial availability
 
@@ -43,9 +71,11 @@ The project plan allows up to **100,000,000 MALTY (10%)** of initial availabilit
 - Treasury: 0
 - Team: up to 7,500,000
 
+Of the Liquidity allowance, 5,000,000 MALTY were initially deployed into the active MALTY/SOL pool. This remains below the documented maximum initial Liquidity availability of 50,000,000 MALTY.
+
 The entire 50M MALTY Impact allocation is intended to remain reserved at launch. Funding the MALTY Impact reserve wallet is not itself a donation and does not automatically make those tokens circulating.
 
-Planned availability is not automatically circulating supply. Circulating supply should only be updated when tokens are actually deployed, distributed or otherwise made available according to the documented policy.
+Planned availability is not automatically circulating supply. MALTY actually deployed into an active public pool is market-available, while untouched reserve balances remain subject to their documented reserve purposes.
 
 ## MALTY Impact disclosure
 
@@ -59,12 +89,14 @@ The six reserve addresses are separate public accounts but currently remain with
 
 ## Liquidity disclosure
 
-The project does not claim that liquidity is locked, permanent, guaranteed or non-removable unless a separate verifiable mechanism is implemented and publicly documented.
+The LP position created for the MALTY/SOL pool remains under the MALTY Liquidity wallet's custody at the current checkpoint. It is not documented as burned or locked.
+
+The project therefore does not claim that liquidity is locked, permanent, guaranteed or non-removable. Such a claim may only be made if a separate verifiable mechanism is implemented and publicly documented.
 
 ## Reconciliation rule
 
-Public balance claims should be based on on-chain observation. Whenever a material reserve movement occurs, project documentation should be reconciled against actual balances and transaction records before public status numbers are updated.
+Public balance claims should be based on on-chain observation. Whenever a material reserve or liquidity movement occurs, project documentation should be reconciled against actual balances and transaction records before public status numbers are updated.
 
 ## No performance promise
 
-MALTY is a memecoin. Token allocation, documentation, MALTY Impact and transparency practices are not promises of price, liquidity, returns or future value.
+MALTY is a memecoin. Token allocation, market liquidity, documentation, MALTY Impact and transparency practices are not promises of price, liquidity, returns or future value.
