@@ -1,6 +1,7 @@
 # MALTY Repository Security Audit
 
 Date: 2026-09-12
+Last dependency advisory scan: 2026-09-13 (see SEC-003)
 
 ## Scope
 
@@ -74,14 +75,20 @@ This provides defense in depth against accidental re-exposure during future UI r
 
 ### SEC-003 — Dependency vulnerability state
 
-Severity: Unknown until package-manager advisory scanning is executed against the exact lockfile.
+Severity: Moderate (advisory scan executed 2026-09-13 against the current lockfile).
 
-The repository pins dependency resolution through `package-lock.json` and CI validates build/test quality, but source inspection alone does not establish that every transitive dependency is free from published advisories.
+`npm audit` reports 10 moderate-severity advisories, all transitive through `@solana/web3.js` (every published 1.x release, including the currently pinned 1.99.0, is affected) via `jayson`:
+
+- `stream-json` (`GHSA-528h-pc64-c93x`) — filter operations are O(depth²) on nested input, allowing a crafted deeply-nested JSON payload to block the event loop. No fix available upstream.
+- `uuid` (`GHSA-w5hq-g745-h8pq`) — missing buffer bounds check in v3/v5/v6. No fix available upstream (requires `uuid` >=11.1.1).
+
+Exposure assessment: `@solana/web3.js` and the `@metaplex-foundation/umi-*` packages that pull it in are only imported by `app/lib/umi-client.ts` and `app/components/actions/*`, which are reachable exclusively through `/dev` (disallowed in `robots.ts`, unlinked from any public navigation, and gated by the existing Mainnet read-only guards in SEC-002). No file under the public landing page (`app/page.tsx` or any `/about`, `/transparency`, `/gives`, `/updates`, `/docs` route) imports these packages. Public site visitors never load code that reaches the vulnerable paths.
 
 Recommended control:
 
-- Run an automated dependency advisory scan in CI (for example the package manager's audit mechanism or GitHub Dependabot/security updates).
-- Review and remediate high/critical findings before deployment updates.
+- Re-run `npm audit` whenever `package-lock.json` changes, and after any upstream `@solana/web3.js` v2 migration (which replaces `jayson`-based RPC transport and would likely resolve this family of advisories).
+- Do not use `/dev` on a network or in a context where an attacker can supply arbitrarily deep JSON to its RPC calls until an upstream fix lands.
+- Enable GitHub Dependabot alerts once the repository is public, so new advisories against these dependencies surface automatically.
 
 ## Residual risks
 
@@ -103,3 +110,5 @@ Recommended control:
 ## Audit result
 
 Repository posture after the applied hardening: no critical repository-level issue identified in the reviewed default-branch code. The most important operational item is ensuring that any browser-visible RPC credential is treated as public/restricted, not as a secret.
+
+The 2026-09-13 dependency advisory scan (SEC-003) found 10 moderate-severity advisories, all confined to `/dev`-only tooling with no upstream fix yet available; the public landing page does not import any affected package. This does not change the overall no-critical-issue result above.
