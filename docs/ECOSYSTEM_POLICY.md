@@ -9,10 +9,11 @@ This document defines the intended allocation and transparency rules for the res
 ## Allocation
 
 - **Total supply:** 1,000,000,000 MALTY
-- **Ecosystem Reserve:** 200,000,000 MALTY (20% of total supply)
+- **Ecosystem Reserve:** 150,000,000 MALTY (15% of total supply)
 - **Initial amount potentially available:** up to 17,500,000 MALTY (1.75% of total supply)
-- **Remaining reserve after the initial planned availability:** 182,500,000 MALTY
-- **Current balance:** 0 MALTY
+- **Remaining reserve after the initial planned availability:** 132,500,000 MALTY
+
+The Ecosystem Reserve was reduced from 200,000,000 MALTY to 150,000,000 MALTY so that 50,000,000 MALTY (5% of total supply) could be assigned to the dedicated MALTY Impact Reserve. Total supply remains unchanged.
 
 ## Designated Wallet
 
@@ -33,6 +34,8 @@ The Ecosystem Reserve may be used for documented ecosystem purposes, including:
 - Infrastructure or service costs directly related to the project
 - Strategic ecosystem initiatives approved under the project's governance process
 
+Animal-welfare allocations intended for MALTY Impact should use the dedicated MALTY Impact Reserve rather than the Ecosystem Reserve.
+
 ## Transparency Rules
 
 1. Planned allocations must not be presented as already distributed.
@@ -44,9 +47,7 @@ The Ecosystem Reserve may be used for documented ecosystem purposes, including:
 
 ## Current Status
 
-As of the latest reconciliation, the `MALTY Ecosystem` account holds **0 MALTY**. No Ecosystem Reserve transfer has been executed.
-
-The full 1,000,000,000 MALTY supply remains accounted for, with reserve allocations representing policy-level planning until actual on-chain movements occur.
+Actual on-chain balances and movements are maintained in `docs/RECONCILIATION.md`. The policy allocation itself must not be treated as proof that the full amount has already been transferred to the reserve wallet.
 
 ## Security
 
