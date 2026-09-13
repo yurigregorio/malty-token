@@ -63,9 +63,9 @@ A planned allocation, an internal accounting entry or an unused reserve balance 
 
 ## Current Status
 
-At the current checkpoint, the `MALTY Community` reserve account has **0 MALTY** and no Community Reserve transfer has been executed.
+At the current checkpoint, the `MALTY Community` reserve account holds its full **150,000,000 MALTY** canonical allocation, independently verified against the Solscan Holders view for the official mint. See `docs/RECONCILIATION.md` for the current, authoritative figure.
 
-The 150,000,000 MALTY Community allocation and the up-to-25,000,000 MALTY initial availability remain planned tokenomics figures until corresponding on-chain movements occur.
+Holding the full reserve allocation is distinct from initial availability: the up-to-25,000,000 MALTY initial availability figure remains a planning limit, not a claim that any amount has been distributed to a specific community program.
 
 ## Reconciliation Record
 

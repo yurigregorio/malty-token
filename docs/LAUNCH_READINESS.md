@@ -57,6 +57,8 @@ The following require separate execution and reconciliation:
 
 After any such operation, update `docs/RECONCILIATION.md` and `docs/TRANSPARENCY.md` from observed on-chain data before publishing new balance or circulation figures.
 
+**Update:** reserve transfers and liquidity provisioning listed above have since been executed and reconciled. All six reserves were funded to their full canonical allocation, and 5,000,000 MALTY of the Liquidity Reserve was deployed as the initial MALTY/SOL pool liquidity on Raydium. See `docs/RECONCILIATION.md`, `docs/TRANSPARENCY.md` and `docs/LIQUIDITY.md` for the current, authoritative figures.
+
 ## Public presentation status
 
-The repository is technically prepared for public project presentation. This status means the token facts, policies, security controls and transparency material are documented; it does not mean distribution or liquidity deployment has been completed.
+The repository was technically prepared for public project presentation, and that presentation is now live: the token facts, policies, security controls and transparency material are documented, the reserves are funded, and the official MALTY/SOL pool is live on Raydium with a confirmed buy and sell. This does not change the project's non-promissory stance — see `docs/TRANSPARENCY.md` and `docs/LIQUIDITY.md` for what is and is not claimed about price, liquidity permanence or returns.

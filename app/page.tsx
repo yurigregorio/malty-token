@@ -49,7 +49,7 @@ const roadmapIcons = [
 const roadmapStages = {
   en: [
     { status: "completed", title: "Foundation", subtitle: "The base for a sustainable project.",
-      items: [["Token deployed", true], ["Mint authority revoked", true], ["Reserves defined", true], ["Transparency tools", true], ["Live on Raydium", true]] },
+      items: [["Token deployed", true], ["Mint authority revoked", true], ["Reserves fully funded", true], ["Transparency tools", true], ["Live on Raydium", true]] },
     { status: "in-progress", title: "MALTY Community", subtitle: "Grow, engage and build together.",
       items: [["Community channels live", true], ["Grow holders and supporters", false], ["Establish governance model", false], ["Prepare first impact initiative", false]] },
     { status: "planned", title: "First pet initiative", subtitle: "Turn coins into real help.",
@@ -59,7 +59,7 @@ const roadmapStages = {
   ],
   pt: [
     { status: "completed", title: "Fundação", subtitle: "A base para um projeto sustentável.",
-      items: [["Token implantado", true], ["Mint authority revogada", true], ["Reservas definidas", true], ["Ferramentas de transparência", true], ["Ao vivo na Raydium", true]] },
+      items: [["Token implantado", true], ["Mint authority revogada", true], ["Reservas totalmente financiadas", true], ["Ferramentas de transparência", true], ["Ao vivo na Raydium", true]] },
     { status: "in-progress", title: "MALTY Community", subtitle: "Crescer, engajar e construir juntos.",
       items: [["Canais da comunidade no ar", true], ["Crescer holders e apoiadores", false], ["Estabelecer modelo de governança", false], ["Preparar primeira iniciativa", false]] },
     { status: "planned", title: "Primeira iniciativa pet", subtitle: "Transformar moedas em ajuda real.",

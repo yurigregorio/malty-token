@@ -12,7 +12,7 @@ Planned allocations are not considered circulating until tokens are actually dis
 - **Team & Core Contributors Reserve:** 75,000,000 MALTY (7.5% of total supply)
 - **Initial eligibility:** up to 7,500,000 MALTY (10% of Team Reserve)
 - **Remaining scheduled allocation:** 67,500,000 MALTY
-- **Current balance:** 0 MALTY
+- **Current balance:** 75,000,000 MALTY (fully funded; see `docs/RECONCILIATION.md`)
 
 The Team Reserve is subject to the documented release schedule and should not be treated as immediately circulating merely because it is part of the total supply allocation.
 
@@ -64,9 +64,9 @@ Where team tokens become transferable or distributed, the project should maintai
 
 ## Current Status
 
-As of the latest reconciliation, the `MALTY Team` account holds **0 MALTY**. No Team Reserve transfer has been executed.
+As of the latest reconciliation, the `MALTY Team` account holds its full **75,000,000 MALTY** canonical allocation, independently verified against the Solscan Holders view for the official mint. See `docs/RECONCILIATION.md` for the current, authoritative figure.
 
-The 75,000,000 MALTY allocation remains a policy-level reserve allocation until actual on-chain movements occur.
+Holding the full allocation in the reserve wallet is distinct from the release schedule above: eligibility, vesting and actual distribution to recipients remain governed by this policy regardless of the reserve-wallet balance.
 
 ## Security
 

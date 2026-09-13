@@ -39,17 +39,18 @@ The latest read-only verification confirmed:
 
 ## Reserve Architecture
 
-The five project reserve accounts have been created and documented:
+The canonical tokenomics were later updated to add a dedicated MALTY Impact reserve, funded by reducing Ecosystem from 20% to 15% (total supply unchanged). The six project reserve accounts are:
 
 - MALTY Liquidity — 500M allocation
-- MALTY Ecosystem — 200M allocation
+- MALTY Ecosystem — 150M allocation
 - MALTY Community — 150M allocation
+- MALTY Impact — 50M allocation
 - MALTY Treasury — 75M allocation
 - MALTY Team — 75M allocation
 
-All five reserve accounts currently have **0 MALTY**. No reserve transfer is represented as executed by this document.
+All six reserves were subsequently funded to their full canonical allocation, independently verified against the Solscan Holders view for the official mint. See `docs/RECONCILIATION.md` for the checkpoint and `docs/TRANSPARENCY.md` for the current public figures — those documents are the current source of truth for reserve balances, not this historical snapshot.
 
-The operational/deployer wallet remains separate from the five reserve categories.
+The operational/deployer wallet remains separate from the six reserve categories.
 
 ## Current Circulation Plan
 
@@ -58,10 +59,11 @@ The approved planned initial availability is **100,000,000 MALTY (10% of total s
 - Liquidity: 50M
 - Ecosystem: 17.5M
 - Community: 25M
+- MALTY Impact: 0
 - Treasury: 0
 - Team: 7.5M
 
-These amounts are planned availability, not current balances. Actual circulating supply must be reconciled against verifiable on-chain movements.
+These amounts describe the original availability plan. The Liquidity Reserve has since supplied 5,000,000 MALTY as the initial deposit for the live MALTY/SOL pool on Raydium — see `docs/LIQUIDITY.md` for the current, authoritative trading-liquidity record.
 
 ## Controls
 
