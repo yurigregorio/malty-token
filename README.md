@@ -18,6 +18,16 @@ Production tooling, transparency material and deployment record for **Malty (MAL
 
 The complete verified deployment record is in [`docs/MALTY_MAINNET_V1.md`](docs/MALTY_MAINNET_V1.md).
 
+## MALTY Impact
+
+MALTY Impact is the project's planned animal-welfare transparency initiative.
+
+- **Public wallet:** `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`
+- **Status:** planned / not active
+- **Purpose:** provide a dedicated public reference for future documented animal-welfare initiatives and their evidence.
+
+The public address is documented for transparency. Its publication does not by itself indicate that an initiative has been funded or completed.
+
 ## Public transparency
 
 The default home page is the MALTY public-information landing page. It publishes the verified mint, fixed supply, authorities, canonical token allocation and the latest documented reserve status without presenting planned allocations as already-circulating tokens.
@@ -30,6 +40,7 @@ Public documentation:
 - [`docs/RELEASE_NOTES_V1.0_SECURE.md`](docs/RELEASE_NOTES_V1.0_SECURE.md) — secure v1 release snapshot notes
 - [`docs/TOKENOMICS.md`](docs/TOKENOMICS.md) — canonical tokenomics
 - [`docs/WALLET_ARCHITECTURE.md`](docs/WALLET_ARCHITECTURE.md) — reserve and custody architecture
+- [`docs/MALTY_GIVES_POLICY.md`](docs/MALTY_GIVES_POLICY.md) — planned animal-welfare initiative policy
 - [`docs/RECONCILIATION.md`](docs/RECONCILIATION.md) — balance/circulation reconciliation rules
 - [`docs/SECURITY_AUDIT.md`](docs/SECURITY_AUDIT.md) — repository security review
 
