@@ -33,6 +33,7 @@ This record highlights material project changes that are useful for public trans
 ## Community
 
 - Public MALTY community channel launched (X: [@MaltyCoin](https://x.com/MaltyCoin)).
+- Official Telegram channel and community group launched: [MaltyCoinOfficial](https://t.me/MaltyCoinOfficial) (announcements) and [MaltyCoinCommunity](https://t.me/MaltyCoinCommunity) (community chat).
 
 ## Reporting rule
 
