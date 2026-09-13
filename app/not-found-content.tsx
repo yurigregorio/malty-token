@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLanguage } from "./lib/language";
+import { SiteHeader } from "./components/site-header";
 
 const copy = {
   en: {
@@ -27,7 +28,9 @@ export function NotFoundContent() {
   const t = copy[language];
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#080a0d] px-5 text-[#f7f1e5]">
+    <main className="flex min-h-screen flex-col bg-[#080a0d] text-[#f7f1e5]">
+      <SiteHeader />
+      <div className="flex flex-1 items-center justify-center px-5">
       <div className="max-w-xl text-center">
         <p className="text-[11px] font-black tracking-[0.24em] text-[#e9b949]">{t.eyebrow}</p>
         <h1 className="mt-4 text-4xl font-black tracking-[-0.05em] sm:text-6xl">{t.title}</h1>
@@ -37,6 +40,7 @@ export function NotFoundContent() {
           <Link href="/transparency" className="rounded-xl border border-white/12 px-4 py-2.5 text-sm font-bold">{t.transparency}</Link>
           <Link href="/gives" className="rounded-xl border border-white/12 px-4 py-2.5 text-sm font-bold">{t.gives}</Link>
         </div>
+      </div>
       </div>
     </main>
   );

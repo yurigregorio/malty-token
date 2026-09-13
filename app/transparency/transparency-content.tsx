@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { MALTY_IMPACT_WALLET, MALTY_PUBLIC_MINT, getReviewDateLong } from "../lib/malty-token";
 import { useLanguage } from "../lib/language";
-import { SubPageHeader } from "../components/sub-page-header";
+import { SiteHeader } from "../components/site-header";
 
 const MINT = MALTY_PUBLIC_MINT;
 const IMPACT_WALLET = MALTY_IMPACT_WALLET;
@@ -90,9 +90,9 @@ export function TransparencyContent() {
 
   return (
     <main className="min-h-screen bg-[#080a0d] text-[#f7f1e5]">
+      <SiteHeader />
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
-        <SubPageHeader />
-        <p className="mt-10 text-[11px] font-black tracking-[.24em] text-[#e9b949]">{t.eyebrow}</p>
+        <p className="mt-2 text-[11px] font-black tracking-[.24em] text-[#e9b949]">{t.eyebrow}</p>
         <h1 className="mt-3 text-4xl font-black tracking-[-.05em] sm:text-5xl">{t.title}</h1>
         <p className="mt-4 max-w-2xl text-sm leading-6 text-white/50">{t.intro}</p>
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { MALTY_IMPACT_WALLET, getReviewDateShort } from "../lib/malty-token";
 import { useLanguage } from "../lib/language";
-import { SubPageHeader } from "../components/sub-page-header";
+import { SiteHeader } from "../components/site-header";
 
 const IMPACT_WALLET = MALTY_IMPACT_WALLET;
 
@@ -96,9 +96,9 @@ export function GivesContent() {
 
   return (
     <main className="min-h-screen bg-[#080a0d] text-[#f7f1e5]">
+      <SiteHeader />
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
-        <SubPageHeader />
-        <div className="mt-10 inline-flex rounded-full border border-[#e9b949]/20 bg-[#e9b949]/[0.05] px-3 py-1.5 text-[11px] font-black tracking-[0.18em] text-[#e9b949]">{t.badge}</div>
+        <div className="inline-flex rounded-full border border-[#e9b949]/20 bg-[#e9b949]/[0.05] px-3 py-1.5 text-[11px] font-black tracking-[0.18em] text-[#e9b949]">{t.badge}</div>
         <h1 className="mt-5 text-4xl font-black tracking-[-0.05em] sm:text-6xl">{t.title}</h1>
         <p className="mt-5 max-w-2xl text-sm leading-6 text-white/52">{t.intro}</p>
         <section className="mt-10 rounded-3xl border border-[#e9b949]/20 bg-[#e9b949]/[0.045] p-6 sm:p-8">

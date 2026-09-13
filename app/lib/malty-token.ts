@@ -45,7 +45,7 @@ export const MALTY_IMPACT_WALLET = "DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik
 
 // Single source of truth for the "last public review" date shown across the
 // public pages. Update only this constant when the review date changes.
-export const MALTY_PUBLIC_REVIEW_DATE_ISO = "2026-09-12";
+export const MALTY_PUBLIC_REVIEW_DATE_ISO = "2026-09-13";
 
 // Single source of truth for the homepage "What comes next" roadmap timeline
 // (the "Proof, not promises" section). This is a 1-indexed position into the

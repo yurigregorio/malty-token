@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLanguage } from "../lib/language";
-import { SubPageHeader } from "../components/sub-page-header";
+import { SiteHeader } from "../components/site-header";
 
 const copy = {
   en: {
@@ -93,9 +93,9 @@ export function AboutContent() {
 
   return (
     <main className="min-h-screen bg-[#080a0d] text-[#f7f1e5]">
+      <SiteHeader />
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
-        <SubPageHeader />
-        <p className="mt-10 text-[11px] font-black tracking-[0.22em] text-[#e9b949]">{t.eyebrow}</p>
+        <p className="mt-2 text-[11px] font-black tracking-[0.22em] text-[#e9b949]">{t.eyebrow}</p>
         <h1 className="mt-3 max-w-3xl text-4xl font-black tracking-[-0.05em] sm:text-6xl">{t.title}</h1>
         <p className="mt-5 max-w-2xl text-sm leading-6 text-white/52">{t.intro}</p>
         <section className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

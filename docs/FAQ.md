@@ -52,6 +52,24 @@ At the latest documented reconciliation, no reserve transfer had been executed a
 
 MALTY Gives is a planned animal-welfare initiative. It is not active yet, and no fixed contribution amount or percentage is currently promised. The project has published a policy-first activation standard before any program begins.
 
+A dedicated public reference wallet, `MALTY Impact` (`DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`), is documented for future MALTY Gives contributions. It is planned and not active; publishing it does not mean any initiative has been funded or completed. See `docs/WALLET_ARCHITECTURE.md`.
+
+## How does MALTY plan to help pets?
+
+Through MALTY Gives: the community can help surface initiatives, the project will define criteria before activation, and completed actions should have public reporting.
+
+## Who is behind MALTY?
+
+MALTY is stewarded by a project team responsible for development, public documentation and community operations. The project does not present itself as decentralized governance today. See `docs/TEAM_ROLES.md` and `docs/TEAM_POLICY.md` for the public role structure.
+
+## Is there a lock or vesting mechanism for team tokens?
+
+The team reserve follows a public monthly-release policy, but the on-chain enforcement mechanism is still being defined. No reserve balance has moved to date.
+
+## Where can I buy MALTY?
+
+MALTY does not yet have an active liquidity pool. When launch happens, the official buy link will be published in the project's public channels — treat any buy link announced elsewhere before then as untrusted.
+
 ## Is the liquidity locked?
 
 The project does not claim that liquidity is locked, permanent or guaranteed unless a separate verifiable mechanism is implemented and publicly documented.

@@ -9,6 +9,7 @@ import {
   getReviewDateShort,
 } from "./lib/malty-token";
 import { useLanguage } from "./lib/language";
+import { SiteHeader } from "./components/site-header";
 
 const MINT = MALTY_PUBLIC_MINT;
 const TOKEN_IMAGE = MALTY_TOKEN.imageUri;
@@ -76,7 +77,6 @@ const missionPillars = {
 
 const copy = {
   en: {
-    nav: ["Project", "Token", "Gives", "Roadmap", "FAQ"], navIds: ["story", "token", "gives", "roadmap", "faq"], menu: "Menu", close: "Close",
     badge: "COMMUNITY-POWERED · ANIMAL WELFARE", headline: "Small Dog. Big Community.",
     intro: "MALTY is a community on Solana built on one simple principle: prove, don't promise. The long-term goal is to turn that transparency into real, verifiable impact for animal welfare.",
     primaryCta: "Explore MALTY", secondaryCta: "Transparency", statusEyebrow: "PROJECT STATUS", publicStatusLabel: "Public status",
@@ -105,7 +105,6 @@ const copy = {
     footerProject: "Project", footerVerify: "Verify", footerStatus: "Status", footerMint: "Official mint",
   },
   pt: {
-    nav: ["Projeto", "Token", "Gives", "Roadmap", "FAQ"], navIds: ["story", "token", "gives", "roadmap", "faq"], menu: "Menu", close: "Fechar",
     badge: "MOVIDO PELA COMUNIDADE · BEM-ESTAR ANIMAL", headline: "Cão pequeno. Grande comunidade.",
     intro: "MALTY é uma comunidade na Solana construída sobre um princípio simples: provar, não prometer. O objetivo de longo prazo é transformar essa transparência em impacto real e verificável para o bem-estar animal.",
     primaryCta: "Conhecer MALTY", secondaryCta: "Transparência", statusEyebrow: "STATUS DO PROJETO", publicStatusLabel: "Status público",
@@ -141,8 +140,7 @@ const lightBody = "text-[15px] leading-7 text-black/65 sm:text-base";
 const darkSurface = "rounded-2xl border border-white/[0.08] bg-white/[0.025]";
 
 export default function Home() {
-  const { language, setLanguage } = useLanguage();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { language } = useLanguage();
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
   const [expandedAllocation, setExpandedAllocation] = useState<string | null>(allocation[0][0]);
   const t = copy[language];
@@ -154,20 +152,7 @@ export default function Home() {
   }
 
   return <main className="min-h-screen overflow-x-hidden bg-[#080a0d] text-[#f7f1e5] selection:bg-[#d9a53d] selection:text-black">
-    <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[#080a0d]/90 backdrop-blur-2xl">
-      <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-5 px-5 sm:px-8">
-        <a href="#top" className="flex items-center gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e9b949]"><Image src={TOKEN_IMAGE} alt="MALTY" width={38} height={38} priority className="h-9.5 w-9.5 rounded-full border border-[#d9a53d]/40 bg-[#2a2013] object-cover"/><div className="leading-tight"><p className="text-[15px] font-extrabold tracking-[-0.02em] text-[#e9b949]">MALTY</p><p className="text-[11px] font-medium tracking-[0.12em] text-white/45">SOLANA</p></div></a>
-        <nav className="hidden items-center gap-7 text-[13px] font-medium text-white/60 md:flex">{t.nav.map((x,i)=><a key={x} href={`#${t.navIds[i]}`} className="rounded-sm transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e9b949]">{x}</a>)}</nav>
-        <div className="flex items-center gap-2">
-          <a href="https://x.com/MaltyCoin" target="_blank" rel="noopener noreferrer" aria-label="MALTY on X" className="flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/60 transition-colors hover:border-[#e9b949]/35 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e9b949]">
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M13.3174 10.7749L19.1457 4H17.7646L12.7852 9.88256L8.80309 4H4.21053L10.3186 12.8955L4.21053 20H5.59183L10.6337 13.7899L14.7942 20H19.3893L13.3174 10.7749ZM11.5116 12.9776L10.7118 11.8656L6.09846 5.05078H8.03556L11.7852 10.4988L12.5849 11.6109L17.7658 19.1489H15.8288L11.5116 12.9776Z"/></svg>
-          </a>
-          <div className="flex rounded-full border border-white/[0.08] bg-white/[0.025] p-1 text-[11px] font-semibold">{(["en","pt"] as const).map(l=><button key={l} onClick={()=>setLanguage(l)} aria-pressed={language===l} className={`rounded-full px-3 py-1.5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e9b949] ${language===l?"bg-[#e9b949] text-black":"text-white/55 hover:text-white"}`}>{l.toUpperCase()}</button>)}</div>
-          <button onClick={()=>setMenuOpen(!menuOpen)} aria-expanded={menuOpen} className="rounded-xl border border-white/[0.08] px-3.5 py-2 text-xs font-semibold text-white/75 md:hidden">{menuOpen?t.close:t.menu}</button>
-        </div>
-      </div>
-      {menuOpen&&<div className="border-t border-white/[0.06] px-5 py-3 md:hidden"><nav className="mx-auto grid max-w-6xl gap-1">{t.nav.map((x,i)=><a key={x} href={`#${t.navIds[i]}`} onClick={()=>setMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-white/70 hover:bg-white/[0.04] hover:text-white">{x}</a>)}</nav></div>}
-    </header>
+    <SiteHeader />
 
     <div id="top" className="relative">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_28%,rgba(217,165,61,0.15),transparent_50%)]" />
