@@ -103,7 +103,7 @@ export default function Home() {
       {menuOpen&&<div className="border-t border-white/[0.06] px-5 py-3 md:hidden"><nav className="mx-auto grid max-w-6xl gap-1">{t.nav.map((x,i)=><a key={x} href={`#${t.navIds[i]}`} onClick={()=>setMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-white/70 hover:bg-white/[0.04] hover:text-white">{x}</a>)}</nav></div>}
     </header>
 
-    <section id="top" className="relative border-b border-white/[0.07]">
+    <section id="top" className="relative">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_42%,rgba(217,165,61,0.15),transparent_31%)]" />
       <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.06fr_.94fr] lg:gap-9 lg:py-12">
         <div>
