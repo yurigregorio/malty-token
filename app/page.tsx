@@ -29,6 +29,36 @@ const allocationIcons = [
   <svg key="team" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
 ];
 
+const roadmapIcons = [
+  <svg key="foundation" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d="M5 21V4.2c0-.6.5-1 1.1-.9 1.8.4 3.9 1.4 5.9 1.4s3.6-1 5.4-1c.6 0 1.1.5 1.1 1.1v9.1c0 .5-.4.9-.9 1-1.8.4-3.9 1.4-5.9 1.4s-3.6-1-5.4-1"/></svg>,
+  <svg key="community" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  <svg key="pet" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d="M20.8 4.6a5 5 0 0 0-7.07 0L12 5.3l-1.73-.7a5 5 0 0 0-7.07 7.07L12 20.4l8.8-8.73a5 5 0 0 0 0-7.07Z"/></svg>,
+  <svg key="dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>,
+];
+
+const roadmapStages = {
+  en: [
+    { status: "completed", title: "Foundation", subtitle: "The base for a sustainable project.",
+      items: [["Token deployed", true], ["Mint authority revoked", true], ["Reserves defined", true], ["Transparency tools", true]] },
+    { status: "in-progress", title: "MALTY Community", subtitle: "Grow, engage and build together.",
+      items: [["Community channels live", true], ["Grow holders and supporters", false], ["Establish governance model", false], ["Prepare first impact initiative", false]] },
+    { status: "planned", title: "First pet initiative", subtitle: "Turn coins into real help.",
+      items: [["Define selection criteria", false], ["Community voting", false], ["Execute first initiative", false], ["Publish results", false]] },
+    { status: "planned", title: "Impact Dashboard", subtitle: "Public data. Real impact.",
+      items: [["Track all donations", false], ["Show beneficiaries", false], ["On-chain evidence", false], ["Ongoing impact history", false]] },
+  ],
+  pt: [
+    { status: "completed", title: "Fundação", subtitle: "A base para um projeto sustentável.",
+      items: [["Token implantado", true], ["Mint authority revogada", true], ["Reservas definidas", true], ["Ferramentas de transparência", true]] },
+    { status: "in-progress", title: "MALTY Community", subtitle: "Crescer, engajar e construir juntos.",
+      items: [["Canais da comunidade no ar", true], ["Crescer holders e apoiadores", false], ["Estabelecer modelo de governança", false], ["Preparar primeira iniciativa", false]] },
+    { status: "planned", title: "Primeira iniciativa pet", subtitle: "Transformar moedas em ajuda real.",
+      items: [["Definir critérios de seleção", false], ["Votação da comunidade", false], ["Executar primeira iniciativa", false], ["Publicar resultados", false]] },
+    { status: "planned", title: "Dashboard de impacto", subtitle: "Dados públicos. Impacto real.",
+      items: [["Rastrear todas as doações", false], ["Mostrar beneficiários", false], ["Evidência on-chain", false], ["Histórico contínuo de impacto", false]] },
+  ],
+} as const;
+
 const missionPillars = {
   en: [
     ["Token", "Verifiable information", "Token data, tokenomics and contracts available for public review."],
@@ -69,7 +99,7 @@ const copy = {
     totalSupplyLabel: "Total supply", allocationStatus: "Status", allocationStatusPlanned: "Planned", viewReserveDetails: "View reserve details",
     givesTitle: "Community-powered. Pet-focused.", givesText: "MALTY Gives is being designed as the impact layer of the project. The community can help surface meaningful animal-welfare initiatives, while selection rules and completed actions are documented publicly.",
     givesStatus: "PLANNED INITIATIVE", givesNote: "The program is not active yet. Funding rules, beneficiary criteria and reporting standards will be published before the first initiative begins.",
-    givesTimeline: ["Planned", "Selection criteria", "First initiative", "Public evidence", "Impact dashboard"], roadmapEyebrow: "ROADMAP", roadmapTitle: "Build the community. Create impact. Prove it.", updates: "Project updates",
+    givesTimeline: ["Planned", "Selection criteria", "First initiative", "Public evidence", "Impact dashboard"], roadmapEyebrow: "ROADMAP", roadmapTitle: "Small steps. Big impact.", roadmapDesc: "Our roadmap turns community power into real help for pets. Transparent, measurable and community-driven.", roadmapCta: "View full roadmap", viewProof: "View proof", statusCompleted: "Completed", statusInProgress: "In progress", statusPlanned: "Planned", updates: "Project updates",
     faqTitle: "Quick answers", transparency: "Transparency center", docs: "Public documentation", copyMint: "Copy address", copied: "Copied", copyFailed: "Copy failed",
     risk: "MALTY is a community-driven digital token on Solana. Project information is provided for transparency and does not promise price, returns, liquidity or future value. MALTY Gives is planned and is not currently an active donation program.",
     footerProject: "Project", footerVerify: "Verify", footerStatus: "Status", footerMint: "Official mint",
@@ -98,7 +128,7 @@ const copy = {
     totalSupplyLabel: "Supply total", allocationStatus: "Status", allocationStatusPlanned: "Planejado", viewReserveDetails: "Ver detalhes da reserva",
     givesTitle: "Movido pela comunidade. Focado em pets.", givesText: "MALTY Gives está sendo estruturado como a frente de impacto do projeto. A comunidade poderá ajudar a identificar iniciativas relevantes, enquanto regras de seleção e ações concluídas serão documentadas publicamente.",
     givesStatus: "INICIATIVA PLANEJADA", givesNote: "O programa ainda não está ativo. Regras de financiamento, critérios de beneficiários e padrões de prestação de contas serão publicados antes da primeira iniciativa.",
-    givesTimeline: ["Planejado", "Critérios de seleção", "Primeira iniciativa", "Evidência pública", "Dashboard de impacto"], roadmapEyebrow: "ROADMAP", roadmapTitle: "Construir a comunidade. Gerar impacto. Comprovar.", updates: "Atualizações do projeto",
+    givesTimeline: ["Planejado", "Critérios de seleção", "Primeira iniciativa", "Evidência pública", "Dashboard de impacto"], roadmapEyebrow: "ROADMAP", roadmapTitle: "Passos pequenos. Grande impacto.", roadmapDesc: "Nosso roadmap transforma o poder da comunidade em ajuda real para os pets. Transparente, mensurável e feito pela comunidade.", roadmapCta: "Ver roadmap completo", viewProof: "Ver provas", statusCompleted: "Concluído", statusInProgress: "Em andamento", statusPlanned: "Planejado", updates: "Atualizações do projeto",
     faqTitle: "Respostas rápidas", transparency: "Central de transparência", docs: "Documentação pública", copyMint: "Copiar endereço", copied: "Copiado", copyFailed: "Falha ao copiar",
     risk: "MALTY é um token digital comunitário construído na Solana. As informações do projeto são publicadas por transparência e não prometem preço, retorno, liquidez ou valor futuro. MALTY Gives é planejado e ainda não é um programa ativo de doações.",
     footerProject: "Projeto", footerVerify: "Verificar", footerStatus: "Status", footerMint: "Mint oficial",
@@ -327,7 +357,25 @@ export default function Home() {
 
     <section id="gives" className="border-b border-black/10 bg-[#f2ecdf] text-[#17130d]"><div className={`mx-auto max-w-6xl ${sectionPad}`}><div className="grid gap-12 lg:grid-cols-2 lg:items-center"><div><div className="inline-flex rounded-full bg-[#9a6517]/10 px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#8b5a12]">🐾 MALTY GIVES · {t.givesStatus}</div><h2 className="mt-5 text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-4xl">{t.givesTitle}</h2><p className={`mt-5 ${lightBody}`}>{t.givesText}</p><p className="mt-5 rounded-2xl border border-[#9a6517]/15 bg-white/45 p-4 text-sm leading-6 text-black/70">{t.givesNote}</p><a href="/gives" className="mt-6 inline-flex text-sm font-semibold text-[#8b5a12]">MALTY Gives →</a></div><div className="space-y-3">{t.givesTimeline.map((step,i)=><Timeline key={step} n={i+1} title={step} active={i===0}/>)}</div></div></div></section>
 
-    <section id="roadmap" className="border-b border-white/[0.07]"><div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-14 lg:py-16"><Eyebrow>{t.roadmapEyebrow}</Eyebrow><h2 className="mt-3 max-w-3xl text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.roadmapTitle}</h2><div className="mt-8 grid gap-3 md:grid-cols-4"><Road state={language==="pt"?"CONCLUÍDO":"DONE"} title={language==="pt"?"Fundação":"Foundation"}/><Road state={language==="pt"?"PRÓXIMO":"NEXT"} title="MALTY Community"/><Road state={language==="pt"?"PLANEJADO":"PLANNED"} title={language==="pt"?"Primeira iniciativa pet":"First pet initiative"}/><Road state={language==="pt"?"FUTURO":"FUTURE"} title={language==="pt"?"Dashboard de impacto":"Impact Dashboard"}/></div><a href="/updates" className="mt-6 inline-flex text-sm font-medium text-[#e9b949]">{t.updates} →</a></div></section>
+    <section id="roadmap" className="border-b border-white/[0.07]">
+      <div className={`mx-auto max-w-6xl ${sectionPad}`}>
+        <div className="grid gap-8 lg:grid-cols-[.62fr_2.3fr] lg:gap-10">
+          <div>
+            <Eyebrow>{t.roadmapEyebrow}</Eyebrow>
+            <h2 className="mt-3 text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-4xl">{t.roadmapTitle}</h2>
+            <p className="mt-3.5 max-w-xs text-sm leading-6 text-white/55">{t.roadmapDesc}</p>
+            <a href="/updates" className="mt-5 inline-flex items-center gap-1.5 rounded-xl bg-[#e9b949] px-4.5 py-2.5 text-[13px] font-bold text-black">{t.roadmapCta} →</a>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {roadmapStages[language].map((s, i) => (
+              <RoadmapCard key={s.title} n={i + 1} icon={roadmapIcons[i]} status={s.status} title={s.title} subtitle={s.subtitle} items={s.items}
+                statusLabel={s.status === "completed" ? t.statusCompleted : s.status === "in-progress" ? t.statusInProgress : t.statusPlanned}
+                proofLabel={i === 0 ? t.viewProof : undefined} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="faq" className="bg-[#0c0f13]"><div className={`mx-auto grid max-w-6xl gap-12 ${sectionPad} lg:grid-cols-[.72fr_1.28fr]`}><div><Eyebrow>FAQ</Eyebrow><h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.faqTitle}</h2><div className="mt-6 flex flex-col items-start gap-3"><a href="/transparency" className="text-sm font-medium text-[#e9b949]">{t.transparency} →</a><a href="/docs" className="text-sm font-medium text-white/55 hover:text-white">{t.docs} →</a></div></div><div className="space-y-3"><Faq q={language==="pt"?"O que é MALTY?":"What is MALTY?"} a={language==="pt"?"MALTY é um projeto comunitário na Solana que reúne token, identidade, comunidade e uma missão de longo prazo de gerar impacto positivo para animais.":"MALTY is a community-driven Solana project connecting a token, identity, community and a long-term mission to create positive impact for animals."}/><Faq q={language==="pt"?"Podem criar mais MALTY?":"Can more MALTY be minted?"} a={language==="pt"?"A Mint Authority foi revogada.":"The Mint Authority has been revoked."}/><Faq q={language==="pt"?"Como o MALTY pretende ajudar pets?":"How does MALTY plan to help pets?"} a={language==="pt"?"Por meio do MALTY Gives: a comunidade poderá ajudar a identificar iniciativas, o projeto definirá critérios antes da ativação e cada ação concluída deverá ter prestação de contas pública.":"Through MALTY Gives: the community can help surface initiatives, the project will define criteria before activation, and completed actions should have public reporting."}/><Faq q={language==="pt"?"Quem está por trás do MALTY?":"Who is behind MALTY?"} a={language==="pt"?"O projeto é mantido por uma equipe responsável pelo desenvolvimento, documentação pública e operação da comunidade. O MALTY ainda não se apresenta como um projeto de governança descentralizada. Veja a página Sobre para detalhes de responsabilidade.":"MALTY is stewarded by a project team responsible for development, public documentation and community operations. The project does not present itself as decentralized governance today. See the About page for stewardship details."}/><Faq q={language==="pt"?"Existe trava (vesting) para os tokens da equipe?":"Is there a lock or vesting mechanism for team tokens?"} a={language==="pt"?"A reserva da equipe segue uma política pública de liberação em parcelas mensais, mas o mecanismo técnico de trava on-chain ainda está em definição. Nenhum saldo de reserva foi movimentado até o momento — veja a Central de Transparência para o estado atual.":"The team reserve follows a public monthly-release policy, but the on-chain enforcement mechanism is still being defined. No reserve balance has moved to date — see the Transparency center for the current state."}/><Faq q={language==="pt"?"Onde posso comprar MALTY?":"Where can I buy MALTY?"} a={language==="pt"?"O MALTY ainda não tem um pool de liquidez ativo. Quando o lançamento acontecer, o link oficial de compra será publicado aqui e na Central de Transparência — desconfie de qualquer link de compra anunciado em outro lugar antes disso.":"MALTY does not yet have an active liquidity pool. When launch happens, the official buy link will be published here and in the Transparency center — treat any buy link announced elsewhere before then as untrusted."}/></div></div></section>
 
@@ -365,6 +413,29 @@ const missionIcons = [
 function FactLink({text,href}:{text:string;href:string}){return <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-black/10 px-3.5 py-3 transition-colors hover:border-[#e9b949]/35 hover:bg-[#e9b949]/[0.04]"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-[11px] text-emerald-300">✓</span><p className="flex-1 text-sm font-medium text-white/80">{text}</p><span className="text-white/30">↗</span></a>}
 function TimelineStep({n,title,text,active,last}:{n:number;title:string;text:string;active:boolean;last:boolean}){return <div className={`relative flex gap-4 ${last?"":"pb-5"}`}>{!last&&<span className="absolute left-[13px] top-7 bottom-0 w-px bg-white/[0.08]" />}<span className={`z-10 flex h-[27px] w-[27px] shrink-0 items-center justify-center rounded-full border text-xs font-bold ${active?"border-[#e9b949] bg-[#e9b949]/10 text-[#e9b949]":"border-white/15 text-white/40"}`}>{n}</span><div className={`flex-1 rounded-xl ${active?"border border-[#e9b949]/30 bg-[#e9b949]/[0.04] p-3.5":"p-0.5"}`}><p className="text-sm font-semibold text-white/90">{title}</p><p className="mt-1 text-[13px] leading-5 text-white/45">{text}</p></div></div>}
 function Timeline({n,title,active}:{n:number;title:string;active:boolean}){return <div className={`flex items-center gap-4 rounded-2xl border p-5 ${active?"border-[#9a6517]/30 bg-white/65":"border-black/10 bg-white/35"}`}><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${active?"bg-[#8b5a12] text-white":"bg-black/10 text-black/60"}`}>{n}</span><div><p className="text-sm font-semibold">{title}</p><p className="mt-1 text-xs text-black/60">{active?"Current stage":"Future stage"}</p></div></div>}
-function Road({state,title}:{state:string;title:string}){return <div className={`${darkSurface} p-5`}><p className="text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">{state}</p><p className="mt-4 text-sm font-semibold text-white/90">{title}</p></div>}
+function RoadmapCard({n,icon,status,title,subtitle,items,statusLabel,proofLabel}:{n:number;icon:React.ReactNode;status:"completed"|"in-progress"|"planned";title:string;subtitle:string;items:readonly(readonly[string,boolean])[];statusLabel:string;proofLabel?:string}){
+  const badgeClass = status === "completed" ? "bg-emerald-400/15 text-emerald-300" : status === "in-progress" ? "bg-[#e9b949]/15 text-[#e9b949]" : "bg-white/[0.06] text-white/45";
+  const cardClass = status === "in-progress" ? "border-[#e9b949]/45 bg-[#e9b949]/[0.03]" : "border-white/[0.08] bg-white/[0.02]";
+  const iconClass = status === "completed" ? "text-emerald-300" : status === "in-progress" ? "text-[#e9b949]" : "text-white/40";
+  return <div className={`flex flex-col rounded-2xl border p-5 ${cardClass}`}>
+    <div className="flex items-center justify-between gap-2">
+      <span className="text-[11px] font-semibold text-white/40">0{n}</span>
+      <span className={`rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.05em] ${badgeClass}`}>{statusLabel}</span>
+    </div>
+    <div className="mt-3.5 flex items-start justify-between gap-2.5">
+      <div><h3 className="text-[15px] font-bold tracking-[-0.01em]">{title}</h3><p className="mt-1 text-[12px] leading-5 text-white/40">{subtitle}</p></div>
+      <span className={`h-7 w-7 shrink-0 ${iconClass}`}>{icon}</span>
+    </div>
+    <div className="mt-3.5 flex flex-col gap-2 border-t border-white/[0.08] pt-3.5">
+      {items.map(([text, done]) => (
+        <div key={text} className="flex items-center gap-2.5 text-[12.5px]">
+          <span className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full text-[9px] ${done ? (status === "completed" ? "bg-emerald-400/20 text-emerald-300" : "bg-[#e9b949]/20 text-[#e9b949]") : "border border-white/[0.18]"}`}>{done ? "✓" : ""}</span>
+          <span className={done ? "text-white/85" : "text-white/40"}>{text}</span>
+        </div>
+      ))}
+    </div>
+    {proofLabel && <a href="/transparency" className="mt-3.5 text-[12.5px] font-semibold text-[#e9b949]">{proofLabel} →</a>}
+  </div>;
+}
 function Faq({q,a}:{q:string;a:string}){return <details className={`${darkSurface} px-5 py-4`}><summary className="cursor-pointer text-[15px] font-semibold text-white/90">{q}</summary><p className="mt-3 max-w-2xl text-sm leading-6 text-white/60">{a}</p></details>}
 function FooterCol({title,links}:{title:string;links:readonly (readonly [string,string])[]}){return <div><p className="text-sm font-semibold text-white/75">{title}</p><div className="mt-4 flex flex-col items-start gap-3">{links.map(([label,href])=>{const external=href.startsWith("http");return <a key={label} href={href} target={external?"_blank":undefined} rel={external?"noopener noreferrer":undefined} className="text-sm text-white/50 hover:text-[#e9b949]">{label}{external?" ↗":""}</a>;})}</div></div>}
