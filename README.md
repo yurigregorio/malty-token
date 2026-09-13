@@ -18,30 +18,46 @@ Production tooling, transparency material and deployment record for **Malty (MAL
 
 The complete verified deployment record is in [`docs/MALTY_MAINNET_V1.md`](docs/MALTY_MAINNET_V1.md).
 
+## Canonical tokenomics
+
+| Reserve | Allocation | Share |
+| --- | ---: | ---: |
+| Liquidity | 500,000,000 MALTY | 50% |
+| Ecosystem | 150,000,000 MALTY | 15% |
+| Community | 150,000,000 MALTY | 15% |
+| MALTY Impact | 50,000,000 MALTY | 5% |
+| Treasury | 75,000,000 MALTY | 7.5% |
+| Team & Core Contributors | 75,000,000 MALTY | 7.5% |
+| **Total** | **1,000,000,000 MALTY** | **100%** |
+
+The MALTY Impact allocation was created by reducing the previous Ecosystem allocation from 20% to 15%. Total supply remains fixed and unchanged.
+
+Planned initial availability remains **100,000,000 MALTY (10%)**. The 50M MALTY Impact reserve has **0 planned initial availability** and is intended to remain reserved for future documented animal-welfare initiatives.
+
 ## MALTY Impact
 
-MALTY Impact is the project's planned animal-welfare transparency initiative.
+MALTY Impact is the project's dedicated animal-welfare token reserve supporting the planned MALTY Gives initiative.
 
 - **Public wallet:** `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`
-- **Status:** planned / not active
-- **Purpose:** provide a dedicated public reference for future documented animal-welfare initiatives and their evidence.
+- **Canonical allocation:** 50,000,000 MALTY (5%)
+- **Program status:** planned / not active
+- **Initial circulating availability:** 0 MALTY
 
-The public address is documented for transparency. Its publication does not by itself indicate that an initiative has been funded or completed.
+Funding the MALTY Impact reserve wallet is not itself a donation. Future completed initiatives must be documented with beneficiary, purpose, evidence and public transaction references where applicable.
 
 ## Public transparency
 
-The default home page is the MALTY public-information landing page. It publishes the verified mint, fixed supply, authorities, canonical token allocation and the latest documented reserve status without presenting planned allocations as already-circulating tokens.
+The public landing page and documentation publish the verified mint, fixed supply, authorities, canonical token allocation, wallet architecture and reserve policies without presenting planned allocations as already-circulating tokens.
 
 Public documentation:
 
 - [`docs/TRANSPARENCY.md`](docs/TRANSPARENCY.md) — concise public transparency reference
 - [`docs/FAQ.md`](docs/FAQ.md) — public project FAQ
 - [`docs/LAUNCH_READINESS.md`](docs/LAUNCH_READINESS.md) — non-transactional launch-readiness record
-- [`docs/RELEASE_NOTES_V1.0_SECURE.md`](docs/RELEASE_NOTES_V1.0_SECURE.md) — secure v1 release snapshot notes
 - [`docs/TOKENOMICS.md`](docs/TOKENOMICS.md) — canonical tokenomics
 - [`docs/WALLET_ARCHITECTURE.md`](docs/WALLET_ARCHITECTURE.md) — reserve and custody architecture
-- [`docs/MALTY_GIVES_POLICY.md`](docs/MALTY_GIVES_POLICY.md) — planned animal-welfare initiative policy
-- [`docs/RECONCILIATION.md`](docs/RECONCILIATION.md) — balance/circulation reconciliation rules
+- [`docs/MALTY_GIVES_POLICY.md`](docs/MALTY_GIVES_POLICY.md) — MALTY Impact / animal-welfare policy
+- [`docs/RECONCILIATION.md`](docs/RECONCILIATION.md) — balance/circulation reconciliation rules and checkpoints
 - [`docs/SECURITY_AUDIT.md`](docs/SECURITY_AUDIT.md) — repository security review
 
 ## Production safeguards
@@ -49,6 +65,8 @@ Public documentation:
 The application records the completed Mainnet deployment and keeps all token-creation and authority-changing actions locked. The Mainnet actions UI is intentionally read-only, so the app does not expose transfer or other signing actions on Mainnet.
 
 The Metadata Update Authority remains separate from Mint Authority and is intentionally retained for metadata maintenance. It cannot mint additional MALTY.
+
+The six reserve addresses currently remain within a temporary single-controller custody boundary. They are **not multisig-protected** at this stage; multisig remains a recommended future custody upgrade.
 
 ## Development
 
@@ -60,18 +78,6 @@ npm run dev
 ```
 
 The public landing page is available at `http://localhost:3000`. Development wallet tooling is separated under `http://localhost:3000/dev`. Transaction testing should use Devnet or local test infrastructure. Mainnet is retained for read-only inspection and verification in this application.
-
-## Project structure
-
-- `app/page.tsx` — public MALTY transparency landing page
-- `app/dev/page.tsx` — development-network wallet tooling
-- `app/lib/malty-token.ts` — MALTY identity, supply and metadata constants
-- `app/lib/malty-config.ts` — per-network deployment state and action guards
-- `app/components/actions/actions-panel.tsx` — network-level action boundary; Mainnet is read-only
-- `app/components/actions/token-card.tsx` — token tooling for non-Mainnet development flows
-- `tests/malty-safety.test.ts` — MALTY production invariants
-- `scripts/security-check.mjs` — repository security invariants
-- `docs/MALTY_MAINNET_V1.md` — verified Mainnet deployment record
 
 ## Technical stack
 
@@ -86,7 +92,7 @@ This project started from the Solana Kit Next.js template and uses:
 - TypeScript
 - Vitest
 
-The app builds one Solana client per selected cluster in `app/lib/solana-client.ts` and provides it through the project client provider. Wallet signing is delegated to the connected wallet for supported non-Mainnet development actions; private keys and seed phrases are never stored in the application.
+Wallet signing is delegated to the connected wallet for supported non-Mainnet development actions; private keys and seed phrases are never stored in the application.
 
 ## Validation
 
@@ -99,13 +105,10 @@ npm run test
 npm run build
 ```
 
-The CI pipeline also performs a high-severity dependency audit and runs these checks for release and safety changes.
-
 ## Network notes
 
 - **Devnet:** completed MALTY test deployment; deployment actions locked, with development tooling available where applicable.
 - **Mainnet:** MALTY Mainnet v1 completed; application transaction actions are read-only/disabled.
-- **Other networks:** not part of the MALTY production deployment.
 
 ## Token metadata
 
