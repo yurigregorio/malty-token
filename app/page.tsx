@@ -142,28 +142,29 @@ export default function Home() {
       </div>
     </section>
 
-    <section className="border-b border-white/[0.07] bg-[#0c0f13]">
-      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
-        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 sm:p-7">
-          <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-center sm:gap-10">
-            <div>
-              <Eyebrow>{t.statusEyebrow}</Eyebrow>
-              <p className="mt-2 flex items-center gap-2.5 text-lg font-semibold tracking-[-0.02em]">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                </span>
-                {t.publicStatusLabel} · {getReviewDateShort(language)}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <StatusFact label="Mainnet" value="Live" tone="green" />
-              <StatusFact label="MALTY Gives" value="Planned" tone="gold" />
-            </div>
-          </div>
-          <div className="mt-5 flex flex-wrap gap-5 border-t border-white/[0.07] pt-4 text-sm">
-            <a href="/transparency" className="font-medium text-[#e9b949]">{t.verifyTransparency} →</a>
-            <a href="/updates" className="font-medium text-white/55 hover:text-white">{t.changeHistory} →</a>
+    <section className="border-b border-white/[0.07]">
+      <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8">
+        <div className="flex flex-wrap items-center gap-4 rounded-xl border border-white/[0.07] bg-white/[0.02] px-5 py-3.5 sm:gap-5">
+          <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#e9b949]">{t.statusEyebrow}</span>
+          <span className="hidden h-4 w-px bg-white/[0.1] sm:block" />
+          <span className="flex items-center gap-2 text-[13px] font-semibold">
+            <span className="relative flex h-[7px] w-[7px]">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-[7px] w-[7px] rounded-full bg-emerald-400" />
+            </span>
+            {language==="pt"?"Token na Solana":"Token on Solana"}
+            <span className="text-[11px] font-normal text-white/40">{language==="pt"?"Publicado":"Published"}</span>
+          </span>
+          <span className="hidden h-4 w-px bg-white/[0.1] sm:block" />
+          <span className="flex items-center gap-2 text-[13px] font-semibold">
+            <span className="h-[7px] w-[7px] rounded-full bg-[#e9b949]" />
+            MALTY Gives
+            <span className="text-[11px] font-normal text-white/40">{language==="pt"?"Planejado":"Planned"}</span>
+          </span>
+          <div className="ml-auto flex flex-wrap items-center gap-4">
+            <span className="text-[11px] text-white/40">{language==="pt"?"Atualizado":"Updated"} · {getReviewDateShort(language)}</span>
+            <a href="/transparency" className="text-[13px] font-semibold text-[#e9b949]">{t.verifyTransparency} ↗</a>
+            <a href="/updates" className="text-[13px] font-semibold text-white/55 hover:text-white">{language==="pt"?"Histórico":"History"} ↗</a>
           </div>
         </div>
       </div>
@@ -244,7 +245,6 @@ export default function Home() {
 function Eyebrow({children}:{children:React.ReactNode}){return <p className="text-[11px] font-semibold tracking-[0.14em] text-[#e9b949]">{children}</p>}
 function LightEyebrow({children}:{children:React.ReactNode}){return <p className="text-[11px] font-semibold tracking-[0.14em] text-[#8b5a12]">{children}</p>}
 function SolanaMark({className,id="solg-hero"}:{className?:string;id?:string}){return <svg className={className} viewBox="0 0 13 13" fill="none"><defs><linearGradient id={id} x1="0" y1="13" x2="13" y2="0"><stop offset="0" stopColor="#9945FF"/><stop offset="1" stopColor="#14F195"/></linearGradient></defs><rect x="0.4" y="1.2" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`}/><rect x="0.4" y="5.5" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`} opacity=".55"/><rect x="0.4" y="9.8" width="10.5" height="2" rx="1" transform="skewX(-18)" fill={`url(#${id})`}/></svg>}
-function StatusFact({label,value,tone}:{label:string;value:string;tone:"green"|"gold"}){return <div className="w-fit rounded-lg border border-white/[0.07] bg-white/[0.02] px-3.5 py-2"><p className="text-[11px] font-medium text-white/45">{label}</p><p className={`mt-0.5 flex items-center gap-1.5 text-sm font-semibold ${tone==="green"?"text-emerald-300":"text-[#e9b949]"}`}><span className={`h-1.5 w-1.5 rounded-full ${tone==="green"?"bg-emerald-300":"bg-[#e9b949]"}`}/>{value}</p></div>}
 function TokenFact({label,value,right}:{label:string;value:React.ReactNode;right?:boolean}){return <div className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${right?"sm:border-r sm:border-white/[0.07]":""}`}><span className="text-[13px] text-white/45">{label}</span><span className="text-sm font-bold text-white/92">{value}</span></div>}
 function Allocation({name,pct,amount}:{name:string;pct:string;amount:string}){return <div className={`${darkSurface} p-4 transition-transform hover:-translate-y-0.5`}><p className="text-sm font-semibold text-[#e9b949]">{pct}</p><p className="mt-3 text-sm font-semibold text-white/90">{name}</p><p className="mt-1.5 text-[11px] leading-5 text-white/45">{amount} MALTY · planned</p></div>}
 function MissionPillar({icon,title,tag,text,last}:{icon:React.ReactNode;title:string;tag:string;text:string;last?:boolean}){return <div className={last?"":"lg:border-r lg:border-black/10 lg:pr-6"}><span className="text-[#17130d]">{icon}</span><p className="mt-3 text-base font-bold text-[#17130d]">{title}</p><p className="mt-0.5 text-xs text-black/45">{tag}</p><p className="mt-2.5 text-[13px] leading-6 text-black/55">{text}</p></div>}
