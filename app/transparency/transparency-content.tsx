@@ -7,7 +7,7 @@ import { SiteHeader } from "../components/site-header";
 
 const MINT = MALTY_PUBLIC_MINT;
 const reserves = [
-  ["Liquidity", "500M planned", "8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU", "1 MALTY"],
+  ["Liquidity", "500M planned", "8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU", "500,000,000 MALTY"],
   ["Ecosystem", "150M planned", "44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g", "1 MALTY"],
   ["Community", "150M planned", "BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg", "1 MALTY"],
   ["MALTY Impact", "50M planned", MALTY_IMPACT_WALLET, "1 MALTY"],
@@ -26,7 +26,7 @@ const copy = {
     verifyExplorer: "Verify on Solana Explorer ↗",
     reserveEyebrow: "RESERVE ARCHITECTURE",
     reserveTitle: "Planned allocation vs. documented state",
-    reserveText: "At the latest documented reconciliation, Liquidity, Ecosystem, Community and MALTY Impact each hold 1 MALTY from destination-validation test transfers. Treasury and Team remain at 0 MALTY. No reserve has reached its full planned allocation.",
+    reserveText: "At the latest documented reconciliation, the Liquidity Reserve has been funded to its full 500,000,000 MALTY allocation. Ecosystem, Community and MALTY Impact each hold 1 MALTY from destination-validation test transfers. Treasury and Team remain at 0 MALTY.",
     documentedLabel: "Documented",
     custodyNote: "Custody model: these six reserve accounts are currently under one temporary single-controller custody boundary. They are not multisig-protected. This page will be updated if custody moves to a different model.",
     historyEyebrow: "PUBLIC HISTORY",
@@ -56,7 +56,7 @@ const copy = {
     verifyExplorer: "Verificar no Solana Explorer ↗",
     reserveEyebrow: "ARQUITETURA DE RESERVAS",
     reserveTitle: "Alocação planejada vs. estado documentado",
-    reserveText: "Na última reconciliação documentada, Liquidez, Ecossistema, Comunidade e MALTY Impact têm 1 MALTY cada, de transferências de teste de destino. Treasury e Equipe seguem em 0 MALTY. Nenhuma reserva atingiu sua alocação planejada completa.",
+    reserveText: "Na última reconciliação documentada, a Reserva de Liquidez foi financiada com sua alocação completa de 500.000.000 MALTY. Ecossistema, Comunidade e MALTY Impact têm 1 MALTY cada, de transferências de teste de destino. Treasury e Equipe seguem em 0 MALTY.",
     documentedLabel: "Documentado",
     custodyNote: "Modelo de custódia: essas seis contas de reserva estão atualmente sob um único limite temporário de controlador. Elas não são protegidas por multisig. Esta página será atualizada caso a custódia migre para outro modelo.",
     historyEyebrow: "HISTÓRICO PÚBLICO",

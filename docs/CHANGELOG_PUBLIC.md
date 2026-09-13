@@ -18,6 +18,7 @@ This record highlights material project changes that are useful for public trans
 - Six reserve addresses are documented for accounting and public reconciliation.
 - Planned initial availability remains 100,000,000 MALTY (10%); MALTY Impact has 0 planned initial availability.
 - Initial 1-MALTY destination-validation transfers were completed for Liquidity, Ecosystem, Community and MALTY Impact before full reserve distribution.
+- The Liquidity Reserve has since been funded to its full canonical allocation of 500,000,000 MALTY.
 - Liquidity, Community, Ecosystem, Team and MALTY Impact policies are published.
 
 ## Security and application
