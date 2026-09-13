@@ -36,7 +36,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <a href="https://t.me/MaltyCoinCommunity" target="_blank" rel="noopener noreferrer" aria-label="MALTY Community on Telegram" className="flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/60 transition-colors hover:border-[#e9b949]/35 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e9b949]">
+          <a href="https://t.me/MaltyCoinOfficial" target="_blank" rel="noopener noreferrer" aria-label="MALTY on Telegram" className="flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/60 transition-colors hover:border-[#e9b949]/35 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e9b949]">
             <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M21.05 3.16 2.42 10.6c-1.24.5-1.23 1.2-.23 1.51l4.76 1.49L18.6 6.63c.5-.33.96-.15.58.21L10 15.03h-.01l.35 5.08c.5 0 .73-.23.99-.5l2.4-2.33 4.98 3.68c.92.51 1.58.25 1.81-.85l3.27-15.4c.34-1.35-.5-1.96-1.34-1.55Z" /></svg>
           </a>
           <a href="https://x.com/MaltyCoin" target="_blank" rel="noopener noreferrer" aria-label="MALTY on X" className="flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/60 transition-colors hover:border-[#e9b949]/35 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e9b949]">
