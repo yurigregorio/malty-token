@@ -11,10 +11,14 @@ This record highlights material project changes that are useful for public trans
 
 ## Transparency and allocation
 
-- Canonical allocation documented: Liquidity 50%, Ecosystem 20%, Community 15%, Treasury 7.5%, Team 7.5%.
-- Five reserve addresses documented for accounting and public reconciliation.
-- Reserve state documented separately from planned allocation. At the latest documented reconciliation, reserve accounts held 0 MALTY and no reserve transfer had been executed.
-- Liquidity, Community, Ecosystem and Team policies published.
+- Original allocation model documented as Liquidity 50%, Ecosystem 20%, Community 15%, Treasury 7.5%, Team 7.5%.
+- Tokenomics subsequently updated to establish a dedicated **MALTY Impact Reserve of 50,000,000 MALTY (5%)**.
+- The MALTY Impact allocation was created by reducing Ecosystem from 200,000,000 MALTY (20%) to 150,000,000 MALTY (15%). The fixed 1B total supply did not change.
+- Current canonical allocation: Liquidity 50%, Ecosystem 15%, Community 15%, MALTY Impact 5%, Treasury 7.5%, Team 7.5%.
+- Six reserve addresses are documented for accounting and public reconciliation.
+- Planned initial availability remains 100,000,000 MALTY (10%); MALTY Impact has 0 planned initial availability.
+- Initial 1-MALTY destination-validation transfers were completed for Liquidity, Ecosystem and Community before full reserve distribution.
+- Liquidity, Community, Ecosystem, Team and MALTY Impact policies are published.
 
 ## Security and application
 
@@ -22,13 +26,15 @@ This record highlights material project changes that are useful for public trans
 - Public Mainnet interface kept read-only for deployment actions.
 - Repository security checks and dependency audit added to CI.
 - Public landing page separated from development tooling.
+- Reserve custody remains single-controller at the current checkpoint; multisig has not yet been implemented and is not claimed.
 
 ## Brand and mission
 
 - MALTY established as the sole public project, token and brand identity.
 - MALTY Gives introduced as a planned animal-welfare initiative.
-- MALTY Gives policy draft published before activation; no donation amount or percentage is currently promised.
-- MALTY Impact public reference wallet (`DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`) published for future, not-yet-active animal-welfare transparency reporting.
+- `MALTY Impact` is now the dedicated 5% token reserve for future documented animal-welfare initiatives.
+- Funding the MALTY Impact reserve wallet is not itself a donation or proof that an initiative has been completed.
+- MALTY Impact public wallet: `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`.
 
 ## Community
 
