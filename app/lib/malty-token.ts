@@ -41,6 +41,12 @@ export const MALTY_PUBLIC_MINT = "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz";
 // public pages. Update only this constant when the review date changes.
 export const MALTY_PUBLIC_REVIEW_DATE_ISO = "2026-09-12";
 
+// Single source of truth for the homepage "What comes next" roadmap timeline
+// (the "Proof, not promises" section). This is a 1-indexed position into the
+// `nextItems` list in app/page.tsx — update it whenever a roadmap milestone
+// is completed and the project moves on to the next one.
+export const MALTY_ROADMAP_CURRENT_STEP = 1;
+
 const MONTHS: Record<"en" | "pt", { short: string[]; long: string[] }> = {
   en: {
     short: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],

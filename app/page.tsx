@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import {
   MALTY_PUBLIC_MINT,
+  MALTY_ROADMAP_CURRENT_STEP,
   MALTY_TOKEN,
   getReviewDateShort,
 } from "./lib/malty-token";
@@ -43,9 +44,18 @@ const copy = {
     primaryCta: "Explore MALTY", secondaryCta: "Transparency", statusEyebrow: "PROJECT STATUS", publicStatusLabel: "Public status",
     verifyTransparency: "Verify transparency", changeHistory: "View change history", storyEyebrow: "THE MALTY MISSION", storyTitle: "Community with a purpose.",
     storyText: "MALTY connects four parts of one project: a transparent token, a strong identity, an open community and MALTY Gives — a planned initiative designed to support animal-welfare projects with public evidence of real-world impact.", about: "About MALTY",
-    verifiedEyebrow: "PROOF, NOT PROMISES", verifiedTitle: "What is verified today?", nextTitle: "What comes next?",
+    verifiedEyebrow: "PROOF, NOT PROMISES", proofTitle: "Built on proof. Moving with purpose.",
+    proofSubtitle: "A fair launch. A transparent foundation. A kinder tomorrow for pets. Here's what's verified on-chain today — and what's next.",
+    verifiedTitle: "Verified today", verifiedSubtitle: "Core facts, on-chain and verifiable.",
+    nextTitle: "What's next", nextSubtitle: "A clear roadmap for real-world impact.",
+    viewEvidence: "View on-chain evidence", exploreGives: "Explore MALTY Gives",
     verifiedItems: ["1B fixed supply", "Mint Authority revoked", "No Freeze Authority", "0% transfer tax", "Public reserve architecture", "Mainnet deployment verified"],
-    nextItems: ["Grow the MALTY community", "Publish MALTY Gives operating criteria", "Complete the first pet initiative", "Publish verifiable impact evidence"],
+    nextItems: [
+      ["Grow the MALTY community", "More pet lovers. A stronger voice. A bigger impact ahead."],
+      ["Publish MALTY Gives operating criteria", "A clear, transparent framework for doing good."],
+      ["Complete the first pet initiative", "Turn community support into real-world help for pets."],
+      ["Publish verifiable impact evidence", "Show what's been achieved, on-chain and beyond."],
+    ],
     tokenEyebrow: "OFFICIAL TOKEN", tokenTitle: "Clear facts. Publicly verifiable.", tokenText: "The essentials of the official MALTY token, presented openly and without hiding the project structure behind marketing.",
     allocationEyebrow: "TOKENOMICS", allocationTitle: "Published allocation plan", allocationNote: "These are planned allocations, not claims that reserve balances have already been distributed.", reserveArchitecture: "Full reserve architecture",
     givesTitle: "Community-powered. Pet-focused.", givesText: "MALTY Gives is being designed as the impact layer of the project. The community can help surface meaningful animal-welfare initiatives, while selection rules and completed actions are documented publicly.",
@@ -62,9 +72,18 @@ const copy = {
     primaryCta: "Conhecer MALTY", secondaryCta: "Transparência", statusEyebrow: "STATUS DO PROJETO", publicStatusLabel: "Status público",
     verifyTransparency: "Verificar transparência", changeHistory: "Ver histórico de alterações", storyEyebrow: "A MISSÃO MALTY", storyTitle: "Comunidade com propósito.",
     storyText: "MALTY conecta quatro partes de um mesmo projeto: token transparente, identidade forte, comunidade aberta e MALTY Gives — uma iniciativa planejada para apoiar projetos de bem-estar animal com evidências públicas do impacto gerado.", about: "Sobre o MALTY",
-    verifiedEyebrow: "PROVAS, NÃO PROMESSAS", verifiedTitle: "O que está verificado hoje?", nextTitle: "O que vem a seguir?",
+    verifiedEyebrow: "PROVAS, NÃO PROMESSAS", proofTitle: "Construído sobre provas. Andando com propósito.",
+    proofSubtitle: "Um lançamento justo. Uma base transparente. Um amanhã melhor para os pets. Aqui está o que já está verificado on-chain hoje — e o que vem a seguir.",
+    verifiedTitle: "Verificado hoje", verifiedSubtitle: "Fatos centrais, on-chain e auditáveis.",
+    nextTitle: "O que vem a seguir", nextSubtitle: "Um roteiro claro para impacto real.",
+    viewEvidence: "Ver evidências on-chain", exploreGives: "Explorar MALTY Gives",
     verifiedItems: ["Supply fixo de 1B", "Mint Authority revogada", "Sem Freeze Authority", "0% de taxa de transferência", "Arquitetura pública de reservas", "Deploy Mainnet verificável"],
-    nextItems: ["Expandir a comunidade MALTY", "Publicar critérios operacionais do MALTY Gives", "Concluir a primeira iniciativa pet", "Publicar evidências verificáveis de impacto"],
+    nextItems: [
+      ["Expandir a comunidade MALTY", "Mais tutores. Uma voz mais forte. Mais impacto à frente."],
+      ["Publicar critérios operacionais do MALTY Gives", "Um framework claro e transparente para fazer o bem."],
+      ["Concluir a primeira iniciativa pet", "Transformar apoio da comunidade em ajuda real para os pets."],
+      ["Publicar evidências verificáveis de impacto", "Mostrar o que foi realizado, on-chain e além."],
+    ],
     tokenEyebrow: "TOKEN OFICIAL", tokenTitle: "Dados claros. Verificáveis publicamente.", tokenText: "O essencial sobre o token oficial MALTY, apresentado de forma aberta e sem esconder a estrutura do projeto atrás do marketing.",
     allocationEyebrow: "TOKENOMICS", allocationTitle: "Plano de alocação publicado", allocationNote: "Estas são alocações planejadas, não uma afirmação de que os saldos das reservas já foram distribuídos.", reserveArchitecture: "Arquitetura completa das reservas",
     givesTitle: "Movido pela comunidade. Focado em pets.", givesText: "MALTY Gives está sendo estruturado como a frente de impacto do projeto. A comunidade poderá ajudar a identificar iniciativas relevantes, enquanto regras de seleção e ações concluídas serão documentadas publicamente.",
@@ -188,7 +207,37 @@ export default function Home() {
       </div>
     </section>
 
-    <section className="border-b border-white/[0.07]"><div className={`mx-auto grid max-w-6xl gap-4 ${sectionPad} lg:grid-cols-2`}><div className={`${darkSurface} p-6 sm:p-8`}><Eyebrow>{t.verifiedEyebrow}</Eyebrow><h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{t.verifiedTitle}</h2><div className="mt-6 grid gap-2 sm:grid-cols-2">{t.verifiedItems.map(x=><Fact key={x} text={x}/>)}</div></div><div className={`${darkSurface} p-6 sm:p-8`}><Eyebrow>{language==="pt"?"PRÓXIMOS PASSOS":"NEXT"}</Eyebrow><h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{t.nextTitle}</h2><div className="mt-6 space-y-4">{t.nextItems.map((x,i)=><div key={x} className="flex items-start gap-4"><span className="mt-0.5 text-[11px] font-semibold text-[#e9b949]">0{i+1}</span><p className="text-sm leading-6 text-white/65">{x}</p></div>)}</div></div></div></section>
+    <section id="proof" className="border-b border-white/[0.07]">
+      <div className={`mx-auto max-w-6xl ${sectionPad}`}>
+        <div className="max-w-2xl">
+          <Eyebrow>{t.verifiedEyebrow}</Eyebrow>
+          <h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.proofTitle}</h2>
+          <p className={`mt-4 ${textBody}`}>{t.proofSubtitle}</p>
+        </div>
+        <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h3 className="text-xl font-bold tracking-[-0.02em]">{t.verifiedTitle}</h3>
+            <p className="mt-1.5 text-[13px] text-white/45">{t.verifiedSubtitle}</p>
+            <div className="mt-5 flex flex-col gap-2">
+              {t.verifiedItems.map(x => <FactLink key={x} text={x} href={`https://explorer.solana.com/address/${MINT}`} />)}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold tracking-[-0.02em]">{t.nextTitle}</h3>
+            <p className="mt-1.5 text-[13px] text-white/45">{t.nextSubtitle}</p>
+            <div className="mt-5">
+              {t.nextItems.map(([title, text], i) => (
+                <TimelineStep key={title} n={i + 1} title={title} text={text} active={i + 1 === MALTY_ROADMAP_CURRENT_STEP} last={i === t.nextItems.length - 1} />
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.07] pt-6">
+          <a href={`https://explorer.solana.com/address/${MINT}`} target="_blank" rel="noopener noreferrer" className="text-[13px] font-semibold text-[#e9b949]">{t.viewEvidence} ↗</a>
+          <a href="/gives" className="inline-flex items-center gap-1.5 rounded-xl border border-[#e9b949] px-4.5 py-2.5 text-[13px] font-bold text-[#e9b949] transition-colors hover:bg-[#e9b949]/10">{t.exploreGives} →</a>
+        </div>
+      </div>
+    </section>
 
     <section id="token" className="border-b border-white/[0.07] bg-[#0c0f13]">
       <div className={`mx-auto max-w-6xl ${sectionPad}`}>
@@ -255,7 +304,8 @@ const missionIcons = [
   <svg key="gives" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><circle cx="11" cy="4.5" r="2"/><circle cx="17.5" cy="8" r="2"/><circle cx="19.5" cy="15" r="2"/><path d="M9 9.5a4.5 4.5 0 0 1 4.5 4.5v3.2a3.2 3.2 0 0 1-6.24.95Q6 17.5 4.2 16.9A3.2 3.2 0 0 1 5.1 9.5Z"/></svg>,
   <svg key="reporting" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 16v-3M12 16V8M16 16v-5"/></svg>,
 ] as const;
-function Fact({text}:{text:string}){return <div className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-black/10 px-3.5 py-3"><span className="text-emerald-300">✓</span><p className="text-sm font-medium text-white/70">{text}</p></div>}
+function FactLink({text,href}:{text:string;href:string}){return <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-black/10 px-3.5 py-3 transition-colors hover:border-[#e9b949]/35 hover:bg-[#e9b949]/[0.04]"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-[11px] text-emerald-300">✓</span><p className="flex-1 text-sm font-medium text-white/80">{text}</p><span className="text-white/30">↗</span></a>}
+function TimelineStep({n,title,text,active,last}:{n:number;title:string;text:string;active:boolean;last:boolean}){return <div className={`relative flex gap-4 ${last?"":"pb-5"}`}>{!last&&<span className="absolute left-[13px] top-7 bottom-0 w-px bg-white/[0.08]" />}<span className={`z-10 flex h-[27px] w-[27px] shrink-0 items-center justify-center rounded-full border text-xs font-bold ${active?"border-[#e9b949] bg-[#e9b949]/10 text-[#e9b949]":"border-white/15 text-white/40"}`}>{n}</span><div className={`flex-1 rounded-xl ${active?"border border-[#e9b949]/30 bg-[#e9b949]/[0.04] p-3.5":"p-0.5"}`}><p className="text-sm font-semibold text-white/90">{title}</p><p className="mt-1 text-[13px] leading-5 text-white/45">{text}</p></div></div>}
 function Timeline({n,title,active}:{n:number;title:string;active:boolean}){return <div className={`flex items-center gap-4 rounded-2xl border p-5 ${active?"border-[#9a6517]/30 bg-white/65":"border-black/10 bg-white/35"}`}><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${active?"bg-[#8b5a12] text-white":"bg-black/10 text-black/60"}`}>{n}</span><div><p className="text-sm font-semibold">{title}</p><p className="mt-1 text-xs text-black/60">{active?"Current stage":"Future stage"}</p></div></div>}
 function Road({state,title}:{state:string;title:string}){return <div className={`${darkSurface} p-5`}><p className="text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">{state}</p><p className="mt-4 text-sm font-semibold text-white/90">{title}</p></div>}
 function Faq({q,a}:{q:string;a:string}){return <details className={`${darkSurface} px-5 py-4`}><summary className="cursor-pointer text-[15px] font-semibold text-white/90">{q}</summary><p className="mt-3 max-w-2xl text-sm leading-6 text-white/60">{a}</p></details>}
