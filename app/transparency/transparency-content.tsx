@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { MALTY_PUBLIC_MINT, getReviewDateLong } from "../lib/malty-token";
+import { MALTY_IMPACT_WALLET, MALTY_PUBLIC_MINT, getReviewDateLong } from "../lib/malty-token";
 import { useLanguage } from "../lib/language";
 import { SubPageHeader } from "../components/sub-page-header";
 
 const MINT = MALTY_PUBLIC_MINT;
+const IMPACT_WALLET = MALTY_IMPACT_WALLET;
 const reserves = [
   ["Liquidity", "500M planned", "8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU"],
   ["Ecosystem", "200M planned", "44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g"],
@@ -27,6 +28,10 @@ const copy = {
     reserveTitle: "Planned allocation vs. documented state",
     reserveText: "At the latest documented reconciliation, each published reserve account held 0 MALTY and no reserve transfer had been executed.",
     documented: "Documented: 0 MALTY",
+    custodyNote: "Custody model: these five reserve accounts are currently under one temporary single-controller custody boundary. They are not multisig-protected. This page will be updated if custody moves to a different model.",
+    impactEyebrow: "MALTY IMPACT — PUBLIC REFERENCE WALLET",
+    impactStatus: "Not active",
+    impactNote: "Reserved for future, documented MALTY Gives contributions. Publication does not mean an initiative has been funded or completed.",
     historyEyebrow: "PUBLIC HISTORY",
     historyTitle: "Material milestones",
     milestones: [
@@ -56,6 +61,10 @@ const copy = {
     reserveTitle: "Alocação planejada vs. estado documentado",
     reserveText: "Na última reconciliação documentada, cada conta de reserva publicada tinha 0 MALTY e nenhuma transferência de reserva havia sido executada.",
     documented: "Documentado: 0 MALTY",
+    custodyNote: "Modelo de custódia: essas cinco contas de reserva estão atualmente sob um único limite temporário de controlador. Elas não são protegidas por multisig. Esta página será atualizada caso a custódia migre para outro modelo.",
+    impactEyebrow: "MALTY IMPACT — CARTEIRA PÚBLICA DE REFERÊNCIA",
+    impactStatus: "Não ativa",
+    impactNote: "Reservada para futuras contribuições documentadas do MALTY Gives. A publicação não significa que uma iniciativa já foi financiada ou concluída.",
     historyEyebrow: "HISTÓRICO PÚBLICO",
     historyTitle: "Marcos materiais",
     milestones: [
@@ -117,6 +126,15 @@ export function TransparencyContent() {
                 <p className="mt-2 break-all font-mono text-[11px] text-white/45">{wallet}</p>
               </div>
             ))}
+          </div>
+          <p className="mt-5 max-w-2xl text-xs leading-5 text-white/45">{t.custodyNote}</p>
+          <div className="mt-5 rounded-xl border border-[#e9b949]/15 bg-[#e9b949]/[.03] p-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-[11px] font-black tracking-[.16em] text-[#e9b949]">{t.impactEyebrow}</p>
+              <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-white/45">{t.impactStatus}</span>
+            </div>
+            <p className="mt-2 break-all font-mono text-[11px] text-white/50">{IMPACT_WALLET}</p>
+            <p className="mt-2 text-xs leading-5 text-white/42">{t.impactNote}</p>
           </div>
         </section>
 

@@ -117,6 +117,17 @@ The existing operational/deployer wallet remains separate from the five reserves
 
 The operational wallet is not a tokenomics category and should not receive a MALTY allocation merely because it pays transaction fees.
 
+## MALTY Impact Reference Wallet
+
+MALTY Impact is a dedicated public reference wallet for the project's planned animal-welfare transparency initiative (see `docs/MALTY_GIVES_POLICY.md`).
+
+- Label: `MALTY Impact`.
+- Public address: `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`.
+- Status: planned / not active. No animal-welfare initiative has been funded or completed through this address.
+- Purpose: provide a stable public reference so future, documented animal-welfare contributions can be independently verified once MALTY Gives is active.
+
+This wallet is not one of the five tokenomics reserve categories and does not itself carry a token allocation. Its publication does not indicate that funds have been committed, moved, or that an initiative has begun.
+
 ## Custody and Authorization Model
 
 The five reserve addresses currently provide category-level account separation but remain under a temporary single-controller custody model.
@@ -173,3 +184,4 @@ A movement between tokenomics categories is a reallocation and must follow the C
 - **v1:** Defined the five project reserve categories, Team recipient separation, optional fee-payer wallet, custody principles, address-publication policy and reconciliation standard.
 - **v2:** Registered the interim `MALTY - Project Reserve` public address and documented the temporary single-controller custody model while preserving the five tokenomics categories as separate accounting allocations.
 - **v3:** Replaced the shared interim reserve address model with five dedicated reserve addresses and documented the operational/deployer wallet separately.
+- **v4:** Documented the MALTY Impact public reference wallet for the planned animal-welfare transparency initiative.

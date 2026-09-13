@@ -26,6 +26,13 @@ const copy = {
       ["Community", "Create transparent participation channels as the project grows."],
       ["MALTY Gives", "Define eligibility, evidence and reporting standards before activation."],
     ],
+    rolesEyebrow: "TEAM STRUCTURE",
+    rolesTitle: "By role, not by name.",
+    rolesText: "The public website presents the team by role and responsibility rather than personal names or photos.",
+    currentRolesLabel: "Current team",
+    currentRoles: ["Project Lead", "Blockchain Engineer I", "Blockchain Engineer II", "Blockchain Engineer III", "Brand & Product Designer", "Marketing Manager", "Content & Social Media Manager", "Community Manager"],
+    plannedRolesLabel: "Planned operational functions",
+    plannedRoles: ["Partnerships & MALTY Impact Coordinator", "Treasury & Operations Manager", "Transparency & Accountability Coordinator"],
     flow: [
       ["01", "Community", "Build participation around a shared project identity."],
       ["02", "MALTY Gives", "Review and support selected pet and animal-welfare initiatives once the program is active."],
@@ -59,6 +66,13 @@ const copy = {
       ["Comunidade", "Criar canais de participação transparentes à medida que o projeto cresce."],
       ["MALTY Gives", "Definir critérios de elegibilidade, evidências e padrões de prestação de contas antes da ativação."],
     ],
+    rolesEyebrow: "ESTRUTURA DA EQUIPE",
+    rolesTitle: "Por função, não por nome.",
+    rolesText: "O site público apresenta a equipe por função e responsabilidade, e não por nomes pessoais ou fotos.",
+    currentRolesLabel: "Equipe atual",
+    currentRoles: ["Project Lead", "Blockchain Engineer I", "Blockchain Engineer II", "Blockchain Engineer III", "Brand & Product Designer", "Marketing Manager", "Content & Social Media Manager", "Community Manager"],
+    plannedRolesLabel: "Funções operacionais planejadas",
+    plannedRoles: ["Partnerships & MALTY Impact Coordinator", "Treasury & Operations Manager", "Transparency & Accountability Coordinator"],
     flow: [
       ["01", "Comunidade", "Construir participação em torno de uma identidade de projeto compartilhada."],
       ["02", "MALTY Gives", "Revisar e apoiar iniciativas selecionadas de pets e bem-estar animal quando o programa estiver ativo."],
@@ -97,6 +111,25 @@ export function AboutContent() {
           <p className="mt-3 max-w-3xl text-sm leading-6 text-white/48">{t.stewardshipText}</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {t.stewards.map(([title, text]) => <Steward key={title} title={title} text={text} />)}
+          </div>
+        </section>
+        <section className="mt-10">
+          <p className="text-[11px] font-black tracking-[0.2em] text-[#e9b949]">{t.rolesEyebrow}</p>
+          <h2 className="mt-2 text-2xl font-black">{t.rolesTitle}</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/48">{t.rolesText}</p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-white/50">{t.currentRolesLabel}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {t.currentRoles.map((role) => <span key={role} className="rounded-full border border-white/[0.1] bg-white/[0.03] px-3 py-1.5 text-xs font-semibold text-white/80">{role}</span>)}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-[#e9b949]/15 bg-[#e9b949]/[0.03] p-5">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#e9b949]">{t.plannedRolesLabel}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {t.plannedRoles.map((role) => <span key={role} className="rounded-full border border-[#e9b949]/20 bg-[#e9b949]/[0.05] px-3 py-1.5 text-xs font-semibold text-[#e9b949]">{role}</span>)}
+              </div>
+            </div>
           </div>
         </section>
         <section className="mt-10 grid gap-3 sm:grid-cols-3">

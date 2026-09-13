@@ -15,6 +15,7 @@ const copy = {
       ["MALTY Gives", "Planned animal-welfare initiative and activation standard.", "/gives"],
       ["Tokenomics", "Canonical allocation: 50 / 20 / 15 / 7.5 / 7.5.", "/transparency"],
       ["Change history", "Material project milestones and transparency changes.", "/updates"],
+      ["Security audit", "Repository security review — findings and current status.", "https://github.com/yurigregorio/malty-token/blob/main/docs/SECURITY_AUDIT.md"],
     ],
     principleLabel: "Documentation principle:",
     principleText: "completed and verifiable facts should be presented as facts; future intentions should remain explicitly labeled as planned.",
@@ -29,6 +30,7 @@ const copy = {
       ["MALTY Gives", "Iniciativa planejada de bem-estar animal e padrão de ativação.", "/gives"],
       ["Tokenomics", "Alocação canônica: 50 / 20 / 15 / 7,5 / 7,5.", "/transparency"],
       ["Histórico de mudanças", "Marcos materiais do projeto e mudanças de transparência.", "/updates"],
+      ["Auditoria de segurança", "Revisão de segurança do repositório — achados e status atual.", "https://github.com/yurigregorio/malty-token/blob/main/docs/SECURITY_AUDIT.md"],
     ],
     principleLabel: "Princípio de documentação:",
     principleText: "fatos concluídos e verificáveis devem ser apresentados como fatos; intenções futuras devem permanecer explicitamente rotuladas como planejadas.",
@@ -47,12 +49,20 @@ export function DocsContent() {
         <h1 className="mt-3 text-4xl font-black tracking-[-0.05em] sm:text-5xl">{t.title}</h1>
         <p className="mt-4 max-w-2xl text-sm leading-6 text-white/50">{t.intro}</p>
         <div className="mt-10 grid gap-3 sm:grid-cols-2">
-          {t.docs.map(([title, text, href]) => (
-            <Link key={title} href={href} className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 transition hover:border-[#e9b949]/35">
-              <p className="font-black group-hover:text-[#e9b949]">{title} →</p>
-              <p className="mt-2 text-xs leading-5 text-white/42">{text}</p>
-            </Link>
-          ))}
+          {t.docs.map(([title, text, href]) => {
+            const external = href.startsWith("http");
+            return external ? (
+              <a key={title} href={href} target="_blank" rel="noopener noreferrer" className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 transition hover:border-[#e9b949]/35">
+                <p className="font-black group-hover:text-[#e9b949]">{title} ↗</p>
+                <p className="mt-2 text-xs leading-5 text-white/42">{text}</p>
+              </a>
+            ) : (
+              <Link key={title} href={href} className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 transition hover:border-[#e9b949]/35">
+                <p className="font-black group-hover:text-[#e9b949]">{title} →</p>
+                <p className="mt-2 text-xs leading-5 text-white/42">{text}</p>
+              </Link>
+            );
+          })}
         </div>
         <div className="mt-10 rounded-2xl border border-white/[0.08] p-5 text-xs leading-5 text-white/40">
           <strong className="text-white/70">{t.principleLabel}</strong> {t.principleText}

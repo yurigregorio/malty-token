@@ -37,6 +37,10 @@ For each completed initiative, publish a concise record containing:
 | Evidence / receipt when appropriate | Yes |
 | Blockchain transaction when applicable | Yes |
 
+## Public reference wallet
+
+A dedicated public wallet, `MALTY Impact` (`DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`), is documented in `docs/WALLET_ARCHITECTURE.md` as the intended public reference for future MALTY Gives contributions. It is planned and not active: no initiative has been funded or completed through this address, and its publication does not by itself indicate any contribution has occurred.
+
 ## Current state
 
 No MALTY Gives contribution program is active. No contribution amount or percentage has been committed. This document defines the transparency standard the project intends to follow before activation.

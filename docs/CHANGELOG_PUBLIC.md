@@ -28,6 +28,11 @@ This record highlights material project changes that are useful for public trans
 - MALTY established as the sole public project, token and brand identity.
 - MALTY Gives introduced as a planned animal-welfare initiative.
 - MALTY Gives policy draft published before activation; no donation amount or percentage is currently promised.
+- MALTY Impact public reference wallet (`DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`) published for future, not-yet-active animal-welfare transparency reporting.
+
+## Community
+
+- Public MALTY community channel launched (X: [@MaltyCoin](https://x.com/MaltyCoin)).
 
 ## Reporting rule
 

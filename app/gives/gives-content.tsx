@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { getReviewDateShort } from "../lib/malty-token";
+import { MALTY_IMPACT_WALLET, getReviewDateShort } from "../lib/malty-token";
 import { useLanguage } from "../lib/language";
 import { SubPageHeader } from "../components/sub-page-header";
+
+const IMPACT_WALLET = MALTY_IMPACT_WALLET;
 
 const copy = {
   en: {
@@ -38,6 +40,10 @@ const copy = {
     lastReview: "LAST PUBLIC REVIEW",
     planned: "PLANNED",
     statusNote: "No organization is currently presented as a beneficiary, no contribution has been claimed, and no future amount is guaranteed. The public record should only change after real, documented activity exists.",
+    walletEyebrow: "PUBLIC REFERENCE WALLET",
+    walletTitle: "MALTY Impact",
+    walletNote: "A dedicated public wallet reserved for future, documented MALTY Gives contributions. Publishing this address does not mean an initiative has been funded or completed.",
+    walletStatus: "Not active",
     ctaTransparency: "Transparency center",
     ctaUpdates: "Project updates",
     ctaDocs: "Public documentation",
@@ -74,6 +80,10 @@ const copy = {
     lastReview: "ÚLTIMA REVISÃO PÚBLICA",
     planned: "PLANEJADO",
     statusNote: "Nenhuma organização é atualmente apresentada como beneficiária, nenhuma contribuição foi reivindicada e nenhum valor futuro é garantido. O registro público só deve mudar depois que atividade real e documentada existir.",
+    walletEyebrow: "CARTEIRA PÚBLICA DE REFERÊNCIA",
+    walletTitle: "MALTY Impact",
+    walletNote: "Uma carteira pública dedicada, reservada para futuras contribuições documentadas do MALTY Gives. Publicar esse endereço não significa que uma iniciativa já foi financiada ou concluída.",
+    walletStatus: "Não ativa",
     ctaTransparency: "Central de transparência",
     ctaUpdates: "Atualizações do projeto",
     ctaDocs: "Documentação pública",
@@ -117,6 +127,15 @@ export function GivesContent() {
             <span className="rounded-full border border-[#e9b949]/20 bg-[#e9b949]/[0.05] px-3 py-1 text-[11px] font-black text-[#e9b949]">{t.planned}</span>
           </div>
           <p className="mt-3 text-xs leading-5 text-white/42">{t.statusNote}</p>
+        </section>
+        <section className="mt-6 rounded-2xl border border-[#e9b949]/15 bg-[#e9b949]/[0.03] p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-[11px] font-black tracking-[0.18em] text-[#e9b949]">{t.walletEyebrow}</p>
+            <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-white/45">{t.walletStatus}</span>
+          </div>
+          <p className="mt-2 text-sm font-black">{t.walletTitle}</p>
+          <p className="mt-2 break-all font-mono text-[11px] leading-5 text-white/50">{IMPACT_WALLET}</p>
+          <p className="mt-3 max-w-2xl text-xs leading-5 text-white/42">{t.walletNote}</p>
         </section>
         <div className="mt-10 flex flex-wrap gap-3">
           <Link href="/transparency" className="rounded-xl bg-[#e9b949] px-4 py-2.5 text-sm font-black text-black">{t.ctaTransparency}</Link>

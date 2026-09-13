@@ -37,6 +37,12 @@ export const MALTY_TOTAL_SUPPLY_BASE_UNITS =
 // MALTY_CONFIG.mainnet.mint in app/lib/malty-config.ts.
 export const MALTY_PUBLIC_MINT = "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz";
 
+// Public reference wallet for the planned (not active) MALTY Gives
+// animal-welfare initiative. See docs/WALLET_ARCHITECTURE.md and
+// docs/MALTY_GIVES_POLICY.md — publication does not indicate any
+// contribution has occurred.
+export const MALTY_IMPACT_WALLET = "DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik";
+
 // Single source of truth for the "last public review" date shown across the
 // public pages. Update only this constant when the review date changes.
 export const MALTY_PUBLIC_REVIEW_DATE_ISO = "2026-09-12";
