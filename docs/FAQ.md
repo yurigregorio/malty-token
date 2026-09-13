@@ -84,11 +84,21 @@ The team reserve follows a public monthly-release policy, but the on-chain enfor
 
 ## Where can I buy MALTY?
 
-MALTY does not yet have an active liquidity pool. When launch happens, the official buy link will be published in the project's public channels — treat any buy link announced elsewhere before then as untrusted.
+MALTY is live and tradeable through the official MALTY/SOL pool on Raydium (Standard AMM / CPMM).
+
+- **Pool ID:** `DGK42Xe3BMXTJeUVjVNSZL1FmwXVQxUaV88qp6hAdp9W`
+- **Pair:** MALTY/SOL
+- **Fee tier:** 0.25%
+
+Always verify the mint and pool ID before trading. Treat any buy link that does not point to this exact pool as untrusted.
 
 ## Is the liquidity locked?
 
-The project does not claim that liquidity is locked, permanent or guaranteed unless a separate verifiable mechanism is implemented and publicly documented.
+No. LP tokens for the official pool remain under the project's custody wallet — they are not locked or burned. The project does not claim that liquidity is locked, permanent or guaranteed unless a separate verifiable mechanism is implemented and publicly documented.
+
+## What was the initial pool liquidity?
+
+The official pool was created with 5,000,000 MALTY + 0.5 SOL, funded from the 500,000,000 MALTY Liquidity Reserve. The remaining 495,000,000 MALTY stays directly in the Liquidity Reserve wallet for future market-making — the initial pool deposit is a small fraction of the full reserve, not the whole allocation.
 
 ## Are the reserve wallets multisig-protected?
 

@@ -1,18 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { MALTY_IMPACT_WALLET, MALTY_PUBLIC_MINT, getReviewDateLong } from "../lib/malty-token";
+import { MALTY_IMPACT_WALLET, MALTY_POOL_CREATION_TX, MALTY_PUBLIC_MINT, MALTY_RAYDIUM_POOL_ID, MALTY_RAYDIUM_SWAP_URL, MALTY_SOLSCAN_POOL_URL, MALTY_TEST_BUY_TX, getReviewDateLong } from "../lib/malty-token";
 import { useLanguage } from "../lib/language";
 import { SiteHeader } from "../components/site-header";
 
 const MINT = MALTY_PUBLIC_MINT;
+const POOL_ID = MALTY_RAYDIUM_POOL_ID;
 const reserves = [
-  ["Liquidity", "500M planned", "8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU", "500,000,000 MALTY"],
-  ["Ecosystem", "150M planned", "44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g", "1 MALTY"],
-  ["Community", "150M planned", "BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg", "1 MALTY"],
-  ["MALTY Impact", "50M planned", MALTY_IMPACT_WALLET, "1 MALTY"],
-  ["Treasury", "75M planned", "6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6", "0 MALTY"],
-  ["Team", "75M planned", "CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw", "0 MALTY"],
+  ["Liquidity", "500M planned", "8zMNiAh2uH1MoKh9eRjewSrgRjU4WQAYVV2u4SKSiRfU", "495,000,000 MALTY"],
+  ["Ecosystem", "150M planned", "44Ha31Tj911xtFcNv5e4RTD7f3NxhULtcUygBJm8on1g", "150,000,000 MALTY"],
+  ["Community", "150M planned", "BFYWFeqf8uJ4BvD6dfySCkdMVdtDPvxFe5hmSzuCCbhg", "150,000,000 MALTY"],
+  ["MALTY Impact", "50M planned", MALTY_IMPACT_WALLET, "50,000,000 MALTY"],
+  ["Treasury", "75M planned", "6gkNMy3342qVUKSatW27zUAK22ops5Fu7G5J148MQZK6", "75,000,000 MALTY"],
+  ["Team", "75M planned", "CvASopxtFapEhJ8r75UcHiisPVCfxv5ApGAqbwNagXmw", "75,000,000 MALTY"],
 ] as const;
 
 const copy = {
@@ -24,9 +25,17 @@ const copy = {
     reviewed: "Reviewed",
     mintEyebrow: "OFFICIAL MAINNET MINT",
     verifyExplorer: "Verify on Solana Explorer ↗",
+    tradingEyebrow: "OFFICIAL TRADING POOL",
+    tradingTitle: "Verified on Raydium.",
+    tradingText: "MALTY is live and tradeable through the official MALTY/SOL pool below. Always verify the pool ID and mint before trading.",
+    feeTierLabel: "Fee tier", initialLiquidityLabel: "Initial pool liquidity", poolIdLabel: "Pool ID",
+    buyOnRaydium: "Buy on Raydium ↗", viewPoolExplorer: "View pool on Solscan ↗",
+    poolCreationLabel: "Pool creation transaction ↗", testBuyLabel: "Test buy confirmed ↗",
+    tradeLiquidityNote: "Initial pool liquidity is 5,000,000 MALTY + 0.5 SOL — separate from the 500,000,000 MALTY Liquidity Reserve, which remains reserved for future market-making.",
+    lpCustodyNote: "LP tokens remain under the project's custody wallet. They are not locked or burned.",
     reserveEyebrow: "RESERVE ARCHITECTURE",
     reserveTitle: "Planned allocation vs. documented state",
-    reserveText: "At the latest documented reconciliation, the Liquidity Reserve has been funded to its full 500,000,000 MALTY allocation. Ecosystem, Community and MALTY Impact each hold 1 MALTY from destination-validation test transfers. Treasury and Team remain at 0 MALTY.",
+    reserveText: "All six reserves were verified fully funded against the Solscan Holders view for the official mint. 5,000,000 MALTY was then moved from the Liquidity Reserve to fund the initial Raydium pool deposit, leaving 495,000,000 MALTY directly in that reserve wallet. Ecosystem, Community, MALTY Impact, Treasury and Team remain at their full canonical balances.",
     documentedLabel: "Documented",
     custodyNote: "Custody model: these six reserve accounts are currently under one temporary single-controller custody boundary. They are not multisig-protected. This page will be updated if custody moves to a different model.",
     historyEyebrow: "PUBLIC HISTORY",
@@ -36,6 +45,7 @@ const copy = {
       ["Supply authority", "Mint Authority permanently revoked."],
       ["Allocation", "50% Liquidity · 15% Ecosystem · 15% Community · 5% MALTY Impact · 7.5% Treasury · 7.5% Team."],
       ["MALTY Gives", "MALTY Impact is a funded 5% reserve; the contribution program itself remains Planned, with no fixed percentage promised."],
+      ["Trading launch", "Official MALTY/SOL pool live on Raydium; buy and sell confirmed."],
     ],
     changelog: "View public changelog →",
     stewardshipEyebrow: "STEWARDSHIP DISCLOSURE",
@@ -54,9 +64,17 @@ const copy = {
     reviewed: "Revisado",
     mintEyebrow: "MINT OFICIAL NA MAINNET",
     verifyExplorer: "Verificar no Solana Explorer ↗",
+    tradingEyebrow: "POOL OFICIAL DE NEGOCIAÇÃO",
+    tradingTitle: "Verificado na Raydium.",
+    tradingText: "O MALTY está ao vivo e pode ser negociado através do pool oficial MALTY/SOL abaixo. Sempre verifique o ID do pool e o mint antes de negociar.",
+    feeTierLabel: "Taxa da pool", initialLiquidityLabel: "Liquidez inicial do pool", poolIdLabel: "ID do Pool",
+    buyOnRaydium: "Comprar na Raydium ↗", viewPoolExplorer: "Ver pool no Solscan ↗",
+    poolCreationLabel: "Transação de criação do pool ↗", testBuyLabel: "Compra de teste confirmada ↗",
+    tradeLiquidityNote: "A liquidez inicial do pool é de 5.000.000 MALTY + 0,5 SOL — separada da Reserva de Liquidez de 500.000.000 MALTY, que segue reservada para futuras ações de mercado.",
+    lpCustodyNote: "Os tokens de LP continuam sob custódia da carteira do projeto. Eles não estão travados nem foram queimados.",
     reserveEyebrow: "ARQUITETURA DE RESERVAS",
     reserveTitle: "Alocação planejada vs. estado documentado",
-    reserveText: "Na última reconciliação documentada, a Reserva de Liquidez foi financiada com sua alocação completa de 500.000.000 MALTY. Ecossistema, Comunidade e MALTY Impact têm 1 MALTY cada, de transferências de teste de destino. Treasury e Equipe seguem em 0 MALTY.",
+    reserveText: "As seis reservas foram verificadas totalmente financiadas na visão de Holders do Solscan para o mint oficial. Em seguida, 5.000.000 MALTY foram movidos da Reserva de Liquidez para financiar o depósito inicial do pool na Raydium, deixando 495.000.000 MALTY diretamente nessa carteira de reserva. Ecossistema, Comunidade, MALTY Impact, Treasury e Equipe seguem com seus saldos canônicos completos.",
     documentedLabel: "Documentado",
     custodyNote: "Modelo de custódia: essas seis contas de reserva estão atualmente sob um único limite temporário de controlador. Elas não são protegidas por multisig. Esta página será atualizada caso a custódia migre para outro modelo.",
     historyEyebrow: "HISTÓRICO PÚBLICO",
@@ -66,6 +84,7 @@ const copy = {
       ["Autoridade de supply", "Mint Authority permanentemente revogada."],
       ["Alocação", "50% Liquidez · 15% Ecossistema · 15% Comunidade · 5% MALTY Impact · 7,5% Treasury · 7,5% Equipe."],
       ["MALTY Gives", "MALTY Impact é uma reserva financiada de 5%; o programa de contribuição em si segue Planejado, sem percentual fixo prometido."],
+      ["Lançamento de negociação", "Pool oficial MALTY/SOL ao vivo na Raydium; compra e venda confirmadas."],
     ],
     changelog: "Ver changelog público →",
     stewardshipEyebrow: "DIVULGAÇÃO DE GOVERNANÇA",
@@ -95,7 +114,7 @@ export function TransparencyContent() {
             <p className="text-[11px] font-black tracking-[.18em] text-[#e9b949]">{t.reviewStatus}</p>
             <p className="mt-1 text-sm font-black">{t.reviewed} · {getReviewDateLong(language)}</p>
           </div>
-          <div className="flex flex-wrap gap-2"><Badge text="MAINNET LIVE" /><Badge text="MINT REVOKED" /><Badge text="FREEZE NONE" /></div>
+          <div className="flex flex-wrap gap-2"><Badge text="MAINNET LIVE" /><Badge text="TRADING LIVE" /><Badge text="MINT REVOKED" /><Badge text="FREEZE NONE" /></div>
         </section>
 
         <section className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-4"><Card label="Supply" value="1B MALTY" /><Card label="Decimals" value="6" /><Card label="Mint Authority" value="Revoked" /><Card label="Freeze Authority" value="None" /></section>
@@ -104,6 +123,32 @@ export function TransparencyContent() {
           <p className="text-[11px] font-black tracking-[.18em] text-[#e9b949]">{t.mintEyebrow}</p>
           <p className="mt-2 break-all font-mono text-xs text-white/65">{MINT}</p>
           <a href={`https://explorer.solana.com/address/${MINT}`} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-lg bg-[#e9b949] px-3 py-2 text-xs font-black text-black">{t.verifyExplorer}</a>
+        </section>
+
+        <section className="mt-12">
+          <p className="text-[11px] font-black tracking-[.22em] text-[#e9b949]">{t.tradingEyebrow}</p>
+          <h2 className="mt-2 text-2xl font-black">{t.tradingTitle}</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/45">{t.tradingText}</p>
+          <div className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            <Card label="DEX" value="Raydium" />
+            <Card label={language==="pt"?"Par":"Pair"} value="MALTY/SOL" />
+            <Card label={t.feeTierLabel} value="0.25%" />
+            <Card label={t.initialLiquidityLabel} value="5M + 0.5 SOL" />
+          </div>
+          <div className="mt-4 rounded-xl border border-white/[.08] bg-white/[.025] p-4">
+            <p className="text-[11px] text-white/45">{t.poolIdLabel}</p>
+            <p className="mt-1 break-all font-mono text-xs text-white/80">{POOL_ID}</p>
+          </div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#e9b949] px-3.5 py-2 text-xs font-black text-black">{t.buyOnRaydium}</a>
+            <a href={MALTY_SOLSCAN_POOL_URL} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-white/[.1] px-3.5 py-2 text-xs font-black text-white/85">{t.viewPoolExplorer}</a>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs">
+            <a href={`https://solscan.io/tx/${MALTY_POOL_CREATION_TX}`} target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-[#e9b949]">{t.poolCreationLabel}</a>
+            <a href={`https://solscan.io/tx/${MALTY_TEST_BUY_TX}`} target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-[#e9b949]">{t.testBuyLabel}</a>
+          </div>
+          <p className="mt-4 max-w-2xl text-xs leading-5 text-white/45">{t.tradeLiquidityNote}</p>
+          <p className="mt-2 max-w-2xl text-xs leading-5 text-white/45">{t.lpCustodyNote}</p>
         </section>
 
         <section className="mt-12">

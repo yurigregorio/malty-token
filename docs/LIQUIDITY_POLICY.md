@@ -135,11 +135,11 @@ The change record should explain:
 At the current checkpoint:
 
 - Liquidity Reserve allocation: **500,000,000 MALTY planned**;
-- Initial liquidity allocation: **up to 50,000,000 MALTY planned**;
-- Liquidity Reserve wallet: created and documented;
-- Current Liquidity Reserve balance: **0 MALTY**;
-- Initial liquidity deployment: **not executed**;
-- Remaining reserve: **450,000,000 MALTY planned**;
+- Liquidity Reserve wallet: created, documented and funded to its full **500,000,000 MALTY** canonical balance (see `docs/RECONCILIATION.md`);
+- Official MALTY/SOL pool: **live on Raydium** (Standard AMM / CPMM), Pool ID `DGK42Xe3BMXTJeUVjVNSZL1FmwXVQxUaV88qp6hAdp9W`;
+- Initial pool liquidity deployed: **5,000,000 MALTY + 0.5 SOL** — a small fraction of the 50,000,000 MALTY planned initial allocation, not the full Liquidity Reserve;
+- Remaining Liquidity Reserve (held, not deployed to the pool): **495,000,000 MALTY**;
+- LP tokens: held in the project's custody wallet; not locked or burned;
 - Multisig protection: **not yet implemented**.
 
-The current zero balance is consistent with the project architecture: the wallet exists, but no reserve transfer has been executed.
+Funding the Liquidity Reserve wallet is a distinct event from deploying liquidity to the market. The reserve now holds its full canonical balance, but only 5,000,000 MALTY of that has actually been deployed to the official Raydium pool.

@@ -3,8 +3,14 @@
 import Image from "next/image";
 import { useState } from "react";
 import {
+  MALTY_POOL_CREATION_TX,
   MALTY_PUBLIC_MINT,
+  MALTY_RAYDIUM_POOL_ID,
+  MALTY_RAYDIUM_SWAP_URL,
   MALTY_ROADMAP_CURRENT_STEP,
+  MALTY_SOLSCAN_POOL_URL,
+  MALTY_SOLSCAN_TOKEN_URL,
+  MALTY_TEST_BUY_TX,
   MALTY_TOKEN,
   getReviewDateShort,
 } from "./lib/malty-token";
@@ -13,6 +19,7 @@ import { SiteHeader } from "./components/site-header";
 
 const MINT = MALTY_PUBLIC_MINT;
 const TOKEN_IMAGE = MALTY_TOKEN.imageUri;
+const POOL_ID = MALTY_RAYDIUM_POOL_ID;
 
 const allocation = [
   ["Liquidity", "50%", "500M", 50],
@@ -42,7 +49,7 @@ const roadmapIcons = [
 const roadmapStages = {
   en: [
     { status: "completed", title: "Foundation", subtitle: "The base for a sustainable project.",
-      items: [["Token deployed", true], ["Mint authority revoked", true], ["Reserves defined", true], ["Transparency tools", true]] },
+      items: [["Token deployed", true], ["Mint authority revoked", true], ["Reserves defined", true], ["Transparency tools", true], ["Live on Raydium", true]] },
     { status: "in-progress", title: "MALTY Community", subtitle: "Grow, engage and build together.",
       items: [["Community channels live", true], ["Grow holders and supporters", false], ["Establish governance model", false], ["Prepare first impact initiative", false]] },
     { status: "planned", title: "First pet initiative", subtitle: "Turn coins into real help.",
@@ -52,7 +59,7 @@ const roadmapStages = {
   ],
   pt: [
     { status: "completed", title: "Fundação", subtitle: "A base para um projeto sustentável.",
-      items: [["Token implantado", true], ["Mint authority revogada", true], ["Reservas definidas", true], ["Ferramentas de transparência", true]] },
+      items: [["Token implantado", true], ["Mint authority revogada", true], ["Reservas definidas", true], ["Ferramentas de transparência", true], ["Ao vivo na Raydium", true]] },
     { status: "in-progress", title: "MALTY Community", subtitle: "Crescer, engajar e construir juntos.",
       items: [["Canais da comunidade no ar", true], ["Crescer holders e apoiadores", false], ["Estabelecer modelo de governança", false], ["Preparar primeira iniciativa", false]] },
     { status: "planned", title: "Primeira iniciativa pet", subtitle: "Transformar moedas em ajuda real.",
@@ -79,9 +86,10 @@ const missionPillars = {
 
 const copy = {
   en: {
-    badge: "COMMUNITY-POWERED · ANIMAL WELFARE", headline: "Small Dog. Big Community.",
-    intro: "MALTY is a community on Solana built on one simple principle: prove, don't promise. The long-term goal is to turn that transparency into real, verifiable impact for animal welfare.",
-    primaryCta: "Explore MALTY", secondaryCta: "Transparency", statusEyebrow: "PROJECT STATUS", publicStatusLabel: "Public status",
+    badge: "LIVE ON SOLANA MAINNET", headline: "Small Dog. Big Community.",
+    intro: "MALTY is now live on Solana. A community project built on one simple principle: prove, don't promise. The long-term goal is to turn that transparency into real, verifiable impact for animal welfare.",
+    primaryCta: "Buy $MALTY", secondaryCta: "View on Solscan", statusEyebrow: "PROJECT STATUS", publicStatusLabel: "Public status",
+    heroFacts: ["Solana Mainnet", "Live on Raydium", "Fixed Supply: 1B", "0% Transfer Tax", "Mint Authority Revoked"],
     verifyTransparency: "Verify transparency", changeHistory: "View change history", storyEyebrow: "THE MALTY MISSION", storyTitle: "Community with a purpose.",
     storyText: "MALTY connects four parts of one project: a transparent token, a strong identity, an open community and MALTY Gives — a planned initiative designed to support animal-welfare projects with public evidence of real-world impact.", about: "About MALTY",
     verifiedEyebrow: "PROOF, NOT PROMISES", proofTitle: "Built on proof. Moving with purpose.",
@@ -89,16 +97,25 @@ const copy = {
     verifiedTitle: "Verified today", verifiedSubtitle: "Core facts, on-chain and verifiable.",
     nextTitle: "What's next", nextSubtitle: "A clear roadmap for real-world impact.",
     viewEvidence: "View on-chain evidence", exploreGives: "Explore MALTY Gives",
-    verifiedItems: ["1B fixed supply", "Mint Authority revoked", "No Freeze Authority", "0% transfer tax", "Public reserve architecture", "Mainnet deployment verified"],
+    verifiedItems: ["1B fixed supply", "Mint Authority revoked", "No Freeze Authority", "0% transfer tax", "Public reserve architecture", "Mainnet deployment verified", "Live on Raydium (MALTY/SOL)"],
     nextItems: [
       ["Grow the MALTY community", "More pet lovers. A stronger voice. A bigger impact ahead."],
       ["Publish MALTY Gives operating criteria", "A clear, transparent framework for doing good."],
       ["Complete the first pet initiative", "Turn community support into real-world help for pets."],
       ["Publish verifiable impact evidence", "Show what's been achieved, on-chain and beyond."],
     ],
+    tradeEyebrow: "TRADE $MALTY", tradeTitle: "Buy or sell MALTY on Raydium.",
+    tradeText: "MALTY is available through the official MALTY/SOL liquidity pool on Raydium.",
+    buyOnRaydium: "Buy on Raydium", viewPool: "View Pool",
+    pairLabel: "Pair", dexLabel: "DEX", feeTierLabel: "Fee tier", poolIdLabel: "Pool ID", initialLiquidityLabel: "Initial pool liquidity",
+    tradeWarning: "Always verify the official MALTY contract before trading.",
+    tradeLiquidityNote: "The pool's initial 5,000,000 MALTY + 0.5 SOL was funded from the 500,000,000 MALTY Liquidity Reserve. The remaining 495,000,000 MALTY stays directly in the Liquidity Reserve wallet for future market-making.",
+    lpCustodyNote: "LP tokens remain under the project's custody wallet. They are not locked or burned.",
+    poolCreationLabel: "Pool creation", testBuyLabel: "Test buy confirmed",
     tokenEyebrow: "OFFICIAL TOKEN", tokenTitle: "Clear facts. Publicly verifiable.", tokenText: "The essentials of the official MALTY token, presented openly and without hiding the project structure behind marketing.",
     allocationEyebrow: "TOKENOMICS", allocationTitle: "Published allocation plan", allocationNote: "Planned allocations. Distribution is not confirmed.", reserveArchitecture: "Full reserve architecture",
     totalSupplyLabel: "Total supply", allocationStatus: "Status", allocationStatusPlanned: "Planned", viewReserveDetails: "View reserve details",
+    allocationLiquidityNote: "5,000,000 MALTY of the 500M Liquidity Reserve was deployed as the Raydium pool's initial liquidity (+ 0.5 SOL). The remaining 495,000,000 MALTY stays held in reserve for future market-making.",
     givesTitle: "Community-powered. Pet-focused.", givesText: "MALTY Gives is being designed as the impact layer of the project. The community can help surface meaningful animal-welfare initiatives, while selection rules and completed actions are documented publicly.",
     givesStatus: "PLANNED INITIATIVE", givesNote: "The program is not active yet. Funding rules, beneficiary criteria and reporting standards will be published before the first initiative begins.",
     roadmapEyebrow: "ROADMAP", roadmapTitle: "Small steps. Big impact.", roadmapDesc: "Our roadmap turns community power into real help for pets. Transparent, measurable and community-driven.", roadmapCta: "View full roadmap", viewProof: "View proof", statusCompleted: "Completed", statusInProgress: "In progress", statusPlanned: "Planned", updates: "Project updates",
@@ -107,9 +124,10 @@ const copy = {
     footerProject: "Project", footerVerify: "Verify", footerCommunity: "Community", footerStatus: "Status", footerMint: "Official mint",
   },
   pt: {
-    badge: "MOVIDO PELA COMUNIDADE · BEM-ESTAR ANIMAL", headline: "Cão pequeno. Grande comunidade.",
-    intro: "MALTY é uma comunidade na Solana construída sobre um princípio simples: provar, não prometer. O objetivo de longo prazo é transformar essa transparência em impacto real e verificável para o bem-estar animal.",
-    primaryCta: "Conhecer MALTY", secondaryCta: "Transparência", statusEyebrow: "STATUS DO PROJETO", publicStatusLabel: "Status público",
+    badge: "AO VIVO NA SOLANA MAINNET", headline: "Cão pequeno. Grande comunidade.",
+    intro: "O MALTY já está ao vivo na Solana. Um projeto comunitário construído sobre um princípio simples: provar, não prometer. O objetivo de longo prazo é transformar essa transparência em impacto real e verificável para o bem-estar animal.",
+    primaryCta: "Comprar $MALTY", secondaryCta: "Ver no Solscan", statusEyebrow: "STATUS DO PROJETO", publicStatusLabel: "Status público",
+    heroFacts: ["Solana Mainnet", "Ao vivo na Raydium", "Supply fixo: 1B", "0% de taxa", "Mint Authority revogada"],
     verifyTransparency: "Verificar transparência", changeHistory: "Ver histórico de alterações", storyEyebrow: "A MISSÃO MALTY", storyTitle: "Comunidade com propósito.",
     storyText: "MALTY conecta quatro partes de um mesmo projeto: token transparente, identidade forte, comunidade aberta e MALTY Gives — uma iniciativa planejada para apoiar projetos de bem-estar animal com evidências públicas do impacto gerado.", about: "Sobre o MALTY",
     verifiedEyebrow: "PROVAS, NÃO PROMESSAS", proofTitle: "Construído sobre provas. Andando com propósito.",
@@ -117,16 +135,25 @@ const copy = {
     verifiedTitle: "Verificado hoje", verifiedSubtitle: "Fatos centrais, on-chain e auditáveis.",
     nextTitle: "O que vem a seguir", nextSubtitle: "Um roteiro claro para impacto real.",
     viewEvidence: "Ver evidências on-chain", exploreGives: "Explorar MALTY Gives",
-    verifiedItems: ["Supply fixo de 1B", "Mint Authority revogada", "Sem Freeze Authority", "0% de taxa de transferência", "Arquitetura pública de reservas", "Deploy Mainnet verificável"],
+    verifiedItems: ["Supply fixo de 1B", "Mint Authority revogada", "Sem Freeze Authority", "0% de taxa de transferência", "Arquitetura pública de reservas", "Deploy Mainnet verificável", "Ao vivo na Raydium (MALTY/SOL)"],
     nextItems: [
       ["Expandir a comunidade MALTY", "Mais tutores. Uma voz mais forte. Mais impacto à frente."],
       ["Publicar critérios operacionais do MALTY Gives", "Um framework claro e transparente para fazer o bem."],
       ["Concluir a primeira iniciativa pet", "Transformar apoio da comunidade em ajuda real para os pets."],
       ["Publicar evidências verificáveis de impacto", "Mostrar o que foi realizado, on-chain e além."],
     ],
+    tradeEyebrow: "NEGOCIAR $MALTY", tradeTitle: "Compre ou venda MALTY na Raydium.",
+    tradeText: "O MALTY está disponível através do pool oficial de liquidez MALTY/SOL na Raydium.",
+    buyOnRaydium: "Comprar na Raydium", viewPool: "Ver Pool",
+    pairLabel: "Par", dexLabel: "DEX", feeTierLabel: "Taxa da pool", poolIdLabel: "ID do Pool", initialLiquidityLabel: "Liquidez inicial do pool",
+    tradeWarning: "Sempre verifique o contrato oficial do MALTY antes de negociar.",
+    tradeLiquidityNote: "Os 5.000.000 MALTY + 0,5 SOL iniciais do pool vieram da Reserva de Liquidez de 500.000.000 MALTY. Os 495.000.000 MALTY restantes seguem diretamente na carteira da reserva para futuras ações de mercado.",
+    lpCustodyNote: "Os tokens de LP continuam sob custódia da carteira do projeto. Eles não estão travados nem foram queimados.",
+    poolCreationLabel: "Criação do pool", testBuyLabel: "Compra de teste confirmada",
     tokenEyebrow: "TOKEN OFICIAL", tokenTitle: "Dados claros. Verificáveis publicamente.", tokenText: "O essencial sobre o token oficial MALTY, apresentado de forma aberta e sem esconder a estrutura do projeto atrás do marketing.",
     allocationEyebrow: "TOKENOMICS", allocationTitle: "Plano de alocação publicado", allocationNote: "Alocações planejadas. A distribuição não está confirmada.", reserveArchitecture: "Arquitetura completa das reservas",
     totalSupplyLabel: "Supply total", allocationStatus: "Status", allocationStatusPlanned: "Planejado", viewReserveDetails: "Ver detalhes da reserva",
+    allocationLiquidityNote: "5.000.000 MALTY da Reserva de Liquidez de 500M foram usados como liquidez inicial do pool na Raydium (+ 0,5 SOL). Os 495.000.000 MALTY restantes seguem reservados para futuras ações de mercado.",
     givesTitle: "Movido pela comunidade. Focado em pets.", givesText: "MALTY Gives está sendo estruturado como a frente de impacto do projeto. A comunidade poderá ajudar a identificar iniciativas relevantes, enquanto regras de seleção e ações concluídas serão documentadas publicamente.",
     givesStatus: "INICIATIVA PLANEJADA", givesNote: "O programa ainda não está ativo. Regras de financiamento, critérios de beneficiários e padrões de prestação de contas serão publicados antes da primeira iniciativa.",
     roadmapEyebrow: "ROADMAP", roadmapTitle: "Passos pequenos. Grande impacto.", roadmapDesc: "Nosso roadmap transforma o poder da comunidade em ajuda real para os pets. Transparente, mensurável e feito pela comunidade.", roadmapCta: "Ver roadmap completo", viewProof: "Ver provas", statusCompleted: "Concluído", statusInProgress: "Em andamento", statusPlanned: "Planejado", updates: "Atualizações do projeto",
@@ -161,22 +188,27 @@ export default function Home() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.06fr_.94fr] lg:gap-9 lg:py-12">
         <div>
           <div className="inline-flex select-none items-center gap-2 rounded-full border border-[#e9b949]/18 bg-[#e9b949]/[0.04] px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />{t.badge}
+            <span className="relative flex h-1.5 w-1.5"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" /><span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" /></span>{t.badge}
           </div>
           <h1 className="mt-[18px] select-none text-5xl font-extrabold leading-[0.98] tracking-[-0.045em] sm:text-6xl lg:text-[4.6rem]">MALTY<span className="text-[#e9b949]">.</span></h1>
           <p className="mt-2.5 select-none text-xl font-semibold tracking-[-0.02em] text-white/92 sm:text-2xl">{t.headline}</p>
           <p className={`mt-3 max-w-2xl ${textBody}`}>{t.intro}</p>
           <div className="mt-[22px] flex flex-wrap gap-3">
-            <a href="#story" className="inline-flex select-none items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">
+            <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex select-none items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">
               <span className="h-3.5 w-3.5 rounded-full bg-[conic-gradient(from_200deg,#ffe59a,#d9a53d_45%,#6f4210_80%,#ffe59a)] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.25)]" />
               {t.primaryCta}
             </a>
-            <a href="/transparency" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} →</a>
+            <a href={MALTY_SOLSCAN_TOKEN_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} ↗</a>
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-white/45">
-            <span><strong className="font-semibold text-white/92">0%</strong> Tax</span>
-            <span className="text-white/20">·</span>
-            <span className="inline-flex items-center gap-1.5"><SolanaMark className="h-[11px] w-[11px]" /><strong className="font-semibold text-white/92">Solana</strong></span>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            {t.heroFacts.map(fact => <span key={fact} className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[11px] font-medium text-white/70"><span className="text-emerald-300">✓</span>{fact}</span>)}
+          </div>
+          <div className="mt-3 inline-flex max-w-full flex-wrap items-center gap-2.5 rounded-xl border border-white/[0.08] bg-black/15 px-3.5 py-2.5">
+            <span className="font-mono text-[11px] text-white/60 sm:text-xs">{MINT.slice(0, 6)}...{MINT.slice(-6)}</span>
+            <button onClick={copyMint} className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-white/[0.04] px-2.5 py-1 text-[11px] font-semibold text-white/85 transition-colors hover:border-[#e9b949]/35">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3 w-3"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></svg>
+              {copyState==="copied"?t.copied:copyState==="error"?t.copyFailed:t.copyMint}
+            </button>
           </div>
         </div>
         <div className="relative flex items-center justify-center py-4 lg:min-h-[380px] lg:py-0">
@@ -209,6 +241,15 @@ export default function Home() {
           </span>
           <span className="hidden h-4 w-px bg-white/[0.1] sm:block" />
           <span className="flex items-center gap-2 text-[13px] font-semibold">
+            <span className="relative flex h-[7px] w-[7px]">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-[7px] w-[7px] rounded-full bg-emerald-400" />
+            </span>
+            {language==="pt"?"Ao vivo na Raydium":"Live on Raydium"}
+            <span className="text-[11px] font-normal text-white/55">{language==="pt"?"Negociável":"Trading"}</span>
+          </span>
+          <span className="hidden h-4 w-px bg-white/[0.1] sm:block" />
+          <span className="flex items-center gap-2 text-[13px] font-semibold">
             <span className="h-[7px] w-[7px] rounded-full bg-[#e9b949]" />
             MALTY Gives
             <span className="text-[11px] font-normal text-white/55">{language==="pt"?"Planejado":"Planned"}</span>
@@ -222,6 +263,51 @@ export default function Home() {
       </div>
       </div>
     </div>
+
+    <section id="trade" className="border-b border-white/[0.07] bg-[#0c0f13]">
+      <div className={`mx-auto max-w-6xl ${sectionPad}`}>
+        <Eyebrow>{t.tradeEyebrow}</Eyebrow>
+        <h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.tradeTitle}</h2>
+        <p className={`mt-4 max-w-2xl ${textBody}`}>{t.tradeText}</p>
+
+        <div className="mt-8 overflow-hidden rounded-2xl border border-white/[0.08]">
+          <div className="flex flex-col sm:flex-row">
+            <div className="flex min-w-[190px] flex-col justify-center gap-1.5 border-b border-white/[0.08] bg-[#e9b949]/[0.03] p-6 sm:border-b-0 sm:border-r">
+              <span className="text-2xl font-extrabold tracking-[-0.02em] text-[#e9b949]">MALTY/SOL</span>
+              <span className="text-[13px] text-white/55">Raydium · CPMM</span>
+            </div>
+            <div className="flex-1">
+              <div className="grid divide-y divide-white/[0.07] sm:grid-cols-2 sm:divide-y-0">
+                <TokenFact label={t.feeTierLabel} value="0.25%" right />
+                <TokenFact label={t.initialLiquidityLabel} value="5M MALTY + 0.5 SOL" />
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-white/[0.08] bg-white/[0.015] p-5">
+            <p className="text-[11px] font-medium text-white/45">{t.poolIdLabel}</p>
+            <p className="mt-0.5 break-all font-mono text-xs text-white/80">{POOL_ID}</p>
+          </div>
+        </div>
+
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex select-none items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">{t.buyOnRaydium} ↗</a>
+          <a href={MALTY_SOLSCAN_POOL_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.viewPool} ↗</a>
+          <a href={MALTY_SOLSCAN_TOKEN_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} ↗</a>
+        </div>
+
+        <div className="mt-5 flex items-start gap-2.5 rounded-xl border border-[#e9b949]/15 bg-[#e9b949]/[0.03] px-4 py-3.5">
+          <span className="mt-0.5 text-[#e9b949]">⚠</span>
+          <p className="text-xs leading-5 text-white/60">{t.tradeWarning} <span className="mt-1 block break-all font-mono text-[11px] text-white/50">{MINT}</span></p>
+        </div>
+        <p className="mt-4 max-w-2xl text-xs leading-5 text-white/45">{t.tradeLiquidityNote}</p>
+        <p className="mt-2 max-w-2xl text-xs leading-5 text-white/45">{t.lpCustodyNote}</p>
+
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[12px]">
+          <a href={`https://solscan.io/tx/${MALTY_POOL_CREATION_TX}`} target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-[#e9b949]">{t.poolCreationLabel} ↗</a>
+          <a href={`https://solscan.io/tx/${MALTY_TEST_BUY_TX}`} target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-[#e9b949]">{t.testBuyLabel} ↗</a>
+        </div>
+      </div>
+    </section>
 
     <section id="story" className="border-b border-black/10 bg-[#f2ecdf] text-[#17130d]">
       <div className="mx-auto max-w-6xl px-5 py-9 sm:px-8 sm:py-11 lg:py-12">
@@ -253,7 +339,7 @@ export default function Home() {
             <h3 className="text-xl font-bold tracking-[-0.02em]">{t.verifiedTitle}</h3>
             <p className="mt-1.5 text-[13px] text-white/45">{t.verifiedSubtitle}</p>
             <div className="mt-5 flex flex-col gap-2">
-              {t.verifiedItems.map(x => <FactLink key={x} text={x} href={`https://explorer.solana.com/address/${MINT}`} />)}
+              {t.verifiedItems.map(x => <FactLink key={x} text={x} href={x.includes("Raydium") ? MALTY_SOLSCAN_POOL_URL : `https://explorer.solana.com/address/${MINT}`} />)}
             </div>
           </div>
           <div>
@@ -342,6 +428,7 @@ export default function Home() {
             />
           ))}
         </div>
+        <p className="mt-5 max-w-2xl text-xs leading-5 text-white/45">{t.allocationLiquidityNote}</p>
         <div className="mt-5 flex justify-end">
           <a href="/transparency" className="text-sm font-medium text-[#e9b949]">{t.reserveArchitecture} →</a>
         </div>
@@ -387,8 +474,8 @@ export default function Home() {
           <Faq q={language==="pt"?"Como o MALTY pretende ajudar pets?":"How does MALTY plan to help pets?"} a={language==="pt"?"Por meio do MALTY Gives: a comunidade poderá ajudar a identificar iniciativas, o projeto definirá critérios antes da ativação e cada ação concluída deverá ter prestação de contas pública.":"Through MALTY Gives: the community can help surface initiatives, the project will define criteria before activation, and completed actions should have public reporting."}/>
           <Faq q={language==="pt"?"Quem está por trás do MALTY?":"Who is behind MALTY?"} a={language==="pt"?"O projeto é mantido por uma equipe responsável pelo desenvolvimento, documentação pública e operação da comunidade. O MALTY ainda não se apresenta como um projeto de governança descentralizada. Veja a página Sobre para detalhes de responsabilidade.":"MALTY is stewarded by a project team responsible for development, public documentation and community operations. The project does not present itself as decentralized governance today. See the About page for stewardship details."}/>
           <Faq q={language==="pt"?"Existe trava (vesting) para os tokens da equipe?":"Is there a lock or vesting mechanism for team tokens?"} a={language==="pt"?"A reserva da equipe segue uma política pública de liberação em parcelas mensais, mas o mecanismo técnico de trava on-chain ainda está em definição. Nenhum saldo de reserva foi movimentado até o momento — veja a Central de Transparência para o estado atual.":"The team reserve follows a public monthly-release policy, but the on-chain enforcement mechanism is still being defined. No reserve balance has moved to date — see the Transparency center for the current state."}/>
-          <Faq q={language==="pt"?"Onde posso comprar MALTY?":"Where can I buy MALTY?"} a={language==="pt"?"O MALTY ainda não tem um pool de liquidez ativo. Quando o lançamento acontecer, o link oficial de compra será publicado aqui e na Central de Transparência — desconfie de qualquer link de compra anunciado em outro lugar antes disso.":"MALTY does not yet have an active liquidity pool. When launch happens, the official buy link will be published here and in the Transparency center — treat any buy link announced elsewhere before then as untrusted."}/>
-          <Faq q={language==="pt"?"A liquidez é travada (locked)?":"Is the liquidity locked?"} a={language==="pt"?"O projeto não afirma que a liquidez é travada, permanente ou garantida, a menos que um mecanismo separado e verificável seja implementado e documentado publicamente.":"The project does not claim that liquidity is locked, permanent or guaranteed unless a separate verifiable mechanism is implemented and publicly documented."}/>
+          <Faq q={language==="pt"?"Onde posso comprar MALTY?":"Where can I buy MALTY?"} a={language==="pt"?`O MALTY está ao vivo e disponível no pool oficial MALTY/SOL na Raydium (ID do pool: ${POOL_ID}). Sempre verifique o mint e o ID do pool antes de negociar — desconfie de qualquer link de compra que não aponte para esse pool.`:`MALTY is live and available through the official MALTY/SOL pool on Raydium (pool ID: ${POOL_ID}). Always verify the mint and pool ID before trading — treat any buy link that doesn't point to this pool as untrusted.`}/>
+          <Faq q={language==="pt"?"A liquidez é travada (locked)?":"Is the liquidity locked?"} a={language==="pt"?"Não. Os tokens de LP do pool continuam sob custódia da carteira do projeto — eles não estão travados nem foram queimados. O projeto não afirma que a liquidez é travada, permanente ou garantida, a menos que um mecanismo separado e verificável seja implementado e documentado publicamente.":"No. The pool's LP tokens remain under the project's custody wallet — they are not locked or burned. The project does not claim that liquidity is locked, permanent or guaranteed unless a separate verifiable mechanism is implemented and publicly documented."}/>
           <Faq q={language==="pt"?"As carteiras de reserva são custódia independente?":"Are the reserve wallets independent custody wallets?"} a={language==="pt"?"São endereços públicos separados para fins contábeis, mas atualmente pertencem a um único limite de custódia temporário. Não devem ser descritas como custódia independente ou protegidas por multisig.":"They are separate public addresses used for accounting, but they currently belong to one temporary custody security boundary. They should not be described as independent custody or multisignature protection."}/>
           <Faq q={language==="pt"?"O MALTY garante retorno ou valorização?":"Does MALTY guarantee returns or price appreciation?"} a={language==="pt"?"Não. MALTY é um memecoin. Não há promessa ou garantia de preço, liquidez, retorno ou valor futuro.":"No. MALTY is a memecoin. There is no promise or guarantee of price, liquidity, returns or future value."}/>
         </div>

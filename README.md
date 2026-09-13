@@ -18,6 +18,18 @@ Production tooling, transparency material and deployment record for **Malty (MAL
 
 The complete verified deployment record is in [`docs/MALTY_MAINNET_V1.md`](docs/MALTY_MAINNET_V1.md).
 
+## Trading
+
+MALTY is live and tradeable through the official MALTY/SOL pool on Raydium.
+
+- **DEX:** Raydium (Standard AMM / CPMM)
+- **Pool ID:** `DGK42Xe3BMXTJeUVjVNSZL1FmwXVQxUaV88qp6hAdp9W`
+- **Pair:** MALTY/SOL
+- **Fee tier:** 0.25%
+- **Initial pool liquidity:** 5,000,000 MALTY + 0.5 SOL
+
+This was funded from the 500,000,000 MALTY Liquidity Reserve; the remaining 495,000,000 MALTY stays directly in the Liquidity Reserve wallet for future market-making. LP tokens remain under the project's custody wallet — they are not locked or burned. Always verify the mint and pool ID above before trading.
+
 ## Canonical tokenomics
 
 | Reserve | Allocation | Share |

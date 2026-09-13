@@ -43,6 +43,26 @@ export const MALTY_PUBLIC_MINT = "6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz";
 // contribution has occurred.
 export const MALTY_IMPACT_WALLET = "DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik";
 
+// Official MALTY/SOL Raydium AMM (CPMM) pool. Always link to this exact pool
+// ID or the mint above — never a name/symbol search — so visitors land on
+// the verified official pool rather than a lookalike.
+export const MALTY_RAYDIUM_POOL_ID = "DGK42Xe3BMXTJeUVjVNSZL1FmwXVQxUaV88qp6hAdp9W";
+
+// Solana transaction signature that created the official Raydium pool.
+export const MALTY_POOL_CREATION_TX =
+  "4zaDUJpvZ2s3ePQZ5bEhen8EAzCX8Ramufwjjo4sWB1MXmKisK6PyDgAD4bvCwpejk9T2s2Gy2iF2eezMTK68hrX";
+
+// Confirmed test buy against the official pool (buy and sell both verified).
+export const MALTY_TEST_BUY_TX =
+  "4HyrCpxTRB5cP3yMFY4kucMpvMqzDoM7twfy8z41uk75Fe9bWNKZ7hx3F2NDSRvjcWBqc9xRHzgboV13QA4rFZf5";
+
+// Raydium's own swap widget, preloaded with the official mint. This is the
+// canonical "Buy $MALTY" destination.
+export const MALTY_RAYDIUM_SWAP_URL = `https://raydium.io/swap/?inputMint=sol&outputMint=${MALTY_PUBLIC_MINT}`;
+
+export const MALTY_SOLSCAN_TOKEN_URL = `https://solscan.io/token/${MALTY_PUBLIC_MINT}`;
+export const MALTY_SOLSCAN_POOL_URL = `https://solscan.io/account/${MALTY_RAYDIUM_POOL_ID}`;
+
 // Single source of truth for the "last public review" date shown across the
 // public pages. Update only this constant when the review date changes.
 export const MALTY_PUBLIC_REVIEW_DATE_ISO = "2026-09-13";

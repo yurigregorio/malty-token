@@ -17,8 +17,8 @@ This record highlights material project changes that are useful for public trans
 - Current canonical allocation: Liquidity 50%, Ecosystem 15%, Community 15%, MALTY Impact 5%, Treasury 7.5%, Team 7.5%.
 - Six reserve addresses are documented for accounting and public reconciliation.
 - Planned initial availability remains 100,000,000 MALTY (10%); MALTY Impact has 0 planned initial availability.
-- Initial 1-MALTY destination-validation transfers were completed for Liquidity, Ecosystem, Community and MALTY Impact before full reserve distribution.
-- The Liquidity Reserve has since been funded to its full canonical allocation of 500,000,000 MALTY.
+- All six reserve wallets were funded to their full canonical allocation, independently verified against the Solscan Holders view for the official mint (100% of the fixed 1B supply matched across Liquidity, Ecosystem, Community, MALTY Impact, Treasury and Team).
+- That fully-reserved state was a checkpoint prior to market liquidity: 5,000,000 MALTY was subsequently moved from the Liquidity Reserve to fund the initial Raydium pool deposit (see Trading launch below), leaving 495,000,000 MALTY directly in the Liquidity Reserve wallet.
 - Liquidity, Community, Ecosystem, Team and MALTY Impact policies are published.
 
 ## Security and application
@@ -36,6 +36,15 @@ This record highlights material project changes that are useful for public trans
 - `MALTY Impact` is now the dedicated 5% token reserve for future documented animal-welfare initiatives.
 - Funding the MALTY Impact reserve wallet is not itself a donation or proof that an initiative has been completed.
 - MALTY Impact public wallet: `DmPEyGFwy972wcdcA7UzxtDiSdrtU3Y4UJned7AJJyik`.
+
+## Trading launch
+
+- MALTY is live and tradeable: the official MALTY/SOL pool (Standard AMM / CPMM) was created on Raydium. Pool ID: `DGK42Xe3BMXTJeUVjVNSZL1FmwXVQxUaV88qp6hAdp9W`.
+- Initial pool liquidity: 5,000,000 MALTY + 0.5 SOL, funded from the 500,000,000 MALTY Liquidity Reserve. The remaining 495,000,000 MALTY stays directly in the Liquidity Reserve wallet for future market-making.
+- Fee tier: 0.25%. Initial configured price: 0.0000001 SOL per MALTY.
+- A test buy and a test sell against the official pool were both confirmed successful.
+- LP tokens for the pool remain under the project's custody wallet; they are not locked or burned.
+- The landing page was updated to make live-trading status, the official contract, and the official pool clearly visible, with an explicit warning to verify the contract before trading.
 
 ## Community
 
