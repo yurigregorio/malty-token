@@ -9,8 +9,8 @@ import { useLanguage } from "../lib/language";
 const TOKEN_IMAGE = MALTY_TOKEN.imageUri;
 
 const nav = {
-  en: { items: ["Project", "Token", "Gives", "Roadmap", "FAQ"], ids: ["story", "token", "gives", "roadmap", "faq"], menu: "Menu", close: "Close" },
-  pt: { items: ["Projeto", "Token", "Gives", "Roadmap", "FAQ"], ids: ["story", "token", "gives", "roadmap", "faq"], menu: "Menu", close: "Fechar" },
+  en: { items: ["Project", "How to Buy", "Token", "Gives", "Roadmap", "FAQ"], hrefs: ["/#story", "/how-to-buy", "/#token", "/#gives", "/#roadmap", "/#faq"], menu: "Menu", close: "Close" },
+  pt: { items: ["Projeto", "Como Comprar", "Token", "Gives", "Roadmap", "FAQ"], hrefs: ["/#story", "/how-to-buy", "/#token", "/#gives", "/#roadmap", "/#faq"], menu: "Menu", close: "Fechar" },
 } as const;
 
 export function SiteHeader() {
@@ -30,7 +30,7 @@ export function SiteHeader() {
         </Link>
         <nav className="hidden items-center gap-7 text-[13px] font-medium text-white/60 md:flex">
           {t.items.map((x, i) => (
-            <Link key={x} href={`/#${t.ids[i]}`} className="rounded-sm transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e9b949]">
+            <Link key={x} href={t.hrefs[i]} className="rounded-sm transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e9b949]">
               {x}
             </Link>
           ))}
@@ -58,7 +58,7 @@ export function SiteHeader() {
         <div className="border-t border-white/[0.06] px-5 py-3 md:hidden">
           <nav className="mx-auto grid max-w-6xl gap-1">
             {t.items.map((x, i) => (
-              <Link key={x} href={`/#${t.ids[i]}`} onClick={() => setMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-white/70 hover:bg-white/[0.04] hover:text-white">
+              <Link key={x} href={t.hrefs[i]} onClick={() => setMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-white/70 hover:bg-white/[0.04] hover:text-white">
                 {x}
               </Link>
             ))}
