@@ -12,6 +12,7 @@ const copy = {
     title: "Understand the project.",
     intro: "A simpler public layer for MALTY's most important project information. The repository is public — technical repository records remain the deeper source of truth.",
     docs: [
+      ["How to Buy $MALTY", "Step-by-step guide — wallet, SOL, Raydium and the official contract.", "/how-to-buy"],
       ["About MALTY", "Mission, identity and the principles behind the project.", "/about"],
       ["Transparency", "Verified token facts, allocation and reserve-state rules.", "/transparency"],
       ["MALTY Gives", "Planned animal-welfare initiative and activation standard.", "/gives"],
@@ -43,6 +44,7 @@ const copy = {
     title: "Entenda o projeto.",
     intro: "Uma camada pública mais simples para as informações mais importantes do MALTY. O repositório é público — os registros técnicos continuam sendo a fonte de verdade mais profunda.",
     docs: [
+      ["Como Comprar $MALTY", "Guia passo a passo — carteira, SOL, Raydium e o contrato oficial.", "/how-to-buy"],
       ["Sobre o MALTY", "Missão, identidade e os princípios por trás do projeto.", "/about"],
       ["Transparência", "Fatos verificados do token, alocação e regras de estado das reservas.", "/transparency"],
       ["MALTY Gives", "Iniciativa planejada de bem-estar animal e padrão de ativação.", "/gives"],
