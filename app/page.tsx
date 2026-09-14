@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import {
   MALTY_BIRDEYE_URL,
@@ -90,7 +91,7 @@ const copy = {
   en: {
     badge: "LIVE ON SOLANA MAINNET", headline: "Small Dog. Big Community.",
     intro: "MALTY is now live on Solana. A community project built on one simple principle: prove, don't promise. The long-term goal is to turn that transparency into real, verifiable impact for animal welfare.",
-    primaryCta: "Buy $MALTY", secondaryCta: "View on Solscan", statusEyebrow: "PROJECT STATUS", publicStatusLabel: "Public status",
+    primaryCta: "Buy $MALTY", secondaryCta: "View on Solscan", howToBuyCta: "How to Buy $MALTY", statusEyebrow: "PROJECT STATUS", publicStatusLabel: "Public status",
     heroFacts: ["Solana Mainnet", "Live on Raydium", "Fixed Supply: 1B", "0% Transfer Tax", "Mint Authority Revoked"],
     verifyTransparency: "Verify transparency", changeHistory: "View change history", storyEyebrow: "THE MALTY MISSION", storyTitle: "Community with a purpose.",
     storyText: "MALTY connects four parts of one project: a transparent token, a strong identity, an open community and MALTY Gives — a planned initiative designed to support animal-welfare projects with public evidence of real-world impact.", about: "About MALTY",
@@ -111,6 +112,7 @@ const copy = {
     buyOnRaydium: "Buy on Raydium", viewPool: "View Pool",
     pairLabel: "Pair", dexLabel: "DEX", feeTierLabel: "Fee tier", poolIdLabel: "Pool ID", initialLiquidityLabel: "Initial pool liquidity",
     tradeWarning: "Always verify the official MALTY contract before trading.",
+    newToCrypto: "New to Solana or wallets?", howToBuyLink: "See the full How to Buy guide",
     tradeLiquidityNote: "The pool's initial 5,000,000 MALTY + 0.5 SOL was funded from the 500,000,000 MALTY Liquidity Reserve. The remaining 495,000,000 MALTY stays directly in the Liquidity Reserve wallet for future market-making.",
     lpCustodyNote: "LP tokens remain under the project's custody wallet. They are not locked or burned.",
     poolCreationLabel: "Pool creation", testBuyLabel: "Test buy confirmed",
@@ -131,7 +133,7 @@ const copy = {
   pt: {
     badge: "AO VIVO NA SOLANA MAINNET", headline: "Cão pequeno. Grande comunidade.",
     intro: "O MALTY já está ao vivo na Solana. Um projeto comunitário construído sobre um princípio simples: provar, não prometer. O objetivo de longo prazo é transformar essa transparência em impacto real e verificável para o bem-estar animal.",
-    primaryCta: "Comprar $MALTY", secondaryCta: "Ver no Solscan", statusEyebrow: "STATUS DO PROJETO", publicStatusLabel: "Status público",
+    primaryCta: "Comprar $MALTY", secondaryCta: "Ver no Solscan", howToBuyCta: "Como Comprar $MALTY", statusEyebrow: "STATUS DO PROJETO", publicStatusLabel: "Status público",
     heroFacts: ["Solana Mainnet", "Ao vivo na Raydium", "Supply fixo: 1B", "0% de taxa", "Mint Authority revogada"],
     verifyTransparency: "Verificar transparência", changeHistory: "Ver histórico de alterações", storyEyebrow: "A MISSÃO MALTY", storyTitle: "Comunidade com propósito.",
     storyText: "MALTY conecta quatro partes de um mesmo projeto: token transparente, identidade forte, comunidade aberta e MALTY Gives — uma iniciativa planejada para apoiar projetos de bem-estar animal com evidências públicas do impacto gerado.", about: "Sobre o MALTY",
@@ -152,6 +154,7 @@ const copy = {
     buyOnRaydium: "Comprar na Raydium", viewPool: "Ver Pool",
     pairLabel: "Par", dexLabel: "DEX", feeTierLabel: "Taxa da pool", poolIdLabel: "ID do Pool", initialLiquidityLabel: "Liquidez inicial do pool",
     tradeWarning: "Sempre verifique o contrato oficial do MALTY antes de negociar.",
+    newToCrypto: "Novo na Solana ou em carteiras?", howToBuyLink: "Veja o guia completo de como comprar",
     tradeLiquidityNote: "Os 5.000.000 MALTY + 0,5 SOL iniciais do pool vieram da Reserva de Liquidez de 500.000.000 MALTY. Os 495.000.000 MALTY restantes seguem diretamente na carteira da reserva para futuras ações de mercado.",
     lpCustodyNote: "Os tokens de LP continuam sob custódia da carteira do projeto. Eles não estão travados nem foram queimados.",
     poolCreationLabel: "Criação do pool", testBuyLabel: "Compra de teste confirmada",
@@ -206,17 +209,20 @@ export default function Home() {
               <span className="h-3.5 w-3.5 rounded-full bg-[conic-gradient(from_200deg,#ffe59a,#d9a53d_45%,#6f4210_80%,#ffe59a)] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.25)]" />
               {t.primaryCta}
             </a>
-            <a href={MALTY_SOLSCAN_TOKEN_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} ↗</a>
+            <Link href="/how-to-buy" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.howToBuyCta} →</Link>
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-2">
             {t.heroFacts.map(fact => <span key={fact} className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[11px] font-medium text-white/70"><span className="text-emerald-300">✓</span>{fact}</span>)}
           </div>
-          <div className="mt-3 inline-flex max-w-full flex-wrap items-center gap-2.5 rounded-xl border border-white/[0.08] bg-black/15 px-3.5 py-2.5">
-            <span className="font-mono text-[11px] text-white/60 sm:text-xs">{MINT.slice(0, 6)}...{MINT.slice(-6)}</span>
-            <button onClick={copyMint} className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-white/[0.04] px-2.5 py-1 text-[11px] font-semibold text-white/85 transition-colors hover:border-[#e9b949]/35">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3 w-3"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></svg>
-              {copyState==="copied"?t.copied:copyState==="error"?t.copyFailed:t.copyMint}
-            </button>
+          <div className="mt-3 flex max-w-full flex-wrap items-center gap-2.5">
+            <div className="inline-flex max-w-full flex-wrap items-center gap-2.5 rounded-xl border border-white/[0.08] bg-black/15 px-3.5 py-2.5">
+              <span className="font-mono text-[11px] text-white/60 sm:text-xs">{MINT.slice(0, 6)}...{MINT.slice(-6)}</span>
+              <button onClick={copyMint} className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-white/[0.04] px-2.5 py-1 text-[11px] font-semibold text-white/85 transition-colors hover:border-[#e9b949]/35">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3 w-3"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></svg>
+                {copyState==="copied"?t.copied:copyState==="error"?t.copyFailed:t.copyMint}
+              </button>
+            </div>
+            <a href={MALTY_SOLSCAN_TOKEN_URL} target="_blank" rel="noopener noreferrer" className="text-[11px] font-semibold text-white/50 hover:text-white">{t.secondaryCta} ↗</a>
           </div>
         </div>
         <div className="relative flex items-center justify-center py-4 lg:min-h-[380px] lg:py-0">
@@ -302,6 +308,8 @@ export default function Home() {
           <a href={MALTY_SOLSCAN_POOL_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.viewPool} ↗</a>
           <a href={MALTY_SOLSCAN_TOKEN_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} ↗</a>
         </div>
+
+        <p className="mt-4 text-[13px] text-white/45">{t.newToCrypto} <Link href="/how-to-buy" className="font-semibold text-[#e9b949] hover:text-[#f7cf6e]">{t.howToBuyLink} →</Link></p>
 
         <div className="mt-7">
           <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white/45">{t.listingsLabel}</p>
@@ -518,7 +526,7 @@ export default function Home() {
               <a href="https://x.com/MaltyCoin" target="_blank" rel="noopener noreferrer" aria-label="MALTY on X" className="flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/50 transition-colors hover:border-[#e9b949]/35 hover:text-white"><svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M13.3174 10.7749L19.1457 4H17.7646L12.7852 9.88256L8.80309 4H4.21053L10.3186 12.8955L4.21053 20H5.59183L10.6337 13.7899L14.7942 20H19.3893L13.3174 10.7749ZM11.5116 12.9776L10.7118 11.8656L6.09846 5.05078H8.03556L11.7852 10.4988L12.5849 11.6109L17.7658 19.1489H15.8288L11.5116 12.9776Z"/></svg></a>
             </div>
           </div>
-          <FooterCol title={t.footerProject} links={[[language==="pt"?"Sobre":"About","/about"],["MALTY Gives","/gives"],[language==="pt"?"Atualizações":"Updates","/updates"]]}/>
+          <FooterCol title={t.footerProject} links={[[language==="pt"?"Sobre":"About","/about"],[language==="pt"?"Como Comprar":"How to Buy","/how-to-buy"],["MALTY Gives","/gives"],[language==="pt"?"Atualizações":"Updates","/updates"]]}/>
           <FooterCol title={t.footerVerify} links={[[language==="pt"?"Transparência":"Transparency","/transparency"],[language==="pt"?"Documentação":"Documentation","/docs"],["Solana Explorer",`https://explorer.solana.com/address/${MINT}`]]}/>
           <FooterCol title={t.footerCommunity} links={[["Telegram Channel","https://t.me/MaltyCoinOfficial"],["Telegram Community","https://t.me/MaltyCoinCommunity"],["X","https://x.com/MaltyCoin"]]}/>
         </div>
