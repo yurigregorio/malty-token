@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import {
+  MALTY_BIRDEYE_URL,
+  MALTY_JUPITER_URL,
   MALTY_POOL_CREATION_TX,
   MALTY_PUBLIC_MINT,
   MALTY_RAYDIUM_POOL_ID,
@@ -112,6 +114,9 @@ const copy = {
     tradeLiquidityNote: "The pool's initial 5,000,000 MALTY + 0.5 SOL was funded from the 500,000,000 MALTY Liquidity Reserve. The remaining 495,000,000 MALTY stays directly in the Liquidity Reserve wallet for future market-making.",
     lpCustodyNote: "LP tokens remain under the project's custody wallet. They are not locked or burned.",
     poolCreationLabel: "Pool creation", testBuyLabel: "Test buy confirmed",
+    listingsLabel: "Where to find MALTY",
+    listingLive: ["Live on Raydium", "Tracked on Birdeye", "Available on Jupiter"],
+    listingPending: ["Jupiter verification submitted", "CoinGecko listing submitted", "CoinMarketCap listing submitted"],
     tokenEyebrow: "OFFICIAL TOKEN", tokenTitle: "Clear facts. Publicly verifiable.", tokenText: "The essentials of the official MALTY token, presented openly and without hiding the project structure behind marketing.",
     allocationEyebrow: "TOKENOMICS", allocationTitle: "Published allocation plan", allocationNote: "Planned allocations. Distribution is not confirmed.", reserveArchitecture: "Full reserve architecture",
     totalSupplyLabel: "Total supply", allocationStatus: "Status", allocationStatusPlanned: "Planned", viewReserveDetails: "View reserve details",
@@ -150,6 +155,9 @@ const copy = {
     tradeLiquidityNote: "Os 5.000.000 MALTY + 0,5 SOL iniciais do pool vieram da Reserva de Liquidez de 500.000.000 MALTY. Os 495.000.000 MALTY restantes seguem diretamente na carteira da reserva para futuras ações de mercado.",
     lpCustodyNote: "Os tokens de LP continuam sob custódia da carteira do projeto. Eles não estão travados nem foram queimados.",
     poolCreationLabel: "Criação do pool", testBuyLabel: "Compra de teste confirmada",
+    listingsLabel: "Onde encontrar o MALTY",
+    listingLive: ["Ao vivo na Raydium", "Rastreado no Birdeye", "Disponível na Jupiter"],
+    listingPending: ["Verificação na Jupiter enviada", "Listagem na CoinGecko enviada", "Listagem na CoinMarketCap enviada"],
     tokenEyebrow: "TOKEN OFICIAL", tokenTitle: "Dados claros. Verificáveis publicamente.", tokenText: "O essencial sobre o token oficial MALTY, apresentado de forma aberta e sem esconder a estrutura do projeto atrás do marketing.",
     allocationEyebrow: "TOKENOMICS", allocationTitle: "Plano de alocação publicado", allocationNote: "Alocações planejadas. A distribuição não está confirmada.", reserveArchitecture: "Arquitetura completa das reservas",
     totalSupplyLabel: "Supply total", allocationStatus: "Status", allocationStatusPlanned: "Planejado", viewReserveDetails: "Ver detalhes da reserva",
@@ -295,7 +303,23 @@ export default function Home() {
           <a href={MALTY_SOLSCAN_TOKEN_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} ↗</a>
         </div>
 
-        <div className="mt-5 flex items-start gap-2.5 rounded-xl border border-[#e9b949]/15 bg-[#e9b949]/[0.03] px-4 py-3.5">
+        <div className="mt-7">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white/45">{t.listingsLabel}</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {t.listingLive.map((label, i) => (
+              <a key={label} href={[MALTY_RAYDIUM_SWAP_URL, MALTY_BIRDEYE_URL, MALTY_JUPITER_URL][i]} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[11px] font-medium text-white/70 transition-colors hover:border-[#e9b949]/35 hover:text-white">
+                <span className="text-emerald-300">✓</span>{label}
+              </a>
+            ))}
+            {t.listingPending.map(label => (
+              <span key={label} className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.06] bg-white/[0.01] px-2.5 py-1 text-[11px] font-medium text-white/40">
+                <span>⏳</span>{label}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-[#e9b949]/15 bg-[#e9b949]/[0.03] px-4 py-3.5">
           <span className="mt-0.5 text-[#e9b949]">⚠</span>
           <p className="text-xs leading-5 text-white/60">{t.tradeWarning} <span className="mt-1 block break-all font-mono text-[11px] text-white/50">{MINT}</span></p>
         </div>
@@ -474,7 +498,7 @@ export default function Home() {
           <Faq q={language==="pt"?"Como o MALTY pretende ajudar pets?":"How does MALTY plan to help pets?"} a={language==="pt"?"Por meio do MALTY Gives: a comunidade poderá ajudar a identificar iniciativas, o projeto definirá critérios antes da ativação e cada ação concluída deverá ter prestação de contas pública.":"Through MALTY Gives: the community can help surface initiatives, the project will define criteria before activation, and completed actions should have public reporting."}/>
           <Faq q={language==="pt"?"Quem está por trás do MALTY?":"Who is behind MALTY?"} a={language==="pt"?"O projeto é mantido por uma equipe responsável pelo desenvolvimento, documentação pública e operação da comunidade. O MALTY ainda não se apresenta como um projeto de governança descentralizada. Veja a página Sobre para detalhes de responsabilidade.":"MALTY is stewarded by a project team responsible for development, public documentation and community operations. The project does not present itself as decentralized governance today. See the About page for stewardship details."}/>
           <Faq q={language==="pt"?"Existe trava (vesting) para os tokens da equipe?":"Is there a lock or vesting mechanism for team tokens?"} a={language==="pt"?"A reserva da equipe segue uma política pública de liberação em parcelas mensais, mas o mecanismo técnico de trava on-chain ainda está em definição. Nenhum saldo de reserva foi movimentado até o momento — veja a Central de Transparência para o estado atual.":"The team reserve follows a public monthly-release policy, but the on-chain enforcement mechanism is still being defined. No reserve balance has moved to date — see the Transparency center for the current state."}/>
-          <Faq q={language==="pt"?"Onde posso comprar MALTY?":"Where can I buy MALTY?"} a={language==="pt"?`O MALTY está ao vivo e disponível no pool oficial MALTY/SOL na Raydium (ID do pool: ${POOL_ID}). Sempre verifique o mint e o ID do pool antes de negociar — desconfie de qualquer link de compra que não aponte para esse pool.`:`MALTY is live and available through the official MALTY/SOL pool on Raydium (pool ID: ${POOL_ID}). Always verify the mint and pool ID before trading — treat any buy link that doesn't point to this pool as untrusted.`}/>
+          <Faq q={language==="pt"?"Onde posso comprar MALTY?":"Where can I buy MALTY?"} a={language==="pt"?`O MALTY está ao vivo no pool oficial MALTY/SOL na Raydium (ID do pool: ${POOL_ID}), e também disponível via Jupiter (que roteia para o mesmo pool) e rastreável no Birdeye. Sempre verifique o mint e o ID do pool antes de negociar — desconfie de qualquer link de compra que não aponte pra eles.`:`MALTY is live on the official MALTY/SOL pool on Raydium (pool ID: ${POOL_ID}), and also available through Jupiter (which routes to the same pool) and trackable on Birdeye. Always verify the mint and pool ID before trading — treat any buy link that doesn't point to them as untrusted.`}/>
           <Faq q={language==="pt"?"A liquidez é travada (locked)?":"Is the liquidity locked?"} a={language==="pt"?"Não. Os tokens de LP do pool continuam sob custódia da carteira do projeto — eles não estão travados nem foram queimados. O projeto não afirma que a liquidez é travada, permanente ou garantida, a menos que um mecanismo separado e verificável seja implementado e documentado publicamente.":"No. The pool's LP tokens remain under the project's custody wallet — they are not locked or burned. The project does not claim that liquidity is locked, permanent or guaranteed unless a separate verifiable mechanism is implemented and publicly documented."}/>
           <Faq q={language==="pt"?"As carteiras de reserva são custódia independente?":"Are the reserve wallets independent custody wallets?"} a={language==="pt"?"São endereços públicos separados para fins contábeis, mas atualmente pertencem a um único limite de custódia temporário. Não devem ser descritas como custódia independente ou protegidas por multisig.":"They are separate public addresses used for accounting, but they currently belong to one temporary custody security boundary. They should not be described as independent custody or multisignature protection."}/>
           <Faq q={language==="pt"?"O MALTY garante retorno ou valorização?":"Does MALTY guarantee returns or price appreciation?"} a={language==="pt"?"Não. MALTY é um memecoin. Não há promessa ou garantia de preço, liquidez, retorno ou valor futuro.":"No. MALTY is a memecoin. There is no promise or guarantee of price, liquidity, returns or future value."}/>

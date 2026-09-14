@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MALTY_IMPACT_WALLET, MALTY_POOL_CREATION_TX, MALTY_PUBLIC_MINT, MALTY_RAYDIUM_POOL_ID, MALTY_RAYDIUM_SWAP_URL, MALTY_SOLSCAN_POOL_URL, MALTY_TEST_BUY_TX, getReviewDateLong } from "../lib/malty-token";
+import { MALTY_BIRDEYE_URL, MALTY_IMPACT_WALLET, MALTY_JUPITER_URL, MALTY_POOL_CREATION_TX, MALTY_PUBLIC_MINT, MALTY_RAYDIUM_POOL_ID, MALTY_RAYDIUM_SWAP_URL, MALTY_SOLSCAN_POOL_URL, MALTY_TEST_BUY_TX, getReviewDateLong } from "../lib/malty-token";
 import { useLanguage } from "../lib/language";
 import { SiteHeader } from "../components/site-header";
 
@@ -31,6 +31,9 @@ const copy = {
     feeTierLabel: "Fee tier", initialLiquidityLabel: "Initial pool liquidity", poolIdLabel: "Pool ID",
     buyOnRaydium: "Buy on Raydium ↗", viewPoolExplorer: "View pool on Solscan ↗",
     poolCreationLabel: "Pool creation transaction ↗", testBuyLabel: "Test buy confirmed ↗",
+    listingsLabel: "Where to find MALTY",
+    listingLive: ["Live on Raydium", "Tracked on Birdeye", "Available on Jupiter"],
+    listingPending: ["Jupiter verification submitted", "CoinGecko listing submitted", "CoinMarketCap listing submitted"],
     tradeLiquidityNote: "Initial pool liquidity is 5,000,000 MALTY + 0.5 SOL — separate from the 500,000,000 MALTY Liquidity Reserve, which remains reserved for future market-making.",
     lpCustodyNote: "LP tokens remain under the project's custody wallet. They are not locked or burned.",
     reserveEyebrow: "RESERVE ARCHITECTURE",
@@ -70,6 +73,9 @@ const copy = {
     feeTierLabel: "Taxa da pool", initialLiquidityLabel: "Liquidez inicial do pool", poolIdLabel: "ID do Pool",
     buyOnRaydium: "Comprar na Raydium ↗", viewPoolExplorer: "Ver pool no Solscan ↗",
     poolCreationLabel: "Transação de criação do pool ↗", testBuyLabel: "Compra de teste confirmada ↗",
+    listingsLabel: "Onde encontrar o MALTY",
+    listingLive: ["Ao vivo na Raydium", "Rastreado no Birdeye", "Disponível na Jupiter"],
+    listingPending: ["Verificação na Jupiter enviada", "Listagem na CoinGecko enviada", "Listagem na CoinMarketCap enviada"],
     tradeLiquidityNote: "A liquidez inicial do pool é de 5.000.000 MALTY + 0,5 SOL — separada da Reserva de Liquidez de 500.000.000 MALTY, que segue reservada para futuras ações de mercado.",
     lpCustodyNote: "Os tokens de LP continuam sob custódia da carteira do projeto. Eles não estão travados nem foram queimados.",
     reserveEyebrow: "ARQUITETURA DE RESERVAS",
@@ -149,6 +155,21 @@ export function TransparencyContent() {
           </div>
           <p className="mt-4 max-w-2xl text-xs leading-5 text-white/45">{t.tradeLiquidityNote}</p>
           <p className="mt-2 max-w-2xl text-xs leading-5 text-white/45">{t.lpCustodyNote}</p>
+          <div className="mt-5">
+            <p className="text-[11px] font-black tracking-[.18em] text-white/45">{t.listingsLabel}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {t.listingLive.map((label, i) => (
+                <a key={label} href={[MALTY_RAYDIUM_SWAP_URL, MALTY_BIRDEYE_URL, MALTY_JUPITER_URL][i]} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-white/[.08] bg-white/[.02] px-2.5 py-1 text-[11px] font-semibold text-white/70 hover:border-[#e9b949]/35 hover:text-white">
+                  <span className="text-emerald-300">✓</span>{label}
+                </a>
+              ))}
+              {t.listingPending.map(label => (
+                <span key={label} className="inline-flex items-center gap-1.5 rounded-full border border-white/[.06] bg-white/[.01] px-2.5 py-1 text-[11px] font-semibold text-white/40">
+                  <span>⏳</span>{label}
+                </span>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="mt-12">

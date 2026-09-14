@@ -90,6 +90,8 @@ MALTY is live and tradeable through the official MALTY/SOL pool on Raydium (Stan
 - **Pair:** MALTY/SOL
 - **Fee tier:** 0.25%
 
+MALTY is also tradeable through Jupiter (which routes to the same official pool) and trackable on Birdeye. Listing requests have been submitted to CoinGecko and CoinMarketCap, and a Jupiter token verification request has also been submitted — none of these are confirmed yet.
+
 Always verify the mint and pool ID before trading. Treat any buy link that does not point to this exact pool as untrusted.
 
 ## Is the liquidity locked?

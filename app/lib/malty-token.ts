@@ -63,9 +63,15 @@ export const MALTY_RAYDIUM_SWAP_URL = `https://raydium.io/swap/?inputMint=sol&ou
 export const MALTY_SOLSCAN_TOKEN_URL = `https://solscan.io/token/${MALTY_PUBLIC_MINT}`;
 export const MALTY_SOLSCAN_POOL_URL = `https://solscan.io/account/${MALTY_RAYDIUM_POOL_ID}`;
 
+// Jupiter aggregates DEX liquidity (including the official Raydium pool) and
+// Birdeye provides public price/chart tracking. Both are keyed off the
+// official mint, never a symbol search.
+export const MALTY_JUPITER_URL = `https://jup.ag/tokens/${MALTY_PUBLIC_MINT}`;
+export const MALTY_BIRDEYE_URL = `https://birdeye.so/token/${MALTY_PUBLIC_MINT}?chain=solana`;
+
 // Single source of truth for the "last public review" date shown across the
 // public pages. Update only this constant when the review date changes.
-export const MALTY_PUBLIC_REVIEW_DATE_ISO = "2026-09-13";
+export const MALTY_PUBLIC_REVIEW_DATE_ISO = "2026-09-14";
 
 // Single source of truth for the homepage "What comes next" roadmap timeline
 // (the "Proof, not promises" section). This is a 1-indexed position into the

@@ -45,6 +45,8 @@ This record highlights material project changes that are useful for public trans
 - A test buy and a test sell against the official pool were both confirmed successful.
 - LP tokens for the pool remain under the project's custody wallet; they are not locked or burned.
 - The landing page was updated to make live-trading status, the official contract, and the official pool clearly visible, with an explicit warning to verify the contract before trading.
+- MALTY became tradeable through Jupiter (which routes to the official Raydium pool) and trackable on Birdeye.
+- Listing requests were submitted to CoinGecko and CoinMarketCap (CMC ticket 1456919), and a Jupiter token verification request was also submitted. None of these listings is confirmed yet — the project does not claim a listing exists until it is actually live on the respective platform.
 
 ## Community
 
