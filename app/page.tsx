@@ -205,10 +205,10 @@ export default function Home() {
           <p className="mt-2.5 select-none text-xl font-semibold tracking-[-0.02em] text-white/92 sm:text-2xl">{t.headline}</p>
           <p className={`mt-3 max-w-2xl ${textBody}`}>{t.intro}</p>
           <div className="mt-[22px] flex flex-wrap gap-3">
-            <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex select-none items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">
+            <Link href="/swap" className="inline-flex select-none items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">
               <span className="h-3.5 w-3.5 rounded-full bg-[conic-gradient(from_200deg,#ffe59a,#d9a53d_45%,#6f4210_80%,#ffe59a)] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.25)]" />
               {t.primaryCta}
-            </a>
+            </Link>
             <Link href="/how-to-buy" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.howToBuyCta} →</Link>
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -303,10 +303,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex select-none items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">{t.buyOnRaydium} ↗</a>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <Link href="/swap" className="inline-flex select-none items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5">{t.primaryCta}</Link>
           <a href={MALTY_SOLSCAN_POOL_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.viewPool} ↗</a>
           <a href={MALTY_SOLSCAN_TOKEN_URL} target="_blank" rel="noopener noreferrer" className="select-none rounded-xl border border-white/[0.1] px-5 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-[#e9b949]/35 hover:text-white">{t.secondaryCta} ↗</a>
+          <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="select-none text-[13px] font-semibold text-white/45 hover:text-white/70">{t.buyOnRaydium} ↗</a>
         </div>
 
         <p className="mt-4 text-[13px] text-white/45">{t.newToCrypto} <Link href="/how-to-buy" className="font-semibold text-[#e9b949] hover:text-[#f7cf6e]">{t.howToBuyLink} →</Link></p>

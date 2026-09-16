@@ -9,8 +9,8 @@ import { useLanguage } from "../lib/language";
 const TOKEN_IMAGE = MALTY_TOKEN.imageUri;
 
 const nav = {
-  en: { items: ["Project", "How to Buy", "Token", "Gives", "Roadmap", "FAQ"], hrefs: ["/#story", "/how-to-buy", "/#token", "/#gives", "/#roadmap", "/#faq"], menu: "Menu", close: "Close" },
-  pt: { items: ["Projeto", "Como Comprar", "Token", "Gives", "Roadmap", "FAQ"], hrefs: ["/#story", "/how-to-buy", "/#token", "/#gives", "/#roadmap", "/#faq"], menu: "Menu", close: "Fechar" },
+  en: { items: ["Project", "How to Buy", "Swap", "Token", "Gives", "Roadmap", "FAQ"], hrefs: ["/#story", "/how-to-buy", "/swap", "/#token", "/#gives", "/#roadmap", "/#faq"], menu: "Menu", close: "Close" },
+  pt: { items: ["Projeto", "Como Comprar", "Swap", "Token", "Gives", "Roadmap", "FAQ"], hrefs: ["/#story", "/how-to-buy", "/swap", "/#token", "/#gives", "/#roadmap", "/#faq"], menu: "Menu", close: "Fechar" },
 } as const;
 
 export function SiteHeader() {
