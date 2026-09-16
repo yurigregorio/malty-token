@@ -11,6 +11,7 @@ import { useAppClient } from "../../lib/client-provider";
 import { useCluster } from "../cluster-context";
 import { getWalletChain } from "../../lib/solana-client";
 import { trackSwapEvent } from "../../lib/swap/analytics";
+import { useSwapCopy } from "../../lib/swap/swap-copy";
 import type { MaltySwapProps } from "../../lib/swap/types";
 import { ConnectedMaltySwap } from "./connected-malty-swap";
 
@@ -26,6 +27,7 @@ const subscribeToHydration = () => () => {};
  * this component reuses that connection rather than establishing its own.
  */
 export function MaltySwap(props: MaltySwapProps) {
+  const t = useSwapCopy();
   const client = useAppClient();
   const { cluster, setCluster } = useCluster();
   const wallets = useWallets(client);
@@ -67,16 +69,16 @@ export function MaltySwap(props: MaltySwapProps) {
     return (
       <SwapShell shell={shell}>
         <div className="flex flex-col items-center gap-3 py-8 text-center">
-          <p className="text-sm font-black text-white/95">Switch to Mainnet</p>
+          <p className="text-sm font-black text-white/95">{t.switchToMainnetTitle}</p>
           <p className="max-w-xs text-xs leading-5 text-white/50">
-            $MALTY liquidity lives on Solana Mainnet. Switch networks to continue swapping.
+            {t.switchToMainnetBody}
           </p>
           <button
             type="button"
             onClick={() => setCluster("mainnet")}
             className="mt-1 rounded-xl bg-[#e9b949] px-5 py-2.5 text-sm font-black text-black transition-transform hover:-translate-y-0.5"
           >
-            Switch to Mainnet
+            {t.switchToMainnetCta}
           </button>
         </div>
       </SwapShell>
@@ -87,11 +89,10 @@ export function MaltySwap(props: MaltySwapProps) {
     return (
       <SwapShell shell={shell}>
         <div className="flex flex-col gap-3 py-6">
-          <p className="text-center text-sm font-black text-white/95">Connect your wallet to swap</p>
+          <p className="text-center text-sm font-black text-white/95">{t.connectPrompt}</p>
           {wallets.length === 0 ? (
             <p className="text-center text-xs text-white/45">
-              No Solana wallet detected. Install Phantom, Solflare, Backpack, or another
-              Wallet Standard–compatible wallet to continue.
+              {t.noWalletDetected}
             </p>
           ) : (
             <div className="space-y-1.5">

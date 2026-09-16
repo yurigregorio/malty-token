@@ -6,6 +6,7 @@ import { fetchSwapQuote } from "./raydium";
 import { getSwapToken, type SwapTokenSymbol } from "./tokens";
 import { mapSwapError } from "./swap-errors";
 import type { SwapAmountMode, SwapQuote } from "./types";
+import type { Language } from "../language";
 
 export type SwapQuoteStatus = "idle" | "loading" | "ready" | "stale" | "error";
 
@@ -17,6 +18,8 @@ export type UseSwapQuoteParams = {
   amount: string;
   slippageBps: number;
   enabled: boolean;
+  /** UI language for validation/error messages surfaced by this hook. Defaults to "en". */
+  language?: Language;
 };
 
 export type UseSwapQuoteResult = {
@@ -34,7 +37,7 @@ const QUOTE_TTL_MS = 20_000;
 const DEBOUNCE_MS = 350;
 
 export function useSwapQuote(params: UseSwapQuoteParams): UseSwapQuoteResult {
-  const { mode, inputToken, outputToken, amount, slippageBps, enabled } = params;
+  const { mode, inputToken, outputToken, amount, slippageBps, enabled, language = "en" } = params;
 
   const [status, setStatus] = useState<SwapQuoteStatus>("idle");
   const [quote, setQuote] = useState<SwapQuote | null>(null);
@@ -45,7 +48,7 @@ export function useSwapQuote(params: UseSwapQuoteParams): UseSwapQuoteResult {
   const staleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const amountToken = mode === "exact-in" ? inputToken : outputToken;
-  const amountError = enabled ? getAmountError(amount, getSwapToken(amountToken).decimals) : null;
+  const amountError = enabled ? getAmountError(amount, getSwapToken(amountToken).decimals, language) : null;
 
   const disabled = !enabled || amount.trim() === "" || amountError != null;
 
@@ -64,10 +67,10 @@ export function useSwapQuote(params: UseSwapQuoteParams): UseSwapQuoteResult {
 
       let amountUnits: bigint;
       try {
-        amountUnits = toBaseUnits(amount, getSwapToken(amountToken).decimals);
+        amountUnits = toBaseUnits(amount, getSwapToken(amountToken).decimals, language);
       } catch (error) {
         setStatus("error");
-        setErrorMessage(mapSwapError(error).message);
+        setErrorMessage(mapSwapError(error, language).message);
         return;
       }
 
@@ -107,14 +110,14 @@ export function useSwapQuote(params: UseSwapQuoteParams): UseSwapQuoteResult {
         .catch((error: unknown) => {
           if (controller.signal.aborted) return;
           setStatus("error");
-          setErrorMessage(mapSwapError(error).message);
+          setErrorMessage(mapSwapError(error, language).message);
         });
     }, DEBOUNCE_MS);
 
     return () => {
       clearTimeout(debounce);
     };
-  }, [mode, inputToken, outputToken, amount, amountToken, slippageBps, disabled, nonce]);
+  }, [mode, inputToken, outputToken, amount, amountToken, slippageBps, disabled, nonce, language]);
 
   useEffect(
     () => () => {

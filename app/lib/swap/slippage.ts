@@ -1,3 +1,5 @@
+import type { Language } from "../language";
+
 /** Slippage tolerance, expressed in basis points (1 bps = 0.01%). */
 
 export const SLIPPAGE_PRESETS_BPS: readonly number[] = [50, 100, 200];
@@ -21,18 +23,22 @@ export function percentToBps(percent: number): number {
   return Math.round(percent * 100);
 }
 
-export function validateSlippageBps(bps: number): string | null {
+export function validateSlippageBps(bps: number, language: Language = "en"): string | null {
+  const max = bpsToPercentLabel(MAX_SLIPPAGE_BPS);
+
   if (!Number.isFinite(bps) || Number.isNaN(bps)) {
-    return "Enter a valid slippage value";
+    return language === "pt" ? "Digite um valor de slippage válido" : "Enter a valid slippage value";
   }
   if (!Number.isInteger(bps)) {
-    return "Slippage must be a whole number of basis points";
+    return language === "pt"
+      ? "O slippage deve ser um número inteiro de pontos-base"
+      : "Slippage must be a whole number of basis points";
   }
   if (bps < MIN_SLIPPAGE_BPS) {
-    return "Slippage must be greater than 0%";
+    return language === "pt" ? "O slippage deve ser maior que 0%" : "Slippage must be greater than 0%";
   }
   if (bps > MAX_SLIPPAGE_BPS) {
-    return `Slippage cannot exceed ${bpsToPercentLabel(MAX_SLIPPAGE_BPS)}`;
+    return language === "pt" ? `O slippage não pode passar de ${max}` : `Slippage cannot exceed ${max}`;
   }
   return null;
 }

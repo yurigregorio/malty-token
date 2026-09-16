@@ -13,6 +13,7 @@ import { useBalance } from "../lib/hooks/use-balance";
 import { ellipsify } from "../lib/explorer";
 import { useCluster } from "./cluster-context";
 import { useAppClient } from "../lib/client-provider";
+import { useSwapCopy } from "../lib/swap/swap-copy";
 
 const solFormatter = new Intl.NumberFormat("en-US", { maximumFractionDigits: 4 });
 const subscribeToHydration = () => () => {};
@@ -24,6 +25,7 @@ const subscribeToHydration = () => () => {};
  * — connecting here also connects Malty Swap and vice versa.
  */
 export function SiteWalletButton() {
+  const t = useSwapCopy();
   const client = useAppClient();
   const wallets = useWallets(client);
   const connected = useConnectedWallet(client);
@@ -96,17 +98,16 @@ export function SiteWalletButton() {
           aria-expanded={isOpen}
           className="whitespace-nowrap rounded-full border border-[#e9b949]/30 bg-[#e9b949]/10 px-3 py-1.5 text-[11px] font-bold text-[#e9b949] transition-colors hover:border-[#e9b949]/50 hover:bg-[#e9b949]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e9b949] sm:px-4 sm:py-2 sm:text-[12px]"
         >
-          <span className="sm:hidden">Connect</span>
-          <span className="hidden sm:inline">Connect Wallet</span>
+          <span className="sm:hidden">{t.connectShort}</span>
+          <span className="hidden sm:inline">{t.connectWallet}</span>
         </button>
 
         {isOpen && (
           <div className="absolute right-0 top-full z-50 mt-2 w-64 rounded-2xl border border-white/[0.1] bg-[#0c0f13] p-3 shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
-            <p className="mb-2 px-1 text-[11px] font-semibold text-white/40">Choose a wallet</p>
+            <p className="mb-2 px-1 text-[11px] font-semibold text-white/40">{t.chooseWallet}</p>
             {wallets.length === 0 ? (
               <p className="px-1 text-xs leading-5 text-white/50">
-                No wallet detected. Install Phantom, Solflare, Backpack, or another
-                Wallet Standard–compatible wallet.
+                {t.noWalletDetected}
               </p>
             ) : (
               <div className="space-y-1">
@@ -150,7 +151,7 @@ export function SiteWalletButton() {
         ref={triggerRef}
         onClick={() => (isOpen ? close() : setIsOpen(true))}
         aria-expanded={isOpen}
-        aria-label={`Wallet ${walletAddress}`}
+        aria-label={`${t.walletLabel} ${walletAddress}`}
         className="flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.025] px-3.5 py-2 text-[12px] font-bold text-white/85 transition-colors hover:border-[#e9b949]/35"
       >
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -159,12 +160,12 @@ export function SiteWalletButton() {
 
       {isOpen && (
         <div className="absolute right-0 top-full z-50 mt-2 w-72 rounded-2xl border border-white/[0.1] bg-[#0c0f13] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
-          <p className="text-[11px] font-semibold text-white/40">Balance</p>
+          <p className="text-[11px] font-semibold text-white/40">{t.balance}</p>
           <p className="mt-0.5 text-lg font-black text-white/95">
             {balance.lamports != null
               ? formatDecimalFixedPoint(solFormatter, lamportsToSol(balance.lamports))
               : balance.isLoading
-                ? "Loading…"
+                ? t.loadingBalance
                 : "—"}{" "}
             {balance.lamports != null && <span className="text-sm font-normal text-white/45">SOL</span>}
           </p>
@@ -178,7 +179,7 @@ export function SiteWalletButton() {
               onClick={copyAddress}
               className="flex-1 rounded-lg border border-white/[0.1] bg-white/[0.025] px-3 py-2 text-[11px] font-bold text-white/80 transition-colors hover:border-[#e9b949]/35"
             >
-              {copyState === "copied" ? "Copied!" : copyState === "error" ? "Copy failed" : "Copy address"}
+              {copyState === "copied" ? t.copied : copyState === "error" ? t.copyFailed : t.copyAddress}
             </button>
             <a
               href={getExplorerUrl(`/address/${walletAddress}`)}
@@ -186,7 +187,7 @@ export function SiteWalletButton() {
               rel="noopener noreferrer"
               className="flex-1 rounded-lg border border-white/[0.1] bg-white/[0.025] px-3 py-2 text-center text-[11px] font-bold text-white/80 transition-colors hover:border-[#e9b949]/35"
             >
-              Explorer ↗
+              {t.explorer}
             </a>
           </div>
 
@@ -202,7 +203,7 @@ export function SiteWalletButton() {
             disabled={isDisconnecting}
             className="mt-2 w-full rounded-lg border border-white/[0.1] px-3 py-2 text-[11px] font-bold text-red-300 transition-colors hover:bg-red-400/10 disabled:opacity-50"
           >
-            {isDisconnecting ? "Disconnecting…" : "Disconnect"}
+            {isDisconnecting ? t.disconnecting : t.disconnect}
           </button>
         </div>
       )}

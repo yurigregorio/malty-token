@@ -6,6 +6,7 @@ import { useAction } from "@solana/react";
 import type { useConnectedWallet } from "@solana/kit-plugin-wallet/react";
 import { useAppClient } from "../client-provider";
 import { useCluster } from "../../components/cluster-context";
+import { useLanguage } from "../language";
 import { useBalance } from "../hooks/use-balance";
 import { useTokenBalance } from "../hooks/use-token-balance";
 import { buildSwapTransactions } from "./raydium";
@@ -78,6 +79,7 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
 
   const client = useAppClient();
   const { cluster, setCluster, getExplorerUrl } = useCluster();
+  const { language } = useLanguage();
 
   const amountMode = exactOutputAmount != null ? "exact-out" : "exact-in";
   const defaults = useMemo(() => resolveDefaultTokens(props), [props]);
@@ -138,6 +140,7 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
     amount,
     slippageBps,
     enabled: quoteEnabled,
+    language,
   });
 
   // Derived, not stored: while resting at "enter-amount", the visible step
@@ -285,7 +288,7 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
       try {
         return await runSwap(signal, activeQuote);
       } catch (error) {
-        const mapped = mapSwapError(error);
+        const mapped = mapSwapError(error, language);
         setSubmitError({ message: mapped.message });
         setWorkflowStep("failed");
         trackSwapEvent({ name: "swap_failed", source, reason: mapped.kind });
@@ -315,7 +318,8 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
   }, [amountMode, action, refreshQuote]);
 
   const amountToken = amountMode === "exact-in" ? inputToken : outputToken;
-  const rawAmountValidation = amount.trim() === "" ? null : getAmountError(amount, getSwapToken(amountToken).decimals);
+  const rawAmountValidation =
+    amount.trim() === "" ? null : getAmountError(amount, getSwapToken(amountToken).decimals, language);
 
   const maxInputAmount = useCallback((): string | null => {
     const balance = balanceFor(inputToken);

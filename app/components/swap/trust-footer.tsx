@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { MALTY_PUBLIC_MINT } from "../../lib/malty-token";
+import { useSwapCopy } from "../../lib/swap/swap-copy";
 
 export function SwapTrustFooter() {
+  const t = useSwapCopy();
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
 
   async function copyMint() {
@@ -21,7 +23,7 @@ export function SwapTrustFooter() {
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/[0.08] bg-black/15 px-3.5 py-2.5">
         <div className="min-w-0">
           <p className="text-[10px] font-semibold tracking-[0.14em] text-white/40">
-            $MALTY CONTRACT
+            {t.contractLabel}
           </p>
           <p className="mt-0.5 truncate font-mono text-xs text-white/80">
             {MALTY_PUBLIC_MINT}
@@ -31,17 +33,16 @@ export function SwapTrustFooter() {
           onClick={copyMint}
           className="shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] px-3 py-1.5 text-[11px] font-semibold text-white/85 transition-colors hover:border-[#e9b949]/35"
         >
-          {copyState === "copied" ? "Copied!" : copyState === "error" ? "Copy failed" : "Copy"}
+          {copyState === "copied" ? t.copied : copyState === "error" ? t.copyFailed : t.copy}
         </button>
       </div>
 
       <p className="flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white/45">
-        <span className="text-[#e9b949]">⚡</span> Powered by Raydium
+        <span className="text-[#e9b949]">⚡</span> {t.poweredByRaydium}
       </p>
 
       <p className="text-center text-[10.5px] leading-4 text-white/30">
-        Swaps are executed on Solana using decentralized liquidity. Rates and price impact
-        may change before confirmation. Always review the transaction in your wallet.
+        {t.disclosure}
       </p>
     </div>
   );

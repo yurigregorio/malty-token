@@ -7,10 +7,12 @@ import { SiteHeader } from "../components/site-header";
 import { MaltySwap } from "../components/swap/malty-swap";
 import { parseSwapSearchParams } from "../lib/swap/url-params";
 import { isSupportedPair } from "../lib/swap/tokens";
+import { useSwapCopy } from "../lib/swap/swap-copy";
 import { MALTY_RAYDIUM_SWAP_URL } from "../lib/malty-token";
 
 export function SwapContent() {
   const searchParams = useSearchParams();
+  const t = useSwapCopy();
 
   const parsed = useMemo(() => parseSwapSearchParams(searchParams), [searchParams]);
 
@@ -29,11 +31,10 @@ export function SwapContent() {
 
         <div className="relative mx-auto max-w-md px-5 py-8 sm:px-8 sm:py-10">
           <div className="text-center">
-            <p className="text-[11px] font-black tracking-[0.2em] text-[#e9b949]">MALTY SWAP</p>
-            <h1 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] sm:text-4xl">Trade $MALTY.</h1>
+            <p className="text-[11px] font-black tracking-[0.2em] text-[#e9b949]">{t.pageEyebrow}</p>
+            <h1 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] sm:text-4xl">{t.pageTitle}</h1>
             <p className="mx-auto mt-2.5 max-w-sm text-[13px] leading-5 text-white/50">
-              Swap SOL or USDC for MALTY — and back — using real Raydium liquidity from your own
-              wallet. Non-custodial, every transaction signed by you.
+              {t.pageSubtitle}
             </p>
           </div>
 
@@ -51,7 +52,7 @@ export function SwapContent() {
 
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[12px] text-white/40">
             <Link href="/how-to-buy" className="font-semibold text-white/60 hover:text-white">
-              New to crypto? Read the guide →
+              {t.guideLink}
             </Link>
             <a
               href={MALTY_RAYDIUM_SWAP_URL}
@@ -59,7 +60,7 @@ export function SwapContent() {
               rel="noopener noreferrer"
               className="hover:text-white/70"
             >
-              Open on Raydium ↗
+              {t.openOnRaydium}
             </a>
           </div>
         </div>

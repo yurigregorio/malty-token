@@ -4,22 +4,24 @@ import { getSwapToken } from "../../lib/swap/tokens";
 import type { SwapQuote } from "../../lib/swap/types";
 import { PriceImpactBadge } from "./price-impact-badge";
 import { InfoTooltip } from "./info-tooltip";
-import { SLIPPAGE_EXPLANATION } from "./slippage-copy";
+import { useSwapCopy } from "../../lib/swap/swap-copy";
 
 function Row({
   label,
   value,
   tooltip,
+  tooltipTitle,
 }: {
   label: string;
   value: React.ReactNode;
   tooltip?: React.ReactNode;
+  tooltipTitle?: string;
 }) {
   return (
     <div className="flex items-center justify-between text-xs">
       <span className="flex items-center gap-1.5 text-white/45">
         {label}
-        {tooltip && <InfoTooltip label={`What is ${label.toLowerCase()}?`}>{tooltip}</InfoTooltip>}
+        {tooltip && <InfoTooltip label={tooltipTitle ?? label}>{tooltip}</InfoTooltip>}
       </span>
       <span className="font-semibold text-white/85">{value}</span>
     </div>
@@ -33,6 +35,7 @@ export function SwapDetails({
   quote: SwapQuote;
   isStale: boolean;
 }) {
+  const t = useSwapCopy();
   const inputMeta = getSwapToken(quote.inputMint);
   const outputMeta = getSwapToken(quote.outputMint);
 
@@ -52,15 +55,15 @@ export function SwapDetails({
       {isStale && (
         <p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#e9b949]/90">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#e9b949]" />
-          Refreshing quote…
+          {t.refreshingQuote}
         </p>
       )}
       <Row
-        label="Rate"
+        label={t.rate}
         value={`1 ${inputMeta.symbol} ≈ ${rate.toLocaleString("en-US", { maximumFractionDigits: 6 })} ${outputMeta.symbol}`}
       />
       <Row
-        label={isExactIn ? "Minimum received" : "Maximum you pay"}
+        label={isExactIn ? t.minimumReceived : t.maximumYouPay}
         value={
           quote.otherAmountThreshold != null
             ? `${formatTokenAmount(quote.otherAmountThreshold, thresholdMeta.decimals)} ${thresholdMeta.symbol}`
@@ -68,13 +71,14 @@ export function SwapDetails({
         }
       />
       <Row
-        label="Slippage tolerance"
+        label={t.slippageTolerance}
         value={bpsToPercentLabel(quote.slippageBps)}
-        tooltip={SLIPPAGE_EXPLANATION}
+        tooltip={t.slippageExplanation}
+        tooltipTitle={t.whatIsSlippage}
       />
-      <Row label="Price impact" value={<PriceImpactBadge percent={quote.priceImpactPercent} />} />
+      <Row label={t.priceImpact} value={<PriceImpactBadge percent={quote.priceImpactPercent} />} />
       <Row
-        label="Route"
+        label={t.route}
         value={
           quote.routes.length > 0
             ? `Raydium · ${quote.routes.length} pool${quote.routes.length > 1 ? "s" : ""}`

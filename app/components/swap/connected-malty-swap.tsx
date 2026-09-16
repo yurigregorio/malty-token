@@ -13,7 +13,7 @@ import { ReviewSwap } from "./review-swap";
 import { SwapInFlightStatus, SwapConfirmedStatus, SwapFailedStatus } from "./swap-status";
 import { SwapTrustFooter } from "./trust-footer";
 import { InfoTooltip } from "./info-tooltip";
-import { SLIPPAGE_EXPLANATION } from "./slippage-copy";
+import { useSwapCopy } from "../../lib/swap/swap-copy";
 
 type ConnectedWallet = NonNullable<ReturnType<typeof useConnectedWallet>>;
 
@@ -22,6 +22,7 @@ export function ConnectedMaltySwap({
   chain,
   ...props
 }: MaltySwapProps & { account: ConnectedWallet["account"]; chain: `solana:${string}` }) {
+  const t = useSwapCopy();
   const signAndSendTransactions = useSignAndSendTransactions(account, chain);
 
   const engine = useMaltySwapEngine({
@@ -129,7 +130,7 @@ export function ConnectedMaltySwap({
   }
 
   if (step === "failed") {
-    return <SwapFailedStatus message={submitError?.message ?? "Something went wrong."} onRetry={reset} />;
+    return <SwapFailedStatus message={submitError?.message ?? t.genericFailure} onRetry={reset} />;
   }
 
   const outputDisplay =
@@ -148,12 +149,12 @@ export function ConnectedMaltySwap({
     <div className="space-y-2.5">
       {amountMode === "exact-out" && (
         <p className="rounded-lg border border-[#e9b949]/25 bg-[#e9b949]/[0.06] px-3 py-2 text-center text-[12px] font-bold text-[#e9b949]">
-          Buying exactly {amount} {outputToken}
+          {t.buyingExactly} {amount} {outputToken}
         </p>
       )}
 
       <TokenAmountPanel
-        label="You pay"
+        label={t.youPay}
         token={inputToken}
         tokenOptions={inputOptions.length > 0 ? inputOptions : [inputToken]}
         onTokenChange={setFromToken}
@@ -181,7 +182,7 @@ export function ConnectedMaltySwap({
       </div>
 
       <TokenAmountPanel
-        label="You receive"
+        label={t.youReceive}
         token={outputToken}
         tokenOptions={outputOptions.length > 0 ? outputOptions : [outputToken]}
         onTokenChange={lockOutputToken || amountMode === "exact-out" ? undefined : setToToken}
@@ -207,14 +208,14 @@ export function ConnectedMaltySwap({
       {quoteStatus === "loading" && !quote && (
         <p className="flex items-center gap-1.5 px-1 text-[11px] font-semibold text-white/40">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white/40" />
-          Fetching quote…
+          {t.fetchingQuote}
         </p>
       )}
 
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3">
         <p className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.08em] text-white/45">
           SLIPPAGE
-          <InfoTooltip label="What is slippage?">{SLIPPAGE_EXPLANATION}</InfoTooltip>
+          <InfoTooltip label={t.whatIsSlippage}>{t.slippageExplanation}</InfoTooltip>
         </p>
         <SlippageSelector slippageBps={slippageBps} onChange={setSlippageBps} />
       </div>
@@ -226,10 +227,10 @@ export function ConnectedMaltySwap({
         className="w-full rounded-xl bg-[#e9b949] px-4 py-3.5 text-sm font-black text-black transition-transform hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-40"
       >
         {quoteStatus === "loading"
-          ? "Fetching quote…"
+          ? t.fetchingQuote
           : amount.trim() === ""
-            ? "Enter an amount"
-            : "Review Swap"}
+            ? t.enterAnAmount
+            : t.reviewSwapCta}
       </button>
 
       <SwapTrustFooter />

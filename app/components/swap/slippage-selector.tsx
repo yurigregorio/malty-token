@@ -9,6 +9,8 @@ import {
   percentToBps,
   validateSlippageBps,
 } from "../../lib/swap/slippage";
+import { useSwapCopy } from "../../lib/swap/swap-copy";
+import { useLanguage } from "../../lib/language";
 
 export function SlippageSelector({
   slippageBps,
@@ -17,13 +19,15 @@ export function SlippageSelector({
   slippageBps: number;
   onChange: (bps: number) => void;
 }) {
+  const t = useSwapCopy();
+  const { language } = useLanguage();
   const isPreset = SLIPPAGE_PRESETS_BPS.includes(slippageBps);
   const [customOpen, setCustomOpen] = useState(!isPreset);
   const [customValue, setCustomValue] = useState(
     isPreset ? "" : (slippageBps / 100).toString()
   );
   const customError = customOpen && customValue !== ""
-    ? validateSlippageBps(percentToBps(Number(customValue)))
+    ? validateSlippageBps(percentToBps(Number(customValue)), language)
     : null;
 
   return (
@@ -56,7 +60,7 @@ export function SlippageSelector({
               : "border-white/[0.1] text-white/60 hover:border-white/25"
           }`}
         >
-          Custom
+          {t.custom}
         </button>
         {customOpen && (
           <div className="flex items-center gap-1">
@@ -67,12 +71,12 @@ export function SlippageSelector({
                 const next = e.target.value;
                 setCustomValue(next);
                 const bps = percentToBps(Number(next));
-                if (next !== "" && validateSlippageBps(bps) == null) {
+                if (next !== "" && validateSlippageBps(bps, language) == null) {
                   onChange(bps);
                 }
               }}
               placeholder="1.0"
-              aria-label="Custom slippage percentage"
+              aria-label={t.custom}
               className="w-16 rounded-lg border border-white/[0.1] bg-black/20 px-2 py-1.5 text-xs text-white/90 outline-none focus:border-[#e9b949]/40"
             />
             <span className="text-xs text-white/50">%</span>
@@ -86,11 +90,11 @@ export function SlippageSelector({
       )}
       {!customError && isHighSlippage(slippageBps) && (
         <p className="mt-1.5 text-[11px] text-[#e9b949]/90">
-          High slippage tolerance — your swap may execute at a worse price than expected.
+          {t.highSlippageWarning}
         </p>
       )}
       <p className="mt-1 text-[10px] text-white/30">
-        Max {bpsToPercentLabel(MAX_SLIPPAGE_BPS)}.
+        {t.maxSlippagePrefix} {bpsToPercentLabel(MAX_SLIPPAGE_BPS)}.
       </p>
     </div>
   );

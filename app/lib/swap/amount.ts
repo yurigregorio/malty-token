@@ -1,3 +1,5 @@
+import type { Language } from "../language";
+
 /**
  * Decimal <-> base-unit conversion for arbitrary SPL token decimals, plus
  * display formatting. Mirrors the pattern already used for MALTY in
@@ -7,28 +9,42 @@
 
 const MAX_BASE_UNITS = (1n << 64n) - 1n;
 
+const AMOUNT_MESSAGES = {
+  en: {
+    wholeNumber: "Enter a whole number amount",
+    decimalPlaces: (decimals: number) => `Enter an amount with up to ${decimals} decimal places`,
+    tooLarge: "Amount exceeds the maximum supported amount",
+    mustBePositive: "Amount must be greater than zero",
+    invalid: "Invalid amount",
+  },
+  pt: {
+    wholeNumber: "Digite um valor inteiro",
+    decimalPlaces: (decimals: number) => `Digite um valor com até ${decimals} casas decimais`,
+    tooLarge: "O valor excede o máximo suportado",
+    mustBePositive: "O valor deve ser maior que zero",
+    invalid: "Valor inválido",
+  },
+} as const satisfies Record<Language, Record<string, string | ((n: number) => string)>>;
+
 export function amountPattern(decimals: number): RegExp {
   return new RegExp(`^(\\d+)(?:\\.(\\d{1,${decimals}}))?$`);
 }
 
 /** Parses a user-entered decimal amount into base units. Throws on invalid input. */
-export function toBaseUnits(amount: string, decimals: number): bigint {
+export function toBaseUnits(amount: string, decimals: number, language: Language = "en"): bigint {
+  const messages = AMOUNT_MESSAGES[language];
   const normalized = amount.trim();
   const match = amountPattern(decimals).exec(normalized);
 
   if (!match) {
-    throw new Error(
-      decimals === 0
-        ? "Enter a whole number amount"
-        : `Enter an amount with up to ${decimals} decimal places`
-    );
+    throw new Error(decimals === 0 ? messages.wholeNumber : messages.decimalPlaces(decimals));
   }
 
   const [, whole, fraction = ""] = match;
   const normalizedWhole = whole.replace(/^0+(?=\d)/, "");
 
   if (normalizedWhole.length > 20) {
-    throw new Error("Amount exceeds the maximum supported amount");
+    throw new Error(messages.tooLarge);
   }
 
   const units =
@@ -36,11 +52,11 @@ export function toBaseUnits(amount: string, decimals: number): bigint {
     BigInt(fraction.padEnd(decimals, "0") || "0");
 
   if (units <= 0n) {
-    throw new Error("Amount must be greater than zero");
+    throw new Error(messages.mustBePositive);
   }
 
   if (units > MAX_BASE_UNITS) {
-    throw new Error("Amount exceeds the maximum supported amount");
+    throw new Error(messages.tooLarge);
   }
 
   return units;
@@ -49,14 +65,15 @@ export function toBaseUnits(amount: string, decimals: number): bigint {
 /** Returns a validation error message for a raw amount string, or null when valid. */
 export function getAmountError(
   amount: string,
-  decimals: number
+  decimals: number,
+  language: Language = "en"
 ): string | null {
   if (amount.trim() === "") return null;
   try {
-    toBaseUnits(amount, decimals);
+    toBaseUnits(amount, decimals, language);
     return null;
   } catch (error) {
-    return error instanceof Error ? error.message : "Invalid amount";
+    return error instanceof Error ? error.message : AMOUNT_MESSAGES[language].invalid;
   }
 }
 

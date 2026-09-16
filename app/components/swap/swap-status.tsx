@@ -1,24 +1,18 @@
 import { formatTokenAmount } from "../../lib/swap/amount";
 import { getSwapToken } from "../../lib/swap/tokens";
 import type { SwapResult, SwapStep } from "../../lib/swap/types";
-
-const IN_FLIGHT_COPY: Partial<Record<SwapStep, { title: string; text: string }>> = {
-  "awaiting-signature": {
-    title: "Confirm in your wallet",
-    text: "Approve the transaction in your wallet to continue. Malty never signs on your behalf.",
-  },
-  submitted: {
-    title: "Transaction submitted",
-    text: "Your swap was sent to the network.",
-  },
-  confirming: {
-    title: "Confirming…",
-    text: "Waiting for the Solana network to confirm your swap. This is usually quick.",
-  },
-};
+import { useSwapCopy } from "../../lib/swap/swap-copy";
 
 export function SwapInFlightStatus({ step }: { step: SwapStep }) {
-  const copy = IN_FLIGHT_COPY[step];
+  const t = useSwapCopy();
+
+  const inFlightCopy: Partial<Record<SwapStep, { title: string; text: string }>> = {
+    "awaiting-signature": { title: t.awaitingSignatureTitle, text: t.awaitingSignatureText },
+    submitted: { title: t.submittedTitle, text: t.submittedText },
+    confirming: { title: t.confirmingTitle, text: t.confirmingText },
+  };
+
+  const copy = inFlightCopy[step];
   if (!copy) return null;
 
   return (
@@ -43,12 +37,13 @@ export function SwapConfirmedStatus({
   returnTo: string | null | undefined;
   onSwapAgain: () => void;
 }) {
+  const t = useSwapCopy();
   const outputMeta = getSwapToken(result.outputMint);
 
   return (
     <div className="flex flex-col items-center gap-3 py-4 text-center">
       <p className="text-2xl">🐾</p>
-      <p className="text-lg font-black text-white/95">Swap complete!</p>
+      <p className="text-lg font-black text-white/95">{t.swapCompleteTitle}</p>
       <p className="text-2xl font-black text-emerald-300">
         +{formatTokenAmount(result.outputAmount, outputMeta.decimals)} {outputMeta.symbol}
       </p>
@@ -70,7 +65,7 @@ export function SwapConfirmedStatus({
             href={returnTo}
             className="flex-1 rounded-xl bg-[#e9b949] px-4 py-3 text-center text-sm font-black text-black transition-transform hover:-translate-y-0.5"
           >
-            Return to Game
+            {t.returnToGame}
           </a>
         )}
         <button
@@ -78,7 +73,7 @@ export function SwapConfirmedStatus({
           onClick={onSwapAgain}
           className={`flex-1 rounded-xl border border-white/[0.12] px-4 py-3 text-sm font-bold text-white/80 transition-colors hover:border-white/25 ${returnTo ? "" : "sm:flex-none"}`}
         >
-          Swap again
+          {t.swapAgain}
         </button>
       </div>
     </div>
@@ -92,17 +87,19 @@ export function SwapFailedStatus({
   message: string;
   onRetry: () => void;
 }) {
+  const t = useSwapCopy();
+
   return (
     <div className="flex flex-col items-center gap-3 py-6 text-center">
       <p className="text-2xl">⚠️</p>
-      <p className="text-sm font-black text-white/95">Swap didn&apos;t go through</p>
+      <p className="text-sm font-black text-white/95">{t.swapFailedTitle}</p>
       <p className="max-w-xs text-xs leading-5 text-white/55">{message}</p>
       <button
         type="button"
         onClick={onRetry}
         className="mt-2 rounded-xl border border-white/[0.12] px-5 py-2.5 text-sm font-bold text-white/85 transition-colors hover:border-[#e9b949]/35"
       >
-        Try again
+        {t.tryAgain}
       </button>
     </div>
   );

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { formatTokenAmount } from "../../lib/swap/amount";
 import { getSwapToken, type SwapToken, type SwapTokenSymbol } from "../../lib/swap/tokens";
+import { useSwapCopy } from "../../lib/swap/swap-copy";
 
 function TokenIcon({ token }: { token: SwapToken }) {
   const [failed, setFailed] = useState(false);
@@ -59,6 +60,7 @@ export function TokenAmountPanel({
   onMax?: () => void;
   error?: string | null;
 }) {
+  const t = useSwapCopy();
   const [pickerOpen, setPickerOpen] = useState(false);
   const meta = getSwapToken(token);
   const canPickToken = onTokenChange != null && tokenOptions.length > 1;
@@ -72,31 +74,31 @@ export function TokenAmountPanel({
         </span>
         {balance != null && (
           <span className="text-[11px] text-white/45">
-            Balance: {formatTokenAmount(balance, meta.decimals)}
+            {t.balance}: {formatTokenAmount(balance, meta.decimals)}
             {onMax && (
               <button
                 type="button"
                 onClick={onMax}
                 className="ml-1.5 rounded border border-white/[0.12] px-1.5 py-0.5 text-[10px] font-bold text-[#e9b949] hover:border-[#e9b949]/40"
               >
-                MAX
+                {t.max}
               </button>
             )}
           </span>
         )}
         {balance == null && isLoadingBalance && (
-          <span className="text-[11px] text-white/30">Loading balance…</span>
+          <span className="text-[11px] text-white/30">{t.loadingBalance}</span>
         )}
         {balance == null && !isLoadingBalance && balanceError != null && (
           <span className="text-[11px] text-[#e9b949]/80">
-            Balance unavailable
+            {t.balanceUnavailable}
             {onRetryBalance && (
               <button
                 type="button"
                 onClick={onRetryBalance}
                 className="ml-1.5 rounded border border-white/[0.12] px-1.5 py-0.5 text-[10px] font-bold text-[#e9b949] hover:border-[#e9b949]/40"
               >
-                Retry
+                {t.retry}
               </button>
             )}
           </span>
@@ -147,7 +149,7 @@ export function TokenAmountPanel({
             value={amount}
             onChange={(e) => onAmountChange?.(e.target.value)}
             placeholder="0.00"
-            aria-label={`${label} amount`}
+            aria-label={`${label} ${t.amountFieldSuffix}`}
             aria-invalid={error != null}
             className="w-full min-w-0 bg-transparent text-right text-2xl font-black text-white/95 outline-none placeholder:text-white/20"
           />
