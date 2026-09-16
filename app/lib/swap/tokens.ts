@@ -29,6 +29,8 @@ export const SWAP_TOKENS: Record<SwapTokenSymbol, SwapToken> = {
     mint: address(WSOL_MINT),
     decimals: 9,
     isNative: true,
+    logoUri:
+      "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
   },
   USDC: {
     symbol: "USDC",
@@ -36,6 +38,8 @@ export const SWAP_TOKENS: Record<SwapTokenSymbol, SwapToken> = {
     mint: address(USDC_MINT),
     decimals: 6,
     isNative: false,
+    logoUri:
+      "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
   },
   MALTY: {
     symbol: "MALTY",

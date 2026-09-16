@@ -1,4 +1,4 @@
-import { formatTokenAmount } from "../../lib/swap/amount";
+import { formatTokenAmount, fromBaseUnits } from "../../lib/swap/amount";
 import { bpsToPercentLabel } from "../../lib/swap/slippage";
 import { getSwapToken } from "../../lib/swap/tokens";
 import type { SwapQuote } from "../../lib/swap/types";
@@ -23,10 +23,12 @@ export function SwapDetails({
   const inputMeta = getSwapToken(quote.inputMint);
   const outputMeta = getSwapToken(quote.outputMint);
 
+  // fromBaseUnits gives a plain (non-grouped) decimal string — formatTokenAmount's
+  // "12,430" grouping would make Number(...) parse to NaN here.
   const rate =
     quote.inputAmount > 0n
-      ? Number(formatTokenAmount(quote.outputAmount, outputMeta.decimals, outputMeta.decimals)) /
-        Number(formatTokenAmount(quote.inputAmount, inputMeta.decimals, inputMeta.decimals))
+      ? Number(fromBaseUnits(quote.outputAmount, outputMeta.decimals)) /
+        Number(fromBaseUnits(quote.inputAmount, inputMeta.decimals))
       : 0;
 
   const isExactIn = quote.mode === "exact-in";

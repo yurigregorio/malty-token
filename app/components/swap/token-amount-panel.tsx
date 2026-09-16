@@ -2,7 +2,29 @@
 
 import { useState } from "react";
 import { formatTokenAmount } from "../../lib/swap/amount";
-import { getSwapToken, type SwapTokenSymbol } from "../../lib/swap/tokens";
+import { getSwapToken, type SwapToken, type SwapTokenSymbol } from "../../lib/swap/tokens";
+
+function TokenIcon({ token }: { token: SwapToken }) {
+  const [failed, setFailed] = useState(false);
+
+  if (!token.logoUri || failed) {
+    return (
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#e9b949]/15 text-[9px] font-black text-[#e9b949]">
+        {token.symbol.slice(0, 1)}
+      </span>
+    );
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- external token logos, not a first-party asset
+    <img
+      src={token.logoUri}
+      alt=""
+      className="h-5 w-5 shrink-0 rounded-full bg-black/20 object-cover"
+      onError={() => setFailed(true)}
+    />
+  );
+}
 
 export function TokenAmountPanel({
   label,
@@ -91,12 +113,13 @@ export function TokenAmountPanel({
               canPickToken ? "cursor-pointer hover:border-[#e9b949]/35" : "cursor-default opacity-90"
             }`}
           >
+            <TokenIcon token={meta} />
             {meta.symbol}
             {canPickToken && <span className="text-[10px] text-white/40">▾</span>}
           </button>
 
           {pickerOpen && canPickToken && (
-            <div className="absolute left-0 top-full z-20 mt-1.5 w-32 rounded-xl border border-white/[0.1] bg-[#0c0f13] p-1.5 shadow-lg">
+            <div className="absolute left-0 top-full z-20 mt-1.5 w-36 rounded-xl border border-white/[0.1] bg-[#0c0f13] p-1.5 shadow-lg">
               {tokenOptions.map((symbol) => (
                 <button
                   key={symbol}
@@ -105,10 +128,11 @@ export function TokenAmountPanel({
                     onTokenChange?.(symbol);
                     setPickerOpen(false);
                   }}
-                  className={`block w-full rounded-lg px-3 py-2 text-left text-sm font-bold transition-colors ${
+                  className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-bold transition-colors ${
                     symbol === token ? "text-[#e9b949]" : "text-white/80 hover:bg-white/[0.05]"
                   }`}
                 >
+                  <TokenIcon token={getSwapToken(symbol)} />
                   {symbol}
                 </button>
               ))}

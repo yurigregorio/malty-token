@@ -153,7 +153,7 @@ export function ConnectedMaltySwap({
       <TokenAmountPanel
         label="You pay"
         token={inputToken}
-        tokenOptions={inputOptions.length > 0 ? [inputToken, ...inputOptions] : [inputToken]}
+        tokenOptions={inputOptions.length > 0 ? inputOptions : [inputToken]}
         onTokenChange={setFromToken}
         amount={amountMode === "exact-in" ? amount : inputDisplay}
         onAmountChange={amountMode === "exact-in" ? setAmountValue : undefined}
@@ -181,7 +181,7 @@ export function ConnectedMaltySwap({
       <TokenAmountPanel
         label="You receive"
         token={outputToken}
-        tokenOptions={outputOptions.length > 0 ? [outputToken, ...outputOptions] : [outputToken]}
+        tokenOptions={outputOptions.length > 0 ? outputOptions : [outputToken]}
         onTokenChange={lockOutputToken || amountMode === "exact-out" ? undefined : setToToken}
         amount={amountMode === "exact-out" ? amount : outputDisplay}
         onAmountChange={undefined}
