@@ -31,8 +31,13 @@ export type UseSwapQuoteResult = {
   refresh: () => void;
 };
 
-/** How long a fetched quote is trusted before it must be refreshed. */
-const QUOTE_TTL_MS = 20_000;
+/**
+ * How long a fetched quote is trusted before it must be refreshed. Raydium's
+ * own Trade API documents quotes as valid for ~30s; staying a little under
+ * that means we never try to build a transaction from a quote Raydium's own
+ * backend would already consider stale.
+ */
+const QUOTE_TTL_MS = 28_000;
 /** Debounce window so a fast-typing user doesn't fire a request per keystroke. */
 const DEBOUNCE_MS = 350;
 

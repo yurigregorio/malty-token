@@ -21,6 +21,7 @@ export type SwapStep =
   | "fetching-quote"
   | "quote-ready"
   | "review"
+  | "preparing"
   | "awaiting-signature"
   | "submitted"
   | "confirming"

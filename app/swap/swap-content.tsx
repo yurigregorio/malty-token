@@ -29,7 +29,7 @@ export function SwapContent() {
       <div className="relative">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(217,165,61,0.12),transparent_55%)]" />
 
-        <div className="relative mx-auto max-w-md px-5 py-8 sm:px-8 sm:py-10">
+        <div className="relative mx-auto max-w-lg px-5 py-6 sm:px-8 sm:py-8">
           <div className="text-center">
             <p className="text-[11px] font-black tracking-[0.2em] text-[#e9b949]">{t.pageEyebrow}</p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] sm:text-4xl">{t.pageTitle}</h1>
@@ -38,7 +38,7 @@ export function SwapContent() {
             </p>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-5">
             <MaltySwap
               mode="full"
               defaultInputMint={inputToken}

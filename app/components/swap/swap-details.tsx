@@ -1,7 +1,10 @@
 import { formatTokenAmount, fromBaseUnits } from "../../lib/swap/amount";
 import { bpsToPercentLabel } from "../../lib/swap/slippage";
 import { getSwapToken } from "../../lib/swap/tokens";
+import { estimateNetworkFeeLamports } from "../../lib/swap/network-fee";
+import { formatUsd } from "../../lib/swap/format-usd";
 import type { SwapQuote } from "../../lib/swap/types";
+import type { UsdPrices } from "../../lib/swap/use-token-usd-prices";
 import { PriceImpactBadge } from "./price-impact-badge";
 import { InfoTooltip } from "./info-tooltip";
 import { useSwapCopy } from "../../lib/swap/swap-copy";
@@ -31,9 +34,11 @@ function Row({
 export function SwapDetails({
   quote,
   isStale,
+  usdPrices,
 }: {
   quote: SwapQuote;
   isStale: boolean;
+  usdPrices: UsdPrices;
 }) {
   const t = useSwapCopy();
   const inputMeta = getSwapToken(quote.inputMint);
@@ -49,6 +54,8 @@ export function SwapDetails({
 
   const isExactIn = quote.mode === "exact-in";
   const thresholdMeta = isExactIn ? outputMeta : inputMeta;
+  const inputUsd = usdPrices.valueFor(quote.inputMint, quote.inputAmount);
+  const networkFeeLamports = estimateNetworkFeeLamports();
 
   return (
     <div className="space-y-1.5 rounded-xl border border-white/[0.08] bg-black/15 p-3">
@@ -62,6 +69,7 @@ export function SwapDetails({
         label={t.rate}
         value={`1 ${inputMeta.symbol} ≈ ${rate.toLocaleString("en-US", { maximumFractionDigits: 6 })} ${outputMeta.symbol}`}
       />
+      {inputUsd != null && <Row label={t.estimatedValue} value={`≈ ${formatUsd(inputUsd)}`} />}
       <Row
         label={isExactIn ? t.minimumReceived : t.maximumYouPay}
         value={
@@ -78,13 +86,27 @@ export function SwapDetails({
       />
       <Row label={t.priceImpact} value={<PriceImpactBadge percent={quote.priceImpactPercent} />} />
       <Row
-        label={t.route}
-        value={
-          quote.routes.length > 0
-            ? `Raydium · ${quote.routes.length} pool${quote.routes.length > 1 ? "s" : ""}`
-            : "Raydium"
-        }
+        label={t.estimatedNetworkFee}
+        value={`≈ ${fromBaseUnits(networkFeeLamports, 9)} SOL`}
       />
+      <Row
+        label={t.route}
+        value={`${inputMeta.symbol} → ${outputMeta.symbol} ${t.viaRaydium}`}
+      />
+    </div>
+  );
+}
+
+/** Discreet loading placeholder shown while the first quote for a new amount is in flight. */
+export function SwapDetailsSkeleton() {
+  return (
+    <div className="space-y-2 rounded-xl border border-white/[0.08] bg-black/15 p-3" aria-hidden="true">
+      {[0, 1, 2, 3].map((i) => (
+        <div key={i} className="flex items-center justify-between">
+          <span className="h-2.5 w-16 animate-pulse rounded-full bg-white/[0.08]" />
+          <span className="h-2.5 w-20 animate-pulse rounded-full bg-white/[0.08]" />
+        </div>
+      ))}
     </div>
   );
 }

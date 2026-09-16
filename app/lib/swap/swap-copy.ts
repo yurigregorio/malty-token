@@ -44,9 +44,15 @@ export const SWAP_COPY = {
     priceImpact: "Price impact",
     route: "Route",
     refreshingQuote: "Refreshing quote…",
-    fetchingQuote: "Fetching quote…",
+    fetchingQuote: "Getting quote…",
     enterAnAmount: "Enter an amount",
     reviewSwapCta: "Review Swap",
+    swapCtaPrefix: "Swap",
+    forWord: "for",
+    estimatedValue: "Estimated value",
+    estimatedNetworkFee: "Estimated network fee",
+    viaRaydium: "via Raydium",
+    quoteUnavailable: "Quote unavailable",
 
     // Slippage
     custom: "Custom",
@@ -56,6 +62,13 @@ export const SWAP_COPY = {
     whatIsSlippage: "What is slippage?",
     slippageExplanation:
       "Slippage tolerance is the most the price can move against you between getting this quote and your swap actually executing on-chain. If the price moves more than that, the swap fails instead of going through at a worse rate than you approved.",
+
+    // Price impact
+    priceImpactWarning: "This swap has a high price impact due to available liquidity.",
+
+    // Errors thrown directly by the engine (not through mapSwapError's pattern matching)
+    quoteExpiredError: "This quote expired. Refreshing…",
+    wrongNetworkError: "Switch to Mainnet to swap MALTY.",
 
     // Review screen
     reviewSwapTitle: "Review Swap",
@@ -69,28 +82,40 @@ export const SWAP_COPY = {
     confirmInWalletCta: "Confirm in wallet…",
 
     // In-flight / result states
+    preparingTitle: "Preparing transaction",
+    preparingText: "Building your swap transaction from the latest quote.",
     awaitingSignatureTitle: "Confirm in your wallet",
     awaitingSignatureText:
       "Approve the transaction in your wallet to continue. Malty never signs on your behalf.",
-    submittedTitle: "Transaction submitted",
+    submittedTitle: "Sending…",
     submittedText: "Your swap was sent to the network.",
     confirmingTitle: "Confirming…",
     confirmingText:
       "Waiting for the Solana network to confirm your swap. This is usually quick.",
-    swapCompleteTitle: "Swap complete!",
+    swapCompleteTitle: "Swap complete! 🎉",
+    viewTransaction: "View transaction",
     returnToGame: "Return to Game",
     swapAgain: "Swap again",
     swapFailedTitle: "Swap didn't go through",
     tryAgain: "Try again",
     genericFailure: "Something went wrong.",
 
-    // Trust footer
+    // Trust footer / contract / pool info
     contractLabel: "$MALTY CONTRACT",
     copy: "Copy",
-    copied: "Copied!",
+    copied: "Copied ✓",
     copyFailed: "Copy failed",
+    viewOnSolscan: "View on Solscan ↗",
     disclosure:
       "Swaps are executed on Solana using decentralized liquidity. Rates and price impact may change before confirmation. Always review the transaction in your wallet.",
+    poolInfoTitle: "Liquidity provided by Raydium",
+    viewPool: "View pool ↗",
+
+    // Recent swaps (local history for the connected wallet)
+    recentSwapsTitle: "Your recent swaps",
+    recentSwapsEmpty: "No swaps made from this wallet yet.",
+    confirmedLabel: "Confirmed ✓",
+    flipTokens: "Flip tokens",
 
     // Site-wide wallet button
     connectWallet: "Connect Wallet",
@@ -135,9 +160,15 @@ export const SWAP_COPY = {
     priceImpact: "Impacto no preço",
     route: "Rota",
     refreshingQuote: "Atualizando cotação…",
-    fetchingQuote: "Buscando cotação…",
+    fetchingQuote: "Obtendo cotação…",
     enterAnAmount: "Digite um valor",
     reviewSwapCta: "Revisar Swap",
+    swapCtaPrefix: "Trocar",
+    forWord: "por",
+    estimatedValue: "Valor estimado",
+    estimatedNetworkFee: "Taxa estimada da rede",
+    viaRaydium: "via Raydium",
+    quoteUnavailable: "Cotação indisponível",
 
     custom: "Personalizado",
     highSlippageWarning:
@@ -146,6 +177,11 @@ export const SWAP_COPY = {
     whatIsSlippage: "O que é slippage?",
     slippageExplanation:
       "Slippage é o quanto o preço pode se mover contra você entre a cotação e a execução do swap on-chain. Se o preço mudar mais do que isso, o swap falha em vez de ser executado a um preço pior do que você aprovou.",
+
+    priceImpactWarning: "Esta troca possui impacto elevado no preço devido à liquidez disponível.",
+
+    quoteExpiredError: "Esta cotação expirou. Atualizando…",
+    wrongNetworkError: "Mude para a Mainnet para trocar MALTY.",
 
     reviewSwapTitle: "Revisar Swap",
     youReceiveApprox: "Você recebe aproximadamente",
@@ -157,15 +193,18 @@ export const SWAP_COPY = {
     confirmSwapCta: "Confirmar Swap",
     confirmInWalletCta: "Confirmando na carteira…",
 
+    preparingTitle: "Preparando transação",
+    preparingText: "Montando sua transação de swap a partir da cotação mais recente.",
     awaitingSignatureTitle: "Confirme na sua carteira",
     awaitingSignatureText:
       "Aprove a transação na sua carteira para continuar. O Malty nunca assina em seu nome.",
-    submittedTitle: "Transação enviada",
+    submittedTitle: "Enviando…",
     submittedText: "Seu swap foi enviado para a rede.",
     confirmingTitle: "Confirmando…",
     confirmingText:
       "Aguardando a rede Solana confirmar seu swap. Isso costuma ser rápido.",
-    swapCompleteTitle: "Swap concluído!",
+    swapCompleteTitle: "Swap concluído! 🎉",
+    viewTransaction: "Ver transação",
     returnToGame: "Voltar ao Jogo",
     swapAgain: "Trocar de novo",
     swapFailedTitle: "O swap não foi concluído",
@@ -174,10 +213,18 @@ export const SWAP_COPY = {
 
     contractLabel: "CONTRATO DO $MALTY",
     copy: "Copiar",
-    copied: "Copiado!",
+    copied: "Copiado ✓",
     copyFailed: "Falha ao copiar",
+    viewOnSolscan: "Ver no Solscan ↗",
     disclosure:
       "Os swaps são executados na Solana usando liquidez descentralizada. Taxas e impacto no preço podem mudar antes da confirmação. Sempre revise a transação na sua carteira.",
+    poolInfoTitle: "Liquidez fornecida pela Raydium",
+    viewPool: "Ver pool ↗",
+
+    recentSwapsTitle: "Suas últimas trocas",
+    recentSwapsEmpty: "Nenhuma troca realizada nesta carteira ainda.",
+    confirmedLabel: "Confirmado ✓",
+    flipTokens: "Inverter tokens",
 
     connectWallet: "Conectar Carteira",
     connectShort: "Conectar",
@@ -193,6 +240,12 @@ export const SWAP_COPY = {
 // directly — the latter pins every value to `en`'s exact literal string, which
 // the `pt` object (different literal strings, same keys) can't satisfy.
 export type SwapCopy = { [K in keyof (typeof SWAP_COPY)["en"]]: string };
+
+// Compile-time check that `pt` defines every key `en` does (and vice versa) —
+// checked independently against the shared shape so it doesn't hit the
+// literal-type-unification issue a direct `Record<Language, ...>` would.
+SWAP_COPY.en satisfies SwapCopy;
+SWAP_COPY.pt satisfies SwapCopy;
 
 export function useSwapCopy(): SwapCopy {
   const { language } = useLanguage();

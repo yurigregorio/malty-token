@@ -16,7 +16,10 @@ import {
   signAndSendSwapTransactions,
 } from "./swap-transaction";
 import { useSwapQuote } from "./use-swap-quote";
+import { useTokenUsdPrices } from "./use-token-usd-prices";
+import { recordSwapHistory, useSwapHistory } from "./swap-history";
 import { mapSwapError } from "./swap-errors";
+import { SWAP_COPY } from "./swap-copy";
 import { getAmountError, toBaseUnits } from "./amount";
 import {
   counterpartsFor,
@@ -118,6 +121,7 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
   }
 
   const LOCKED_STEPS: readonly SwapStep[] = [
+    "preparing",
     "awaiting-signature",
     "submitted",
     "confirming",
@@ -142,6 +146,9 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
     enabled: quoteEnabled,
     language,
   });
+
+  const usdPrices = useTokenUsdPrices(quote);
+  const swapHistory = useSwapHistory(account.address);
 
   // Derived, not stored: while resting at "enter-amount", the visible step
   // tracks the live quote status instead of being synced into state.
@@ -227,14 +234,15 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
 
   const runSwap = useCallback(
     async (_signal: AbortSignal, activeQuote: SwapQuote) => {
+      const copy = SWAP_COPY[language];
       if (!isMainnet) {
-        throw new SwapError("wrong-network", "Switch to Mainnet to swap MALTY.");
+        throw new SwapError("wrong-network", copy.wrongNetworkError);
       }
       if (Date.now() > activeQuote.expiresAt) {
-        throw new SwapError("quote-expired", "This quote expired. Refreshing…");
+        throw new SwapError("quote-expired", copy.quoteExpiredError);
       }
 
-      setWorkflowStep("awaiting-signature");
+      setWorkflowStep("preparing");
 
       const transactionsBase64 = await buildSwapTransactions(
         {
@@ -248,6 +256,7 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
 
       const transactions = decodeSwapTransactions(transactionsBase64);
 
+      setWorkflowStep("awaiting-signature");
       trackSwapEvent({ name: "swap_submitted", source, inputToken, outputToken });
 
       const signatures = await signAndSendSwapTransactions(
@@ -274,12 +283,14 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
       setResult(swapResult);
       setWorkflowStep("confirmed");
       refetchBalances();
+      recordSwapHistory(account.address, swapResult);
+      swapHistory.refresh();
       trackSwapEvent({ name: "swap_confirmed", source, inputToken, outputToken });
       onSuccess?.(swapResult);
       return swapResult;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- refetchBalances/balanceFor close over hook state intentionally, not deps of this action
-    [isMainnet, account.address, signAndSendTransactions, client.rpc, source, inputToken, outputToken, onSuccess]
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- refetchBalances/balanceFor/swapHistory close over hook state intentionally, not deps of this action
+    [isMainnet, account.address, signAndSendTransactions, client.rpc, source, inputToken, outputToken, onSuccess, language]
   );
 
   const action = useAction(
@@ -301,7 +312,9 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
   );
 
   const confirmSwap = useCallback(() => {
-    if (!quote) return;
+    // Guards double-click/double-submit: once a dispatch is in flight, a
+    // second click is a no-op rather than superseding or queuing another one.
+    if (!quote || action.isRunning) return;
     action.dispatch(quote);
   }, [quote, action]);
 
@@ -365,6 +378,9 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
       usdc: usdcBalance,
       malty: maltyBalance,
     },
+    usdPrices,
+    recentSwaps: swapHistory.entries,
+    poolId: quote?.routes[0]?.poolId,
     getExplorerUrl,
     setFromToken,
     setToToken,

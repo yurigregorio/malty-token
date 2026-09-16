@@ -4,6 +4,7 @@ import { useState } from "react";
 import { formatTokenAmount } from "../../lib/swap/amount";
 import { getSwapToken, type SwapToken, type SwapTokenSymbol } from "../../lib/swap/tokens";
 import { useSwapCopy } from "../../lib/swap/swap-copy";
+import { formatUsd } from "../../lib/swap/format-usd";
 
 function TokenIcon({ token }: { token: SwapToken }) {
   const [failed, setFailed] = useState(false);
@@ -41,6 +42,8 @@ export function TokenAmountPanel({
   onRetryBalance,
   onMax,
   error,
+  usdValue,
+  priceLabel,
 }: {
   label: string;
   token: SwapTokenSymbol;
@@ -59,6 +62,10 @@ export function TokenAmountPanel({
   onRetryBalance?: () => void;
   onMax?: () => void;
   error?: string | null;
+  /** Real USD value of the entered/quoted amount, when a price is known. */
+  usdValue?: number | null;
+  /** Discreet "1 TOKEN ≈ $X" line, shown below the token selector (e.g. for MALTY). */
+  priceLabel?: string | null;
 }) {
   const t = useSwapCopy();
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -105,13 +112,13 @@ export function TokenAmountPanel({
         )}
       </div>
 
-      <div className="mt-2 flex items-center gap-3">
-        <div className="relative">
+      <div className="mt-2 flex items-start gap-3">
+        <div className="relative shrink-0">
           <button
             type="button"
             disabled={!canPickToken}
             onClick={() => setPickerOpen((v) => !v)}
-            className={`flex items-center gap-2 rounded-xl border border-white/[0.1] bg-black/20 px-3 py-2 text-sm font-black text-white/90 ${
+            className={`flex items-center gap-2 rounded-xl border border-white/[0.1] bg-black/20 px-3 py-2 text-sm font-black text-white/90 transition-colors ${
               canPickToken ? "cursor-pointer hover:border-[#e9b949]/35" : "cursor-default opacity-90"
             }`}
           >
@@ -119,6 +126,10 @@ export function TokenAmountPanel({
             {meta.symbol}
             {canPickToken && <span className="text-[10px] text-white/40">▾</span>}
           </button>
+
+          {priceLabel && (
+            <p className="mt-1 truncate px-0.5 text-[10px] text-white/35">{priceLabel}</p>
+          )}
 
           {pickerOpen && canPickToken && (
             <div className="absolute left-0 top-full z-20 mt-1.5 w-36 rounded-xl border border-white/[0.1] bg-[#0c0f13] p-1.5 shadow-lg">
@@ -142,22 +153,27 @@ export function TokenAmountPanel({
           )}
         </div>
 
-        {editable ? (
-          <input
-            inputMode="decimal"
-            autoComplete="off"
-            value={amount}
-            onChange={(e) => onAmountChange?.(e.target.value)}
-            placeholder="0.00"
-            aria-label={`${label} ${t.amountFieldSuffix}`}
-            aria-invalid={error != null}
-            className="w-full min-w-0 bg-transparent text-right text-2xl font-black text-white/95 outline-none placeholder:text-white/20"
-          />
-        ) : (
-          <span className="w-full min-w-0 truncate text-right text-2xl font-black text-white/95">
-            {displayValue ?? "0.00"}
-          </span>
-        )}
+        <div className="min-w-0 flex-1 text-right">
+          {editable ? (
+            <input
+              inputMode="decimal"
+              autoComplete="off"
+              value={amount}
+              onChange={(e) => onAmountChange?.(e.target.value)}
+              placeholder="0.00"
+              aria-label={`${label} ${t.amountFieldSuffix}`}
+              aria-invalid={error != null}
+              className="w-full min-w-0 bg-transparent text-right text-[28px] font-black leading-tight text-white/95 outline-none transition-colors placeholder:text-white/20 focus:text-[#f4d385]"
+            />
+          ) : (
+            <span className="block w-full min-w-0 truncate text-right text-[28px] font-black leading-tight text-white/95">
+              {displayValue ?? "0.00"}
+            </span>
+          )}
+          {usdValue != null && (
+            <p className="mt-0.5 text-[11px] text-white/40">≈ {formatUsd(usdValue)}</p>
+          )}
+        </div>
       </div>
 
       {error && (

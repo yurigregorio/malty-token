@@ -5,17 +5,22 @@ import type { useConnectedWallet } from "@solana/kit-plugin-wallet/react";
 import { fromBaseUnits, formatTokenAmount } from "../../lib/swap/amount";
 import { getSwapToken, counterpartsFor } from "../../lib/swap/tokens";
 import { useMaltySwapEngine } from "../../lib/swap/use-malty-swap-engine";
+import { formatUsdPrice } from "../../lib/swap/format-usd";
 import type { MaltySwapProps } from "../../lib/swap/types";
 import { TokenAmountPanel } from "./token-amount-panel";
-import { SwapDetails } from "./swap-details";
+import { SwapDetails, SwapDetailsSkeleton } from "./swap-details";
 import { SlippageSelector } from "./slippage-selector";
 import { ReviewSwap } from "./review-swap";
 import { SwapInFlightStatus, SwapConfirmedStatus, SwapFailedStatus } from "./swap-status";
 import { SwapTrustFooter } from "./trust-footer";
+import { PoolInfo } from "./pool-info";
+import { RecentSwaps } from "./recent-swaps";
 import { InfoTooltip } from "./info-tooltip";
 import { useSwapCopy } from "../../lib/swap/swap-copy";
 
 type ConnectedWallet = NonNullable<ReturnType<typeof useConnectedWallet>>;
+
+const IN_FLIGHT_STEPS = ["preparing", "awaiting-signature", "submitted", "confirming"] as const;
 
 export function ConnectedMaltySwap({
   account,
@@ -47,6 +52,9 @@ export function ConnectedMaltySwap({
     slippageBps,
     priceImpactAck,
     balances,
+    usdPrices,
+    recentSwaps,
+    poolId,
     canReview,
     isSubmitting,
     result,
@@ -112,7 +120,7 @@ export function ConnectedMaltySwap({
     );
   }
 
-  if (step === "awaiting-signature" || step === "submitted" || step === "confirming") {
+  if ((IN_FLIGHT_STEPS as readonly string[]).includes(step)) {
     return <SwapInFlightStatus step={step} />;
   }
 
@@ -145,6 +153,27 @@ export function ConnectedMaltySwap({
       ? fromBaseUnits(quote.inputAmount, getSwapToken(inputToken).decimals)
       : "0.00";
 
+  // Real USD values, only once the live quote actually matches the tokens
+  // currently shown (avoids flashing a stale value for a token just switched to).
+  const inputUsdValue =
+    quote && quote.inputMint === inputToken ? usdPrices.valueFor(inputToken, quote.inputAmount) : null;
+  const outputUsdValue =
+    quote && quote.outputMint === outputToken ? usdPrices.valueFor(outputToken, quote.outputAmount) : null;
+
+  const maltyPrice = usdPrices.priceFor("MALTY");
+  const maltyPriceLabel = maltyPrice != null ? `1 MALTY ≈ ${formatUsdPrice(maltyPrice)}` : null;
+
+  const swapCtaLabel =
+    amount.trim() === ""
+      ? t.enterAnAmount
+      : quoteStatus === "loading"
+        ? t.fetchingQuote
+        : quote
+          ? `${t.swapCtaPrefix} ${inputToken} ${t.forWord} ${outputToken}`
+          : quoteErrorMessage
+            ? t.quoteUnavailable
+            : t.reviewSwapCta;
+
   return (
     <div className="space-y-2.5">
       {amountMode === "exact-out" && (
@@ -167,6 +196,8 @@ export function ConnectedMaltySwap({
         onRetryBalance={retryBalanceFor(inputToken)}
         onMax={amountMode === "exact-in" ? () => { const max = maxInputAmount(); if (max != null) setAmountValue(max); } : undefined}
         error={amountMode === "exact-in" ? amountError : null}
+        usdValue={inputUsdValue}
+        priceLabel={inputToken === "MALTY" ? maltyPriceLabel : null}
       />
 
       <div className="flex justify-center">
@@ -174,10 +205,10 @@ export function ConnectedMaltySwap({
           type="button"
           onClick={flip}
           disabled={!canFlip}
-          aria-label="Flip tokens"
-          className="-my-2 flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.1] bg-[#0c0f13] text-white/70 transition-transform hover:border-[#e9b949]/35 hover:text-[#e9b949] disabled:cursor-not-allowed disabled:opacity-30"
+          aria-label={t.flipTokens}
+          className="group -my-2 flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.1] bg-[#0c0f13] text-white/70 transition-all hover:border-[#e9b949]/40 hover:text-[#e9b949] disabled:cursor-not-allowed disabled:opacity-30"
         >
-          ⇅
+          <span className="inline-block transition-transform duration-300 group-hover:rotate-180">⇅</span>
         </button>
       </div>
 
@@ -193,6 +224,8 @@ export function ConnectedMaltySwap({
         isLoadingBalance={isBalanceLoading(outputToken)}
         balanceError={balanceErrorFor(outputToken)}
         onRetryBalance={retryBalanceFor(outputToken)}
+        usdValue={outputUsdValue}
+        priceLabel={outputToken === "MALTY" ? maltyPriceLabel : null}
       />
 
       {quoteErrorMessage && (
@@ -202,15 +235,10 @@ export function ConnectedMaltySwap({
       )}
 
       {quote && (quoteStatus === "ready" || quoteStatus === "stale") && (
-        <SwapDetails quote={quote} isStale={quoteStatus === "stale"} />
+        <SwapDetails quote={quote} isStale={quoteStatus === "stale"} usdPrices={usdPrices} />
       )}
 
-      {quoteStatus === "loading" && !quote && (
-        <p className="flex items-center gap-1.5 px-1 text-[11px] font-semibold text-white/40">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white/40" />
-          {t.fetchingQuote}
-        </p>
-      )}
+      {quoteStatus === "loading" && !quote && <SwapDetailsSkeleton />}
 
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3">
         <p className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.08em] text-white/45">
@@ -226,14 +254,14 @@ export function ConnectedMaltySwap({
         disabled={!canReview}
         className="w-full rounded-xl bg-[#e9b949] px-4 py-3.5 text-sm font-black text-black transition-transform hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-40"
       >
-        {quoteStatus === "loading"
-          ? t.fetchingQuote
-          : amount.trim() === ""
-            ? t.enterAnAmount
-            : t.reviewSwapCta}
+        {swapCtaLabel}
       </button>
 
+      {quote && <PoolInfo inputMint={inputToken} outputMint={outputToken} poolId={poolId} />}
+
       <SwapTrustFooter />
+
+      <RecentSwaps entries={recentSwaps} getExplorerUrl={getExplorerUrl} />
     </div>
   );
 }

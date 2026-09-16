@@ -1,6 +1,6 @@
 import { formatTokenAmount } from "../../lib/swap/amount";
 import { bpsToPercentLabel } from "../../lib/swap/slippage";
-import { requiresExtraConfirmation } from "../../lib/swap/price-impact";
+import { classifyPriceImpact, requiresExtraConfirmation } from "../../lib/swap/price-impact";
 import { getSwapToken } from "../../lib/swap/tokens";
 import type { SwapQuote } from "../../lib/swap/types";
 import { PriceImpactBadge } from "./price-impact-badge";
@@ -27,6 +27,7 @@ export function ReviewSwap({
   const outputMeta = getSwapToken(quote.outputMint);
   const thresholdMeta = quote.mode === "exact-in" ? outputMeta : inputMeta;
   const needsAck = requiresExtraConfirmation(quote.priceImpactPercent);
+  const impactLevel = classifyPriceImpact(quote.priceImpactPercent);
   const canConfirm = !needsAck || priceImpactAck;
 
   return (
@@ -69,6 +70,13 @@ export function ReviewSwap({
           <span className="text-xs font-bold text-white/80">{bpsToPercentLabel(quote.slippageBps)}</span>
         </div>
       </div>
+
+      {impactLevel === "high" && !needsAck && (
+        <p className="flex items-start gap-2 rounded-xl border border-[#e9b949]/25 bg-[#e9b949]/[0.06] p-3 text-xs leading-5 text-[#e9b949]/95">
+          <span className="mt-0.5">⚠</span>
+          {t.priceImpactWarning}
+        </p>
+      )}
 
       {needsAck && (
         <label className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-red-400/25 bg-red-400/[0.06] p-3.5 text-xs leading-5 text-red-200">

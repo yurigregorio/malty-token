@@ -63,12 +63,15 @@ describe("price impact classification", () => {
   it("classifies low, medium and high impact using conservative thresholds", () => {
     expect(classifyPriceImpact(0.1)).toBe("normal");
     expect(classifyPriceImpact(1.5)).toBe("attention");
-    expect(classifyPriceImpact(4)).toBe("high");
+    expect(classifyPriceImpact(4)).toBe("attention");
+    expect(classifyPriceImpact(6)).toBe("high");
   });
 
-  it("only requires extra confirmation at the high tier", () => {
+  it("only requires extra confirmation above the extreme (15%) threshold", () => {
     expect(requiresExtraConfirmation(0.5)).toBe(false);
-    expect(requiresExtraConfirmation(2)).toBe(false);
-    expect(requiresExtraConfirmation(5)).toBe(true);
+    expect(requiresExtraConfirmation(5)).toBe(false);
+    expect(requiresExtraConfirmation(14.9)).toBe(false);
+    expect(requiresExtraConfirmation(15)).toBe(true);
+    expect(requiresExtraConfirmation(20)).toBe(true);
   });
 });
