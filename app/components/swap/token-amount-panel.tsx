@@ -43,7 +43,7 @@ export function TokenAmountPanel({
   const editable = onAmountChange != null;
 
   return (
-    <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4">
+    <div className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-3.5">
       <div className="flex items-center justify-between">
         <span className="text-[11px] font-semibold tracking-[0.08em] text-white/45">
           {label}

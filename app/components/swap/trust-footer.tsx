@@ -17,8 +17,8 @@ export function SwapTrustFooter() {
   }
 
   return (
-    <div className="mt-5 space-y-3">
-      <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/[0.08] bg-black/15 px-4 py-3">
+    <div className="mt-4 space-y-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/[0.08] bg-black/15 px-3.5 py-2.5">
         <div className="min-w-0">
           <p className="text-[10px] font-semibold tracking-[0.14em] text-white/40">
             $MALTY CONTRACT
@@ -35,11 +35,11 @@ export function SwapTrustFooter() {
         </button>
       </div>
 
-      <p className="flex items-center gap-1.5 text-[11px] font-semibold text-white/45">
+      <p className="flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white/45">
         <span className="text-[#e9b949]">⚡</span> Powered by Raydium
       </p>
 
-      <p className="text-[11px] leading-5 text-white/35">
+      <p className="text-center text-[10.5px] leading-4 text-white/30">
         Swaps are executed on Solana using decentralized liquidity. Rates and price impact
         may change before confirmation. Always review the transaction in your wallet.
       </p>

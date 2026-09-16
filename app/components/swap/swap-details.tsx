@@ -33,7 +33,7 @@ export function SwapDetails({
   const thresholdMeta = isExactIn ? outputMeta : inputMeta;
 
   return (
-    <div className="space-y-2 rounded-xl border border-white/[0.08] bg-black/15 p-3.5">
+    <div className="space-y-1.5 rounded-xl border border-white/[0.08] bg-black/15 p-3">
       {isStale && (
         <p className="flex items-center gap-1.5 text-[11px] font-semibold text-[#e9b949]/90">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#e9b949]" />

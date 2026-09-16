@@ -27,10 +27,10 @@ export function ReviewSwap({
   const canConfirm = !needsAck || priceImpactAck;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <p className="text-sm font-black tracking-[-0.01em] text-white/95">Review Swap</p>
 
-      <div className="rounded-xl border border-white/[0.08] bg-black/15 p-4 space-y-3">
+      <div className="rounded-xl border border-white/[0.08] bg-black/15 p-3.5 space-y-2.5">
         <div className="flex items-center justify-between">
           <span className="text-xs text-white/45">You pay</span>
           <span className="text-sm font-black text-white/95">

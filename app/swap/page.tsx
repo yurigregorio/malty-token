@@ -23,8 +23,8 @@ export default function SwapPage() {
 function SwapFallback() {
   return (
     <main className="min-h-screen bg-[#080a0d] text-[#f7f1e5]">
-      <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8">
-        <div className="mx-auto h-[420px] max-w-md animate-pulse rounded-3xl border border-white/[0.08] bg-white/[0.02]" />
+      <div className="mx-auto max-w-md px-5 py-10 sm:px-8">
+        <div className="mx-auto h-[420px] animate-pulse rounded-2xl border border-white/[0.08] bg-white/[0.02]" />
       </div>
     </main>
   );

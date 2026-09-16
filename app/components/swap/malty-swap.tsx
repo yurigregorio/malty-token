@@ -139,8 +139,8 @@ function SwapShell({ shell, children }: { shell: "full" | "compact"; children: R
     <div
       className={
         shell === "full"
-          ? "mx-auto w-full max-w-md rounded-3xl border border-white/[0.08] bg-[#0c0f13] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.45)] sm:p-6"
-          : "w-full rounded-2xl border border-white/[0.08] bg-[#0c0f13] p-4"
+          ? "mx-auto w-full rounded-2xl border border-white/[0.08] bg-[#0c0f13] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.4)] sm:p-5"
+          : "w-full rounded-2xl border border-white/[0.08] bg-[#0c0f13] p-3.5"
       }
     >
       {children}

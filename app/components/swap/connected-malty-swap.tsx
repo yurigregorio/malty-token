@@ -143,7 +143,7 @@ export function ConnectedMaltySwap({
       : "0.00";
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2.5">
       {amountMode === "exact-out" && (
         <p className="rounded-lg border border-[#e9b949]/25 bg-[#e9b949]/[0.06] px-3 py-2 text-center text-[12px] font-bold text-[#e9b949]">
           Buying exactly {amount} {outputToken}
@@ -172,7 +172,7 @@ export function ConnectedMaltySwap({
           onClick={flip}
           disabled={!canFlip}
           aria-label="Flip tokens"
-          className="-my-1 flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.1] bg-[#0c0f13] text-white/70 transition-transform hover:border-[#e9b949]/35 hover:text-[#e9b949] disabled:cursor-not-allowed disabled:opacity-30"
+          className="-my-2 flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.1] bg-[#0c0f13] text-white/70 transition-transform hover:border-[#e9b949]/35 hover:text-[#e9b949] disabled:cursor-not-allowed disabled:opacity-30"
         >
           ⇅
         </button>
@@ -209,8 +209,8 @@ export function ConnectedMaltySwap({
         </p>
       )}
 
-      <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3.5">
-        <p className="mb-2 text-[11px] font-semibold tracking-[0.08em] text-white/45">SLIPPAGE</p>
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3">
+        <p className="mb-1.5 text-[11px] font-semibold tracking-[0.08em] text-white/45">SLIPPAGE</p>
         <SlippageSelector slippageBps={slippageBps} onChange={setSlippageBps} />
       </div>
 
