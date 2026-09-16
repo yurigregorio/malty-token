@@ -30,7 +30,7 @@ export function SwapContent() {
         <div className="relative mx-auto max-w-md px-5 py-8 sm:px-8 sm:py-10">
           <div className="text-center">
             <p className="text-[11px] font-black tracking-[0.2em] text-[#e9b949]">MALTY SWAP</p>
-            <h1 className="mt-2 text-3xl font-black tracking-[-0.03em] sm:text-4xl">Trade $MALTY.</h1>
+            <h1 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] sm:text-4xl">Trade $MALTY.</h1>
             <p className="mx-auto mt-2.5 max-w-sm text-[13px] leading-5 text-white/50">
               Swap SOL or USDC for MALTY — and back — using real Raydium liquidity from your own
               wallet. Non-custodial, every transaction signed by you.
