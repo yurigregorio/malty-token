@@ -18,8 +18,16 @@ export const CLUSTERS: ClusterMoniker[] = [
   "localnet",
 ];
 
-const PUBLIC_MAINNET_RPC_URL = "https://api.mainnet.solana.com";
-const PUBLIC_MAINNET_WS_URL = "wss://api.mainnet.solana.com";
+// The official public Solana RPC (api.mainnet.solana.com) returns 403 on
+// browser-originated (CORS/Origin-header) requests — it works for scripts
+// and curl, but not for a dApp actually running in a browser. PublicNode's
+// mirror serves the same data and allows browser requests, so it's a safer
+// default fallback. Configuring NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL with a
+// dedicated provider (Helius, QuickNode, Alchemy, Triton, ...) is still
+// strongly recommended for production — this fallback exists purely so the
+// app degrades to "works, rate-limited" instead of "broken" when unset.
+const PUBLIC_MAINNET_RPC_URL = "https://solana-rpc.publicnode.com";
+const PUBLIC_MAINNET_WS_URL = "wss://solana-rpc.publicnode.com";
 
 const configuredMainnetRpcUrl =
   process.env.NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL?.trim() || null;

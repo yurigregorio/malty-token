@@ -79,6 +79,20 @@ export function ConnectedMaltySwap({
     return balances.malty.isLoading;
   }
 
+  function balanceErrorFor(symbol: typeof inputToken) {
+    if (symbol === "SOL") return balances.sol.error;
+    if (symbol === "USDC") return balances.usdc.error;
+    return balances.malty.error;
+  }
+
+  // SOL balance is a live subscription with no manual refetch; SPL balances
+  // (USDC/MALTY) are polled and expose one.
+  function retryBalanceFor(symbol: typeof inputToken) {
+    if (symbol === "USDC") return balances.usdc.refetch;
+    if (symbol === "MALTY") return balances.malty.refetch;
+    return undefined;
+  }
+
   if (step === "review" && quote) {
     return (
       <div>
@@ -146,6 +160,8 @@ export function ConnectedMaltySwap({
         displayValue={amountMode === "exact-out" ? inputDisplay : undefined}
         balance={balanceFor(inputToken)}
         isLoadingBalance={isBalanceLoading(inputToken)}
+        balanceError={balanceErrorFor(inputToken)}
+        onRetryBalance={retryBalanceFor(inputToken)}
         onMax={amountMode === "exact-in" ? () => { const max = maxInputAmount(); if (max != null) setAmountValue(max); } : undefined}
         error={amountMode === "exact-in" ? amountError : null}
       />
@@ -172,6 +188,8 @@ export function ConnectedMaltySwap({
         displayValue={outputDisplay}
         balance={balanceFor(outputToken)}
         isLoadingBalance={isBalanceLoading(outputToken)}
+        balanceError={balanceErrorFor(outputToken)}
+        onRetryBalance={retryBalanceFor(outputToken)}
       />
 
       {quoteErrorMessage && (

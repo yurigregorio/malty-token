@@ -14,6 +14,8 @@ export function TokenAmountPanel({
   displayValue,
   balance,
   isLoadingBalance,
+  balanceError,
+  onRetryBalance,
   onMax,
   error,
 }: {
@@ -29,6 +31,9 @@ export function TokenAmountPanel({
   displayValue?: string;
   balance: bigint | null;
   isLoadingBalance: boolean;
+  /** Set when the balance fetch itself failed (e.g. RPC unavailable) — shown instead of going blank. */
+  balanceError?: unknown;
+  onRetryBalance?: () => void;
   onMax?: () => void;
   error?: string | null;
 }) {
@@ -59,6 +64,20 @@ export function TokenAmountPanel({
         )}
         {balance == null && isLoadingBalance && (
           <span className="text-[11px] text-white/30">Loading balance…</span>
+        )}
+        {balance == null && !isLoadingBalance && balanceError != null && (
+          <span className="text-[11px] text-[#e9b949]/80">
+            Balance unavailable
+            {onRetryBalance && (
+              <button
+                type="button"
+                onClick={onRetryBalance}
+                className="ml-1.5 rounded border border-white/[0.12] px-1.5 py-0.5 text-[10px] font-bold text-[#e9b949] hover:border-[#e9b949]/40"
+              >
+                Retry
+              </button>
+            )}
+          </span>
         )}
       </div>
 
