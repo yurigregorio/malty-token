@@ -47,15 +47,16 @@ export function SwapContent() {
         <div className="relative mx-auto max-w-lg px-5 py-6 sm:px-8 sm:py-8">
           <div className="text-center">
             <p className="text-[11px] font-black tracking-[0.2em] text-[#e9b949]">{t.pageEyebrow}</p>
-            <h1 className="mt-2 pb-1 font-display text-3xl font-bold leading-[1.25] tracking-[-0.02em] sm:text-4xl">
+            <h1 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
               {(() => {
                 const [before, after] = t.pageTitle.split("$MALTY");
                 return (
                   <>
                     {before}
-                    <span className="bg-gradient-to-r from-[#f4d385] to-[#e9b949] bg-clip-text text-transparent">
-                      $MALTY
-                    </span>
+                    {/* Solid color, not a bg-clip-text gradient — background-clip:text
+                        clips to the font's own glyph metrics, and Space Grotesk's "Y"
+                        overshoot was getting cut off by it in some browsers. */}
+                    <span className="text-[#e9b949]">$MALTY</span>
                     {after}
                   </>
                 );
