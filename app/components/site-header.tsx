@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { MALTY_TOKEN } from "../lib/malty-token";
 import { useLanguage } from "../lib/language";
@@ -17,6 +18,7 @@ const nav = {
 export function SiteHeader() {
   const { language, setLanguage } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
   const t = nav[language];
 
   return (
@@ -30,11 +32,23 @@ export function SiteHeader() {
           </div>
         </Link>
         <nav className="hidden items-center gap-7 text-[13px] font-medium text-white/60 md:flex">
-          {t.items.map((x, i) => (
-            <Link key={x} href={t.hrefs[i]} className="rounded-sm transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e9b949]">
-              {x}
-            </Link>
-          ))}
+          {t.items.map((x, i) => {
+            const active = pathname === t.hrefs[i];
+            return (
+              <Link
+                key={x}
+                href={t.hrefs[i]}
+                aria-current={active ? "page" : undefined}
+                className={`rounded-sm pb-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e9b949] ${
+                  active
+                    ? "border-b-2 border-[#e9b949] text-[#e9b949]"
+                    : "border-b-2 border-transparent hover:text-white"
+                }`}
+              >
+                {x}
+              </Link>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-2">
           <a href="https://t.me/MaltyCoinOfficial" target="_blank" rel="noopener noreferrer" aria-label="MALTY on Telegram" className="hidden h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/60 transition-colors hover:border-[#e9b949]/35 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e9b949] sm:flex">

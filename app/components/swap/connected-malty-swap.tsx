@@ -5,7 +5,6 @@ import type { useConnectedWallet } from "@solana/kit-plugin-wallet/react";
 import { fromBaseUnits, formatTokenAmount } from "../../lib/swap/amount";
 import { getSwapToken, counterpartsFor } from "../../lib/swap/tokens";
 import { useMaltySwapEngine } from "../../lib/swap/use-malty-swap-engine";
-import { formatUsdPrice } from "../../lib/swap/format-usd";
 import type { MaltySwapProps } from "../../lib/swap/types";
 import { TokenAmountPanel } from "./token-amount-panel";
 import { SwapDetails, SwapDetailsSkeleton } from "./swap-details";
@@ -177,9 +176,6 @@ export function ConnectedMaltySwap({
   const outputUsdValue =
     quote && quote.outputMint === outputToken ? usdPrices.valueFor(outputToken, quote.outputAmount) : null;
 
-  const maltyPrice = usdPrices.priceFor("MALTY");
-  const maltyPriceLabel = maltyPrice != null ? `1 MALTY ≈ ${formatUsdPrice(maltyPrice)}` : null;
-
   const swapCtaLabel =
     amount.trim() === ""
       ? t.enterAnAmount
@@ -216,7 +212,6 @@ export function ConnectedMaltySwap({
             onMax={amountMode === "exact-in" ? () => { const max = maxInputAmount(); if (max != null) setAmountValue(max); } : undefined}
             error={amountMode === "exact-in" ? amountError : null}
             usdValue={inputUsdValue}
-            priceLabel={inputToken === "MALTY" ? maltyPriceLabel : null}
           />
 
           <div className="flex justify-center">
@@ -244,7 +239,6 @@ export function ConnectedMaltySwap({
             balanceError={balanceErrorFor(outputToken)}
             onRetryBalance={retryBalanceFor(outputToken)}
             usdValue={outputUsdValue}
-            priceLabel={outputToken === "MALTY" ? maltyPriceLabel : null}
           />
 
           {quoteErrorMessage && (
