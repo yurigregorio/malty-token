@@ -128,6 +128,8 @@ npm run build
 
 It is also built as reusable infrastructure for the planned MALTY game, not a one-off page — see "Reusing `<MaltySwap />`" below.
 
+The page shows a live quote summary (rate, both tokens' real USD value, price-impact tier, minimum received, estimated network fee, route), the real Raydium pool the trade routes through, a simplified contract card, and a per-wallet local history of recent swaps. Every string is localized (English/Portuguese) through the site's existing language toggle, including error messages.
+
 ### Architecture
 
 ```
@@ -135,14 +137,22 @@ app/lib/swap/
   tokens.ts                 Closed allowlist: SOL, USDC, MALTY (mint, decimals) — never a mint from a URL
   amount.ts                 Decimal <-> base-unit conversion, display formatting
   slippage.ts                Presets, bounds, validation
-  price-impact.ts            normal / attention / high classification (conservative — MALTY liquidity is thin)
+  price-impact.ts            normal (<1%) / attention (1-5%) / high (>=5%) classification, with a separate
+                              >=15% "type to acknowledge" gate on the Review screen (MALTY liquidity is thin)
   url-params.ts               Validates every /swap query param; returnTo is checked against an internal allowlist
   raydium.ts                  Official Raydium Trade API client (quote + build-transaction), hardcoded endpoint
-  use-swap-quote.ts           Debounced, cancellable, auto-refreshing quote hook
+  price-feed.ts                Real USD prices for SOL/USDC from Raydium's mint/price API (cached, never throws)
+  use-token-usd-prices.ts      Derives MALTY's USD price from the live quote rate x the real counterpart price
+  format-usd.ts                USD formatting (fixed 2-decimal, and variable-precision for sub-cent prices)
+  network-fee.ts               Solana base-fee estimate shown in the quote summary
+  swap-history.ts               Per-wallet recent-swaps log in localStorage (architected for a future on-chain upgrade)
+  swap-copy.ts                  Centralized en/pt copy dict + useSwapCopy() hook, mirrors the site's useLanguage()
+  use-swap-quote.ts           Debounced, cancellable, auto-refreshing quote hook (quotes are treated as valid ~28s,
+                                matching Raydium's own documented quote lifetime)
   swap-transaction.ts         Decode -> sign -> send -> confirm helpers
   use-malty-swap-engine.ts    The state machine wiring the above into <MaltySwap />
   types.ts                    SwapStep, SwapQuote, SwapResult, MaltySwapProps
-  swap-errors.ts               Maps any failure into a friendly, non-technical message
+  swap-errors.ts               Maps any failure into a friendly, localized, non-technical message
   analytics.ts                 Internal event seam (swap_opened, swap_confirmed, ...) — no third-party sink wired up
 
 app/lib/hooks/use-token-balance.ts   SPL balance via the deterministic ATA (SOL uses the existing use-balance.ts)
@@ -150,8 +160,12 @@ app/lib/hooks/use-token-balance.ts   SPL balance via the deterministic ATA (SOL 
 app/components/swap/
   malty-swap.tsx               Wallet-ready / Mainnet / connect gating, then renders ConnectedMaltySwap
   connected-malty-swap.tsx     Wires the engine hook to the UI below
+  swap-shell.tsx                Shared full/compact card chrome (its own module so nothing has to import it circularly)
+  icons.tsx                     Inline stroke-SVG icon set used throughout the swap UI (no icon-font dependency)
+  trust-badges.tsx              "Non-custodial / real liquidity / instant" badge row shown above the card
   token-amount-panel.tsx, slippage-selector.tsx, swap-details.tsx,
-  review-swap.tsx, swap-status.tsx, price-impact-badge.tsx, trust-footer.tsx
+  review-swap.tsx, swap-status.tsx, price-impact-badge.tsx, trust-footer.tsx,
+  pool-info.tsx, recent-swaps.tsx, info-tooltip.tsx
 
 app/swap/page.tsx + swap-content.tsx   The public page: parses & validates query params, renders <MaltySwap mode="full" />
 ```
@@ -169,7 +183,7 @@ The Raydium endpoint (`transaction-v1.raydium.io`) is a hardcoded constant in `r
 
 ### Environment variables
 
-None are required specifically for the swap — it reuses `NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL` / `NEXT_PUBLIC_SOLANA_MAINNET_WS_URL` from `.env.example` for the Mainnet RPC connection used to read balances and confirm transactions.
+None are required specifically for the swap — it reuses `NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL` / `NEXT_PUBLIC_SOLANA_MAINNET_WS_URL` from `.env.example` for the Mainnet RPC connection used to read balances and confirm transactions. Both are set in the deployed Vercel environment, not just locally.
 
 ### Reusing `<MaltySwap />`
 
@@ -227,7 +241,7 @@ Game-ready flow: `Player needs +760 MALTY → "Get MALTY" → /swap?output=MALTY
 
 ### Testing
 
-`npm run test` covers (with mocked network calls — no real SOL/MALTY is ever spent by the test suite): base/decimal amount conversion, the token allowlist, slippage bounds, price-impact classification, quote parsing/validation (including malformed API responses), the debounced/cancellable quote hook, `returnTo`/URL-param validation, transaction decoding, signature confirmation, and error-message mapping.
+`npm run test` covers (with mocked network calls — no real SOL/MALTY is ever spent by the test suite): base/decimal amount conversion, the token allowlist, slippage bounds, price-impact classification, quote parsing/validation (including malformed API responses), the debounced/cancellable quote hook, `returnTo`/URL-param validation, transaction decoding, signature confirmation, USD-price derivation/formatting, swap history, and error-message mapping.
 
 ## Token metadata
 

@@ -48,6 +48,13 @@ This record highlights material project changes that are useful for public trans
 - MALTY became tradeable through Jupiter (which routes to the official Raydium pool) and trackable on Birdeye.
 - Listing requests were submitted to CoinGecko and CoinMarketCap (CMC ticket 1456919), and a Jupiter token verification request was also submitted. None of these listings is confirmed yet — the project does not claim a listing exists until it is actually live on the respective platform.
 
+## Native swap
+
+- A non-custodial swap page (`/swap`) launched on the public site, trading SOL or USDC for MALTY (and back) directly against the official Raydium pool.
+- Every transaction is built from a real, live Raydium quote and signed by the visitor's own connected wallet; the app never holds funds and never signs on the user's behalf.
+- The page shows the live quote's rate, both tokens' real USD value, a price-impact tier (with an explicit acknowledgement step for very high impact, reflecting the pool's current thin liquidity), the minimum amount received, an estimated network fee, the route, and a link to the real pool.
+- Built as reusable infrastructure (`<MaltySwap />`), not a one-off page, so the same non-custodial flow can power a future in-game "Get MALTY" purchase.
+
 ## Community
 
 - Public MALTY community channel launched (X: [@MaltyCoin](https://x.com/MaltyCoin)).

@@ -100,7 +100,7 @@ const copy = {
     verifiedTitle: "Verified today", verifiedSubtitle: "Core facts, on-chain and verifiable.",
     nextTitle: "What's next", nextSubtitle: "A clear roadmap for real-world impact.",
     viewEvidence: "View on-chain evidence", exploreGives: "Explore MALTY Gives",
-    verifiedItems: ["1B fixed supply", "Mint Authority revoked", "No Freeze Authority", "0% transfer tax", "Public reserve architecture", "Mainnet deployment verified", "Live on Raydium (MALTY/SOL)"],
+    verifiedItems: ["1B fixed supply", "Mint Authority revoked", "No Freeze Authority", "0% transfer tax", "Public reserve architecture", "Mainnet deployment verified", "Live on Raydium (MALTY/SOL)", "Native non-custodial swap live"],
     nextItems: [
       ["Grow the MALTY community", "More pet lovers. A stronger voice. A bigger impact ahead."],
       ["Publish MALTY Gives operating criteria", "A clear, transparent framework for doing good."],
@@ -142,7 +142,7 @@ const copy = {
     verifiedTitle: "Verificado hoje", verifiedSubtitle: "Fatos centrais, on-chain e auditáveis.",
     nextTitle: "O que vem a seguir", nextSubtitle: "Um roteiro claro para impacto real.",
     viewEvidence: "Ver evidências on-chain", exploreGives: "Explorar MALTY Gives",
-    verifiedItems: ["Supply fixo de 1B", "Mint Authority revogada", "Sem Freeze Authority", "0% de taxa de transferência", "Arquitetura pública de reservas", "Deploy Mainnet verificável", "Ao vivo na Raydium (MALTY/SOL)"],
+    verifiedItems: ["Supply fixo de 1B", "Mint Authority revogada", "Sem Freeze Authority", "0% de taxa de transferência", "Arquitetura pública de reservas", "Deploy Mainnet verificável", "Ao vivo na Raydium (MALTY/SOL)", "Swap nativo não-custodial ao vivo"],
     nextItems: [
       ["Expandir a comunidade MALTY", "Mais tutores. Uma voz mais forte. Mais impacto à frente."],
       ["Publicar critérios operacionais do MALTY Gives", "Um framework claro e transparente para fazer o bem."],
@@ -372,7 +372,7 @@ export default function Home() {
             <h3 className="text-xl font-bold tracking-[-0.02em]">{t.verifiedTitle}</h3>
             <p className="mt-1.5 text-[13px] text-white/45">{t.verifiedSubtitle}</p>
             <div className="mt-5 flex flex-col gap-2">
-              {t.verifiedItems.map(x => <FactLink key={x} text={x} href={x.includes("Raydium") ? MALTY_SOLSCAN_POOL_URL : `https://explorer.solana.com/address/${MINT}`} />)}
+              {t.verifiedItems.map(x => <FactLink key={x} text={x} href={x.includes("Raydium") ? MALTY_SOLSCAN_POOL_URL : x.includes("swap") || x.includes("Swap") ? "/swap" : `https://explorer.solana.com/address/${MINT}`} />)}
             </div>
           </div>
           <div>
