@@ -4,6 +4,8 @@ import { requiresExtraConfirmation } from "../../lib/swap/price-impact";
 import { getSwapToken } from "../../lib/swap/tokens";
 import type { SwapQuote } from "../../lib/swap/types";
 import { PriceImpactBadge } from "./price-impact-badge";
+import { InfoTooltip } from "./info-tooltip";
+import { SLIPPAGE_EXPLANATION } from "./slippage-copy";
 
 export function ReviewSwap({
   quote,
@@ -59,7 +61,10 @@ export function ReviewSwap({
           <PriceImpactBadge percent={quote.priceImpactPercent} />
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-xs text-white/45">Slippage</span>
+          <span className="flex items-center gap-1.5 text-xs text-white/45">
+            Slippage
+            <InfoTooltip label="What is slippage?">{SLIPPAGE_EXPLANATION}</InfoTooltip>
+          </span>
           <span className="text-xs font-bold text-white/80">{bpsToPercentLabel(quote.slippageBps)}</span>
         </div>
       </div>

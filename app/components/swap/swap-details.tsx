@@ -3,11 +3,24 @@ import { bpsToPercentLabel } from "../../lib/swap/slippage";
 import { getSwapToken } from "../../lib/swap/tokens";
 import type { SwapQuote } from "../../lib/swap/types";
 import { PriceImpactBadge } from "./price-impact-badge";
+import { InfoTooltip } from "./info-tooltip";
+import { SLIPPAGE_EXPLANATION } from "./slippage-copy";
 
-function Row({ label, value }: { label: string; value: React.ReactNode }) {
+function Row({
+  label,
+  value,
+  tooltip,
+}: {
+  label: string;
+  value: React.ReactNode;
+  tooltip?: React.ReactNode;
+}) {
   return (
     <div className="flex items-center justify-between text-xs">
-      <span className="text-white/45">{label}</span>
+      <span className="flex items-center gap-1.5 text-white/45">
+        {label}
+        {tooltip && <InfoTooltip label={`What is ${label.toLowerCase()}?`}>{tooltip}</InfoTooltip>}
+      </span>
       <span className="font-semibold text-white/85">{value}</span>
     </div>
   );
@@ -54,7 +67,11 @@ export function SwapDetails({
             : "—"
         }
       />
-      <Row label="Slippage tolerance" value={bpsToPercentLabel(quote.slippageBps)} />
+      <Row
+        label="Slippage tolerance"
+        value={bpsToPercentLabel(quote.slippageBps)}
+        tooltip={SLIPPAGE_EXPLANATION}
+      />
       <Row label="Price impact" value={<PriceImpactBadge percent={quote.priceImpactPercent} />} />
       <Row
         label="Route"

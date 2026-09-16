@@ -12,6 +12,8 @@ import { SlippageSelector } from "./slippage-selector";
 import { ReviewSwap } from "./review-swap";
 import { SwapInFlightStatus, SwapConfirmedStatus, SwapFailedStatus } from "./swap-status";
 import { SwapTrustFooter } from "./trust-footer";
+import { InfoTooltip } from "./info-tooltip";
+import { SLIPPAGE_EXPLANATION } from "./slippage-copy";
 
 type ConnectedWallet = NonNullable<ReturnType<typeof useConnectedWallet>>;
 
@@ -210,7 +212,10 @@ export function ConnectedMaltySwap({
       )}
 
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3">
-        <p className="mb-1.5 text-[11px] font-semibold tracking-[0.08em] text-white/45">SLIPPAGE</p>
+        <p className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.08em] text-white/45">
+          SLIPPAGE
+          <InfoTooltip label="What is slippage?">{SLIPPAGE_EXPLANATION}</InfoTooltip>
+        </p>
         <SlippageSelector slippageBps={slippageBps} onChange={setSlippageBps} />
       </div>
 
