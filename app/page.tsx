@@ -201,7 +201,7 @@ export default function Home() {
           <div className="inline-flex select-none items-center gap-2 rounded-full border border-[#e9b949]/18 bg-[#e9b949]/[0.04] px-3.5 py-2 text-[11px] font-semibold tracking-[0.12em] text-[#e9b949]">
             <span className="relative flex h-1.5 w-1.5"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" /><span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" /></span>{t.badge}
           </div>
-          <h1 className="mt-[18px] select-none font-display text-5xl font-bold leading-[0.98] tracking-[-0.03em] sm:text-6xl lg:text-[4.6rem]">MALTY<span className="text-[#e9b949]">.</span></h1>
+          <h1 className="mt-[18px] select-none font-display text-5xl font-bold leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-[4.6rem]">MALTY<span className="text-[#e9b949]">.</span></h1>
           <p className="mt-2.5 select-none text-xl font-semibold tracking-[-0.02em] text-white/92 sm:text-2xl">{t.headline}</p>
           <p className={`mt-3 max-w-2xl ${textBody}`}>{t.intro}</p>
           <div className="mt-[22px] flex flex-wrap gap-3">

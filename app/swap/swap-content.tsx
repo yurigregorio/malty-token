@@ -28,7 +28,7 @@ export function SwapContent() {
     <main className="min-h-screen overflow-x-hidden bg-[#080a0d] text-[#f7f1e5]">
       <SiteHeader />
 
-      <div className="relative overflow-hidden">
+      <div className="relative">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(217,165,61,0.12),transparent_55%)]" />
 
         {/* Decorative background — desktop only, purely visual, never affects layout/scroll. */}
@@ -47,7 +47,7 @@ export function SwapContent() {
         <div className="relative mx-auto max-w-lg px-5 py-6 sm:px-8 sm:py-8">
           <div className="text-center">
             <p className="text-[11px] font-black tracking-[0.2em] text-[#e9b949]">{t.pageEyebrow}</p>
-            <h1 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
+            <h1 className="mt-2 pb-1 font-display text-3xl font-bold leading-[1.25] tracking-[-0.02em] sm:text-4xl">
               {(() => {
                 const [before, after] = t.pageTitle.split("$MALTY");
                 return (
