@@ -12,10 +12,11 @@ import { SwapDetails, SwapDetailsSkeleton } from "./swap-details";
 import { SlippageSelector } from "./slippage-selector";
 import { ReviewSwap } from "./review-swap";
 import { SwapInFlightStatus, SwapConfirmedStatus, SwapFailedStatus } from "./swap-status";
-import { SwapTrustFooter } from "./trust-footer";
+import { SwapContractInfo } from "./trust-footer";
 import { PoolInfo } from "./pool-info";
 import { RecentSwaps } from "./recent-swaps";
-import { InfoTooltip } from "./info-tooltip";
+import { SwapShell } from "./swap-shell";
+import { SwapIcon } from "./icons";
 import { useSwapCopy } from "../../lib/swap/swap-copy";
 
 type ConnectedWallet = NonNullable<ReturnType<typeof useConnectedWallet>>;
@@ -25,8 +26,13 @@ const IN_FLIGHT_STEPS = ["preparing", "awaiting-signature", "submitted", "confir
 export function ConnectedMaltySwap({
   account,
   chain,
+  shell,
   ...props
-}: MaltySwapProps & { account: ConnectedWallet["account"]; chain: `solana:${string}` }) {
+}: MaltySwapProps & {
+  account: ConnectedWallet["account"];
+  chain: `solana:${string}`;
+  shell: "full" | "compact";
+}) {
   const t = useSwapCopy();
   const signAndSendTransactions = useSignAndSendTransactions(account, chain);
 
@@ -55,6 +61,7 @@ export function ConnectedMaltySwap({
     usdPrices,
     recentSwaps,
     poolId,
+    refreshQuote,
     canReview,
     isSubmitting,
     result,
@@ -75,6 +82,7 @@ export function ConnectedMaltySwap({
     maxInputAmount,
   } = engine;
 
+  const isFull = shell === "full";
   const inputOptions = counterpartsFor(outputToken);
   const outputOptions = lockOutputToken || amountMode === "exact-out" ? [outputToken] : counterpartsFor(inputToken);
 
@@ -106,7 +114,7 @@ export function ConnectedMaltySwap({
 
   if (step === "review" && quote) {
     return (
-      <div>
+      <SwapShell shell={shell}>
         <ReviewSwap
           quote={quote}
           priceImpactAck={priceImpactAck}
@@ -115,30 +123,39 @@ export function ConnectedMaltySwap({
           onConfirm={confirmSwap}
           isSubmitting={isSubmitting}
         />
-        <SwapTrustFooter />
-      </div>
+      </SwapShell>
     );
   }
 
   if ((IN_FLIGHT_STEPS as readonly string[]).includes(step)) {
-    return <SwapInFlightStatus step={step} />;
+    return (
+      <SwapShell shell={shell}>
+        <SwapInFlightStatus step={step} />
+      </SwapShell>
+    );
   }
 
   if (step === "confirmed" && result) {
     const signature = lastSignatures[lastSignatures.length - 1];
     return (
-      <SwapConfirmedStatus
-        result={result}
-        signature={signature}
-        explorerUrl={signature ? getExplorerUrl(`/tx/${signature}`) : undefined}
-        returnTo={returnTo}
-        onSwapAgain={reset}
-      />
+      <SwapShell shell={shell}>
+        <SwapConfirmedStatus
+          result={result}
+          signature={signature}
+          explorerUrl={signature ? getExplorerUrl(`/tx/${signature}`) : undefined}
+          returnTo={returnTo}
+          onSwapAgain={reset}
+        />
+      </SwapShell>
     );
   }
 
   if (step === "failed") {
-    return <SwapFailedStatus message={submitError?.message ?? t.genericFailure} onRetry={reset} />;
+    return (
+      <SwapShell shell={shell}>
+        <SwapFailedStatus message={submitError?.message ?? t.genericFailure} onRetry={reset} />
+      </SwapShell>
+    );
   }
 
   const outputDisplay =
@@ -175,93 +192,107 @@ export function ConnectedMaltySwap({
             : t.reviewSwapCta;
 
   return (
-    <div className="space-y-2.5">
-      {amountMode === "exact-out" && (
-        <p className="rounded-lg border border-[#e9b949]/25 bg-[#e9b949]/[0.06] px-3 py-2 text-center text-[12px] font-bold text-[#e9b949]">
-          {t.buyingExactly} {amount} {outputToken}
-        </p>
-      )}
+    <>
+      <SwapShell shell={shell}>
+        <div className="space-y-2.5">
+          {amountMode === "exact-out" && (
+            <p className="rounded-lg border border-[#e9b949]/25 bg-[#e9b949]/[0.06] px-3 py-2 text-center text-[12px] font-bold text-[#e9b949]">
+              {t.buyingExactly} {amount} {outputToken}
+            </p>
+          )}
 
-      <TokenAmountPanel
-        label={t.youPay}
-        token={inputToken}
-        tokenOptions={inputOptions.length > 0 ? inputOptions : [inputToken]}
-        onTokenChange={setFromToken}
-        amount={amountMode === "exact-in" ? amount : inputDisplay}
-        onAmountChange={amountMode === "exact-in" ? setAmountValue : undefined}
-        displayValue={amountMode === "exact-out" ? inputDisplay : undefined}
-        balance={balanceFor(inputToken)}
-        isLoadingBalance={isBalanceLoading(inputToken)}
-        balanceError={balanceErrorFor(inputToken)}
-        onRetryBalance={retryBalanceFor(inputToken)}
-        onMax={amountMode === "exact-in" ? () => { const max = maxInputAmount(); if (max != null) setAmountValue(max); } : undefined}
-        error={amountMode === "exact-in" ? amountError : null}
-        usdValue={inputUsdValue}
-        priceLabel={inputToken === "MALTY" ? maltyPriceLabel : null}
-      />
+          <TokenAmountPanel
+            label={t.youPay}
+            token={inputToken}
+            tokenOptions={inputOptions.length > 0 ? inputOptions : [inputToken]}
+            onTokenChange={setFromToken}
+            amount={amountMode === "exact-in" ? amount : inputDisplay}
+            onAmountChange={amountMode === "exact-in" ? setAmountValue : undefined}
+            displayValue={amountMode === "exact-out" ? inputDisplay : undefined}
+            balance={balanceFor(inputToken)}
+            isLoadingBalance={isBalanceLoading(inputToken)}
+            balanceError={balanceErrorFor(inputToken)}
+            onRetryBalance={retryBalanceFor(inputToken)}
+            onMax={amountMode === "exact-in" ? () => { const max = maxInputAmount(); if (max != null) setAmountValue(max); } : undefined}
+            error={amountMode === "exact-in" ? amountError : null}
+            usdValue={inputUsdValue}
+            priceLabel={inputToken === "MALTY" ? maltyPriceLabel : null}
+          />
 
-      <div className="flex justify-center">
-        <button
-          type="button"
-          onClick={flip}
-          disabled={!canFlip}
-          aria-label={t.flipTokens}
-          className="group -my-2 flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.1] bg-[#0c0f13] text-white/70 transition-all hover:border-[#e9b949]/40 hover:text-[#e9b949] disabled:cursor-not-allowed disabled:opacity-30"
-        >
-          <span className="inline-block transition-transform duration-300 group-hover:rotate-180">⇅</span>
-        </button>
-      </div>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={flip}
+              disabled={!canFlip}
+              aria-label={t.flipTokens}
+              className="group -my-2 flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.12] bg-[#0c0f13] text-white/70 shadow-[0_0_0_4px_#0c0f13] transition-all hover:border-[#e9b949]/40 hover:text-[#e9b949] disabled:cursor-not-allowed disabled:opacity-30"
+            >
+              <span className="inline-block transition-transform duration-300 group-hover:rotate-180">⇅</span>
+            </button>
+          </div>
 
-      <TokenAmountPanel
-        label={t.youReceive}
-        token={outputToken}
-        tokenOptions={outputOptions.length > 0 ? outputOptions : [outputToken]}
-        onTokenChange={lockOutputToken || amountMode === "exact-out" ? undefined : setToToken}
-        amount={amountMode === "exact-out" ? amount : outputDisplay}
-        onAmountChange={undefined}
-        displayValue={outputDisplay}
-        balance={balanceFor(outputToken)}
-        isLoadingBalance={isBalanceLoading(outputToken)}
-        balanceError={balanceErrorFor(outputToken)}
-        onRetryBalance={retryBalanceFor(outputToken)}
-        usdValue={outputUsdValue}
-        priceLabel={outputToken === "MALTY" ? maltyPriceLabel : null}
-      />
+          <TokenAmountPanel
+            label={t.youReceive}
+            token={outputToken}
+            tokenOptions={outputOptions.length > 0 ? outputOptions : [outputToken]}
+            onTokenChange={lockOutputToken || amountMode === "exact-out" ? undefined : setToToken}
+            amount={amountMode === "exact-out" ? amount : outputDisplay}
+            onAmountChange={undefined}
+            displayValue={outputDisplay}
+            balance={balanceFor(outputToken)}
+            isLoadingBalance={isBalanceLoading(outputToken)}
+            balanceError={balanceErrorFor(outputToken)}
+            onRetryBalance={retryBalanceFor(outputToken)}
+            usdValue={outputUsdValue}
+            priceLabel={outputToken === "MALTY" ? maltyPriceLabel : null}
+          />
 
-      {quoteErrorMessage && (
-        <p className="rounded-lg border border-red-400/25 bg-red-400/[0.06] px-3 py-2 text-xs text-red-300" role="alert">
-          {quoteErrorMessage}
-        </p>
-      )}
+          {quoteErrorMessage && (
+            <p className="rounded-lg border border-red-400/25 bg-red-400/[0.06] px-3 py-2 text-xs text-red-300" role="alert">
+              {quoteErrorMessage}
+            </p>
+          )}
 
-      {quote && (quoteStatus === "ready" || quoteStatus === "stale") && (
-        <SwapDetails quote={quote} isStale={quoteStatus === "stale"} usdPrices={usdPrices} />
-      )}
+          {quote && (quoteStatus === "ready" || quoteStatus === "stale") && (
+            <SwapDetails
+              quote={quote}
+              isStale={quoteStatus === "stale"}
+              usdPrices={usdPrices}
+              poolId={poolId}
+              onRefresh={refreshQuote}
+            />
+          )}
 
-      {quoteStatus === "loading" && !quote && <SwapDetailsSkeleton />}
+          {quoteStatus === "loading" && !quote && <SwapDetailsSkeleton />}
 
-      <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3">
-        <p className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.08em] text-white/45">
-          SLIPPAGE
-          <InfoTooltip label={t.whatIsSlippage}>{t.slippageExplanation}</InfoTooltip>
-        </p>
-        <SlippageSelector slippageBps={slippageBps} onChange={setSlippageBps} />
-      </div>
+          <SlippageSelector slippageBps={slippageBps} onChange={setSlippageBps} />
 
-      <button
-        type="button"
-        onClick={openReview}
-        disabled={!canReview}
-        className="w-full rounded-xl bg-[#e9b949] px-4 py-3.5 text-sm font-black text-black transition-transform hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-40"
-      >
-        {swapCtaLabel}
-      </button>
+          <button
+            type="button"
+            onClick={openReview}
+            disabled={!canReview}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-[#f4d385] to-[#e9b949] px-4 py-3.5 text-sm font-black text-black transition-transform hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-40"
+          >
+            {quote && amount.trim() !== "" && <SwapIcon className="h-4 w-4" />}
+            {swapCtaLabel}
+          </button>
 
-      {quote && <PoolInfo inputMint={inputToken} outputMint={outputToken} poolId={poolId} />}
+          {isFull && (
+            <>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                <SwapContractInfo />
+                <PoolInfo inputMint={inputToken} outputMint={outputToken} poolId={poolId} />
+              </div>
 
-      <SwapTrustFooter />
+              <p className="flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white/35">
+                <span className="text-[#e9b949]">⚡</span> {t.poweredByRaydium}
+              </p>
+            </>
+          )}
+        </div>
+      </SwapShell>
 
-      <RecentSwaps entries={recentSwaps} getExplorerUrl={getExplorerUrl} />
-    </div>
+      {isFull && <RecentSwaps entries={recentSwaps} getExplorerUrl={getExplorerUrl} />}
+    </>
   );
 }

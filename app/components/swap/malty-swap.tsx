@@ -14,6 +14,7 @@ import { trackSwapEvent } from "../../lib/swap/analytics";
 import { useSwapCopy } from "../../lib/swap/swap-copy";
 import type { MaltySwapProps } from "../../lib/swap/types";
 import { ConnectedMaltySwap } from "./connected-malty-swap";
+import { SwapShell } from "./swap-shell";
 
 const subscribeToHydration = () => () => {};
 
@@ -123,28 +124,16 @@ export function MaltySwap(props: MaltySwapProps) {
     );
   }
 
+  // ConnectedMaltySwap owns its own SwapShell placement (unlike the states
+  // above) so it can render extra sections like Recent Swaps outside the
+  // card, not just inside a single bordered box.
   return (
-    <SwapShell shell={shell}>
-      <ConnectedMaltySwap
-        {...props}
-        account={connected.account}
-        chain={getWalletChain(cluster)}
-        key={connected.account.address}
-      />
-    </SwapShell>
-  );
-}
-
-function SwapShell({ shell, children }: { shell: "full" | "compact"; children: React.ReactNode }) {
-  return (
-    <div
-      className={
-        shell === "full"
-          ? "mx-auto w-full rounded-2xl border border-white/[0.08] bg-[#0c0f13] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.4)] sm:p-5"
-          : "w-full rounded-2xl border border-white/[0.08] bg-[#0c0f13] p-3.5"
-      }
-    >
-      {children}
-    </div>
+    <ConnectedMaltySwap
+      {...props}
+      shell={shell}
+      account={connected.account}
+      chain={getWalletChain(cluster)}
+      key={connected.account.address}
+    />
   );
 }

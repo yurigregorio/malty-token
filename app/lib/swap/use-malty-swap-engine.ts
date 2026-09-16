@@ -210,11 +210,11 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
     if (validateSlippageBps(bps) == null) setSlippageBps(bps);
   }, []);
 
-  const canReview =
-    quote != null &&
-    quoteStatus === "ready" &&
-    amountError == null &&
-    (!requiresExtraConfirmation(quote.priceImpactPercent) || priceImpactAck);
+  // The extreme-price-impact acknowledgement is checked on the Review screen
+  // itself (see ReviewSwap's canConfirm) — reaching Review must never be
+  // gated on it, or a user would never be able to open Review in the first
+  // place to check the box.
+  const canReview = quote != null && quoteStatus === "ready" && amountError == null;
 
   const openReview = useCallback(() => {
     if (!canReview || !quote) return;
@@ -381,6 +381,7 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
     usdPrices,
     recentSwaps: swapHistory.entries,
     poolId: quote?.routes[0]?.poolId,
+    refreshQuote,
     getExplorerUrl,
     setFromToken,
     setToToken,

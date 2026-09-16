@@ -15,6 +15,15 @@ export const SWAP_COPY = {
     guideLink: "New to crypto? Read the guide →",
     openOnRaydium: "Open on Raydium ↗",
 
+    // Trust badges (below the page subtitle)
+    badgeSecureTitle: "Non-custodial & secure",
+    badgeSecureText: "You stay in control",
+    badgeLiquidityTitle: "Raydium liquidity",
+    badgeLiquidityText: "Best available rates",
+    badgeSpeedTitle: "Solana transactions",
+    badgeSpeedText: "Fast and low fees",
+    mascotTagline: "Good Dogs Trade Together",
+
     // Wallet / network gating
     switchToMainnetTitle: "Switch to Mainnet",
     switchToMainnetBody:
@@ -55,6 +64,7 @@ export const SWAP_COPY = {
     quoteUnavailable: "Quote unavailable",
 
     // Slippage
+    slippageLabel: "Slippage",
     custom: "Custom",
     highSlippageWarning:
       "High slippage tolerance — your swap may execute at a worse price than expected.",
@@ -101,7 +111,7 @@ export const SWAP_COPY = {
     genericFailure: "Something went wrong.",
 
     // Trust footer / contract / pool info
-    contractLabel: "$MALTY CONTRACT",
+    contractLabel: "MALTY contract",
     copy: "Copy",
     copied: "Copied ✓",
     copyFailed: "Copy failed",
@@ -114,8 +124,10 @@ export const SWAP_COPY = {
     // Recent swaps (local history for the connected wallet)
     recentSwapsTitle: "Your recent swaps",
     recentSwapsEmpty: "No swaps made from this wallet yet.",
-    confirmedLabel: "Confirmed ✓",
+    recentSwapsEmptyOther: "No other swaps found in this wallet.",
+    confirmedLabel: "Confirmed",
     flipTokens: "Flip tokens",
+    viewAll: "View all",
 
     // Site-wide wallet button
     connectWallet: "Connect Wallet",
@@ -133,6 +145,14 @@ export const SWAP_COPY = {
       "Troque SOL ou USDC por MALTY — e volte — usando liquidez real da Raydium, direto da sua carteira. Não-custodial, você assina cada transação.",
     guideLink: "Novo em cripto? Leia o guia →",
     openOnRaydium: "Abrir na Raydium ↗",
+
+    badgeSecureTitle: "Seguro e não-custodial",
+    badgeSecureText: "Você mantém o controle",
+    badgeLiquidityTitle: "Liquidez via Raydium",
+    badgeLiquidityText: "Melhores preços",
+    badgeSpeedTitle: "Transações na Solana",
+    badgeSpeedText: "Rápidas e com baixas taxas",
+    mascotTagline: "Good Dogs Trade Together",
 
     switchToMainnetTitle: "Mude para a Mainnet",
     switchToMainnetBody:
@@ -170,6 +190,7 @@ export const SWAP_COPY = {
     viaRaydium: "via Raydium",
     quoteUnavailable: "Cotação indisponível",
 
+    slippageLabel: "Slippage",
     custom: "Personalizado",
     highSlippageWarning:
       "Tolerância de slippage alta — seu swap pode executar a um preço pior que o esperado.",
@@ -211,7 +232,7 @@ export const SWAP_COPY = {
     tryAgain: "Tentar de novo",
     genericFailure: "Algo deu errado.",
 
-    contractLabel: "CONTRATO DO $MALTY",
+    contractLabel: "Contrato MALTY",
     copy: "Copiar",
     copied: "Copiado ✓",
     copyFailed: "Falha ao copiar",
@@ -223,8 +244,10 @@ export const SWAP_COPY = {
 
     recentSwapsTitle: "Suas últimas trocas",
     recentSwapsEmpty: "Nenhuma troca realizada nesta carteira ainda.",
-    confirmedLabel: "Confirmado ✓",
+    recentSwapsEmptyOther: "Nenhuma outra troca encontrada nesta carteira.",
+    confirmedLabel: "Confirmado",
     flipTokens: "Inverter tokens",
+    viewAll: "Ver todas",
 
     connectWallet: "Conectar Carteira",
     connectShort: "Conectar",

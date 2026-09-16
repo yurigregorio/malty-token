@@ -6,7 +6,7 @@ import { getSwapToken, type SwapToken, type SwapTokenSymbol } from "../../lib/sw
 import { useSwapCopy } from "../../lib/swap/swap-copy";
 import { formatUsd } from "../../lib/swap/format-usd";
 
-function TokenIcon({ token }: { token: SwapToken }) {
+export function TokenIcon({ token }: { token: SwapToken }) {
   const [failed, setFailed] = useState(false);
 
   if (!token.logoUri || failed) {
