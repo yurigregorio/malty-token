@@ -1,3 +1,5 @@
+import { address as toAddress } from "@solana/kit";
+import { findAssociatedTokenPda, TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
 import type { SwapAmountMode } from "./types";
 import { SwapError } from "./types";
 import type { SwapTokenSymbol } from "./tokens";
@@ -241,6 +243,29 @@ export async function buildSwapTransactions(
 ): Promise<string[]> {
   const inputToken = getSwapToken(params.inputToken);
   const outputToken = getSwapToken(params.outputToken);
+  const owner = toAddress(params.walletAddress);
+
+  // Raydium's transaction API can only auto-derive the token account for the
+  // side it's wrapping/unwrapping SOL on; for the non-native side it expects
+  // the wallet's existing associated token account explicitly, or it fails
+  // with "REQ_INPUT_ACCOUNT_ERROR" / "REQ_OUTPUT_ACCOUNT_ERROR" (observed
+  // selling MALTY, i.e. a non-SOL input, since inputAccount was never sent).
+  const [inputAccount, outputAccount] = await Promise.all([
+    inputToken.isNative
+      ? Promise.resolve(undefined)
+      : findAssociatedTokenPda({
+          owner,
+          mint: inputToken.mint,
+          tokenProgram: TOKEN_PROGRAM_ADDRESS,
+        }).then(([pda]) => pda.toString()),
+    outputToken.isNative
+      ? Promise.resolve(undefined)
+      : findAssociatedTokenPda({
+          owner,
+          mint: outputToken.mint,
+          tokenProgram: TOKEN_PROGRAM_ADDRESS,
+        }).then(([pda]) => pda.toString()),
+  ]);
 
   const path = params.mode === "exact-in" ? "/transaction/swap-base-in" : "/transaction/swap-base-out";
 
@@ -256,6 +281,8 @@ export async function buildSwapTransactions(
         computeUnitPriceMicroLamports: DEFAULT_COMPUTE_UNIT_PRICE_MICRO_LAMPORTS,
         wrapSol: inputToken.isNative,
         unwrapSol: outputToken.isNative,
+        inputAccount,
+        outputAccount,
       }),
     },
     signal

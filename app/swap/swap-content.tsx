@@ -44,7 +44,7 @@ export function SwapContent() {
           </p>
         </div>
 
-        <div className="relative mx-auto max-w-lg px-5 py-6 sm:px-8 sm:py-8">
+        <div className="relative mx-auto max-w-2xl px-5 py-6 sm:px-8 sm:py-8">
           <div className="text-center">
             <p className="text-[11px] font-black tracking-[0.2em] text-[#e9b949]">{t.pageEyebrow}</p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
@@ -81,7 +81,7 @@ export function SwapContent() {
             />
           </div>
 
-          <div className="mx-auto mt-4 max-w-lg">
+          <div className="mx-auto mt-4">
             <SwapDisclosure />
           </div>
 

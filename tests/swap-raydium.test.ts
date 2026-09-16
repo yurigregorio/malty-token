@@ -97,7 +97,7 @@ describe("buildSwapTransactions", () => {
 
     const txs = await buildSwapTransactions({
       mode: "exact-in",
-      walletAddress: "11111111111111111111111111111111111111111",
+      walletAddress: "11111111111111111111111111111111",
       quoteResponse: {},
       inputToken: "SOL",
       outputToken: "MALTY",
@@ -119,7 +119,7 @@ describe("buildSwapTransactions", () => {
 
     const txs = await buildSwapTransactions({
       mode: "exact-in",
-      walletAddress: "11111111111111111111111111111111111111111",
+      walletAddress: "11111111111111111111111111111111",
       quoteResponse: {},
       inputToken: "SOL",
       outputToken: "MALTY",
@@ -134,7 +134,7 @@ describe("buildSwapTransactions", () => {
     await expect(
       buildSwapTransactions({
         mode: "exact-in",
-        walletAddress: "11111111111111111111111111111111111111111",
+        walletAddress: "11111111111111111111111111111111",
         quoteResponse: {},
         inputToken: "SOL",
         outputToken: "MALTY",

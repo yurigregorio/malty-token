@@ -164,7 +164,7 @@ export const SWAP_COPY = {
     chooseWallet: "Escolha uma carteira",
 
     balance: "Saldo",
-    max: "MÁX",
+    max: "MAX",
     loadingBalance: "Carregando saldo…",
     balanceUnavailable: "Saldo indisponível",
     retry: "Tentar de novo",
