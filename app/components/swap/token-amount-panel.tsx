@@ -163,7 +163,7 @@ export function TokenAmountPanel({
               placeholder="0.00"
               aria-label={`${label} ${t.amountFieldSuffix}`}
               aria-invalid={error != null}
-              className="w-full min-w-0 bg-transparent text-right text-[28px] font-black leading-tight text-white/95 outline-none transition-colors placeholder:text-white/20 focus:text-[#f4d385]"
+              className="w-full min-w-0 bg-transparent text-right text-[28px] font-black leading-tight text-white/95 outline-none transition-colors [forced-color-adjust:none] placeholder:text-white/20 focus:text-[#f4d385] focus:outline-none focus-visible:outline-none"
             />
           ) : (
             <span className="block w-full min-w-0 truncate text-right text-[28px] font-black leading-tight text-white/95">
