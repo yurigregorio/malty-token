@@ -32,6 +32,8 @@ export const SWAP_COPY = {
     connectPrompt: "Connect your wallet to swap",
     noWalletDetected:
       "No Solana wallet detected. Install Phantom, Solflare, Backpack, or another Wallet Standard–compatible wallet to continue.",
+    iosNoWalletDetected:
+      "iPhone browsers can't connect a wallet directly here yet. Open this page from inside your wallet app's own browser (e.g. Phantom → browser tab), or trade on Raydium instead:",
     chooseWallet: "Choose a wallet",
 
     // Token amount panels
@@ -161,6 +163,8 @@ export const SWAP_COPY = {
     connectPrompt: "Conecte sua carteira para trocar",
     noWalletDetected:
       "Nenhuma carteira Solana detectada. Instale a Phantom, Solflare, Backpack ou outra carteira compatível com Wallet Standard para continuar.",
+    iosNoWalletDetected:
+      "No iPhone, o navegador ainda não consegue conectar uma carteira diretamente aqui. Abra esta página pelo navegador de dentro do app da sua carteira (ex: Phantom → aba do navegador), ou negocie pela Raydium:",
     chooseWallet: "Escolha uma carteira",
 
     balance: "Saldo",

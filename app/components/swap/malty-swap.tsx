@@ -10,6 +10,7 @@ import {
 import { useAppClient } from "../../lib/client-provider";
 import { useCluster } from "../cluster-context";
 import { getWalletChain } from "../../lib/solana-client";
+import { MALTY_RAYDIUM_SWAP_URL } from "../../lib/malty-token";
 import { trackSwapEvent } from "../../lib/swap/analytics";
 import { useSwapCopy } from "../../lib/swap/swap-copy";
 import type { MaltySwapProps } from "../../lib/swap/types";
@@ -17,6 +18,17 @@ import { ConnectedMaltySwap } from "./connected-malty-swap";
 import { SwapShell } from "./swap-shell";
 
 const subscribeToHydration = () => () => {};
+
+/**
+ * iOS has no OS-level mechanism (unlike Android's Mobile Wallet Adapter) for
+ * a website to hand off to a native wallet app, so Safari/Chrome on iPhone
+ * never detects a Wallet Standard wallet — telling that visitor to "install
+ * a wallet extension" is nonsensical advice on a phone. Only ever called
+ * client-side, after hydration (see the `!connected` branch below).
+ */
+function isIOS(): boolean {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent);
+}
 
 /**
  * The reusable Malty Swap widget. Renders in two layouts:
@@ -100,9 +112,23 @@ export function MaltySwap(props: MaltySwapProps) {
         <div className="flex flex-col gap-3 py-6">
           <p className="text-center text-sm font-black text-white/95">{t.connectPrompt}</p>
           {wallets.length === 0 ? (
-            <p className="text-center text-xs text-white/45">
-              {t.noWalletDetected}
-            </p>
+            isIOS() ? (
+              <div className="flex flex-col items-center gap-2.5">
+                <p className="text-center text-xs text-white/45">{t.iosNoWalletDetected}</p>
+                <a
+                  href={MALTY_RAYDIUM_SWAP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg bg-[#e9b949] px-4 py-2 text-xs font-black text-black"
+                >
+                  {t.openOnRaydium}
+                </a>
+              </div>
+            ) : (
+              <p className="text-center text-xs text-white/45">
+                {t.noWalletDetected}
+              </p>
+            )
           ) : (
             <div className="space-y-1.5">
               {wallets.map((wallet) => (
