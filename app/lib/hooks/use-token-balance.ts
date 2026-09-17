@@ -98,12 +98,21 @@ export function useTokenBalance(
     : { amount: null, isLoading: false, error: null, refetch };
 }
 
+const NOT_FOUND_PATTERN =
+  /could not find account|invalid param.*could not find|account.*not.*found|not a token account/i;
+
 export function isAccountNotFound(err: unknown): boolean {
+  // @solana/kit strips its own generated message down to a bare error code
+  // in production builds (e.g. "Solana error #-32602; Decode this error by
+  // running `npx @solana/errors decode ...`") to save bundle size — so
+  // `err.message` alone is useless for pattern-matching in prod. The raw
+  // text the RPC server actually returned survives in `context.__serverMessage`
+  // regardless of that stripping, since it's just data, not a display string.
+  const context = err instanceof Error ? (err as { context?: unknown }).context : undefined;
+  const serverMessage =
+    context != null && typeof context === "object" && "__serverMessage" in context
+      ? String((context as { __serverMessage: unknown }).__serverMessage)
+      : "";
   const message = err instanceof Error ? err.message : String(err);
-  // Different RPC providers word this differently for the same condition
-  // (an ATA that was never created) — e.g. Helius returns "Invalid param:
-  // not a Token account" rather than "could not find account".
-  return /could not find account|invalid param.*could not find|account.*not.*found|not a token account/i.test(
-    message
-  );
+  return NOT_FOUND_PATTERN.test(message) || NOT_FOUND_PATTERN.test(serverMessage);
 }

@@ -14,4 +14,16 @@ describe("isAccountNotFound", () => {
     expect(isAccountNotFound(new Error("Rate limit exceeded"))).toBe(false);
     expect(isAccountNotFound(new Error("Failed to fetch"))).toBe(false);
   });
+
+  it("matches via context.__serverMessage when @solana/kit strips the display message in production", () => {
+    const err = new Error("Solana error #-32602; Decode this error by running `npx @solana/errors decode -- -32602`");
+    (err as unknown as { context: unknown }).context = { __code: -32602, __serverMessage: "Invalid param: not a Token account" };
+    expect(isAccountNotFound(err)).toBe(true);
+  });
+
+  it("does not false-positive on a stripped message with an unrelated __serverMessage", () => {
+    const err = new Error("Solana error #-32602; Decode this error by running `npx @solana/errors decode -- -32602`");
+    (err as unknown as { context: unknown }).context = { __code: -32602, __serverMessage: "Invalid param: too many accounts requested" };
+    expect(isAccountNotFound(err)).toBe(false);
+  });
 });
