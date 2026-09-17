@@ -70,6 +70,10 @@ export function useTokenBalance(
         setError(null);
       } catch (err) {
         if (cancelled || generation.current !== myGeneration) return;
+        // Logged so a real failure (rate limit, RPC hiccup, an unrecognized
+        // error shape from a given provider) is inspectable from devtools
+        // instead of just showing "Balance unavailable" with no detail.
+        console.error("[malty-swap] token balance fetch failed", { mint, err });
         setError(err);
       } finally {
         if (!cancelled && generation.current === myGeneration) {
