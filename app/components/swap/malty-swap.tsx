@@ -45,6 +45,14 @@ export function MaltySwap(props: MaltySwapProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- fire once on mount only
   }, []);
 
+  // MALTY liquidity only exists on Mainnet, so /swap has no real use for the
+  // shared devnet/mainnet toggle (meant for the /dev sandbox) — a first-time
+  // visitor otherwise lands on the default "devnet" and sees a confusing
+  // "Switch to Mainnet" prompt before they've even connected a wallet.
+  useEffect(() => {
+    if (isHydrated && cluster !== "mainnet") setCluster("mainnet");
+  }, [isHydrated, cluster, setCluster]);
+
   const connectedTracked = useRef(false);
   useEffect(() => {
     if (connected && !connectedTracked.current) {
