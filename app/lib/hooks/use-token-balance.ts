@@ -94,7 +94,12 @@ export function useTokenBalance(
     : { amount: null, isLoading: false, error: null, refetch };
 }
 
-function isAccountNotFound(err: unknown): boolean {
+export function isAccountNotFound(err: unknown): boolean {
   const message = err instanceof Error ? err.message : String(err);
-  return /could not find account|invalid param.*could not find|account.*not.*found/i.test(message);
+  // Different RPC providers word this differently for the same condition
+  // (an ATA that was never created) — e.g. Helius returns "Invalid param:
+  // not a Token account" rather than "could not find account".
+  return /could not find account|invalid param.*could not find|account.*not.*found|not a token account/i.test(
+    message
+  );
 }
