@@ -108,8 +108,12 @@ export function useSwapQuote(params: UseSwapQuoteParams): UseSwapQuoteResult {
           setStatus("ready");
           setErrorMessage(null);
 
+          // Once the quote ages past Raydium's own documented lifetime, pull
+          // a fresh one automatically rather than leaving the user stuck on
+          // a disabled button — "Refreshing quote…" should be literally true,
+          // not a dead end that only a manual refresh-icon click resolves.
           staleTimerRef.current = setTimeout(() => {
-            setStatus((prev) => (prev === "ready" ? "stale" : prev));
+            setNonce((n) => n + 1);
           }, QUOTE_TTL_MS);
         })
         .catch((error: unknown) => {

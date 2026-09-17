@@ -93,7 +93,13 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
     amountMode === "exact-out" ? exactOutputAmount! : (initialAmount ?? "")
   );
   const [slippageBps, setSlippageBps] = useState(DEFAULT_SLIPPAGE_BPS);
-  const [priceImpactAck, setPriceImpactAck] = useState(false);
+  // Keyed to the specific quote it was given for (its expiresAt), not a bare
+  // boolean — the quote hook keeps polling even on Review (a stale quote
+  // auto-refreshes, see use-swap-quote.ts), and priceImpactPercent can
+  // change between polls. Deriving priceImpactAck from "does this match the
+  // *current* quote" means an acknowledgement can never silently carry over
+  // to a materially different (and possibly much worse) quote.
+  const [ackedQuoteExpiry, setAckedQuoteExpiry] = useState<number | null>(null);
   // Only ever holds "enter-amount" (the resting state) or a step from
   // "review" onward — the "fetching-quote" / "quote-ready" distinction is
   // derived from `quoteStatus` at render time below, not tracked here.
@@ -150,6 +156,12 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
   const usdPrices = useTokenUsdPrices(quote);
   const swapHistory = useSwapHistory(account.address);
 
+  const priceImpactAck = ackedQuoteExpiry != null && ackedQuoteExpiry === quote?.expiresAt;
+  const setPriceImpactAck = useCallback(
+    (checked: boolean) => setAckedQuoteExpiry(checked ? (quote?.expiresAt ?? null) : null),
+    [quote?.expiresAt]
+  );
+
   // Derived, not stored: while resting at "enter-amount", the visible step
   // tracks the live quote status instead of being synced into state.
   const step: SwapStep =
@@ -174,14 +186,14 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
     // The input/pay token is always free to change, in both exact-in and
     // exact-out mode — only the output token can be locked (see setToToken).
     setInputToken(symbol);
-    setPriceImpactAck(false);
+    setAckedQuoteExpiry(null);
   }, []);
 
   const setToToken = useCallback(
     (symbol: SwapTokenSymbol) => {
       if (lockOutputToken || amountMode === "exact-out") return;
       setOutputToken(symbol);
-      setPriceImpactAck(false);
+      setAckedQuoteExpiry(null);
     },
     [lockOutputToken, amountMode]
   );
@@ -190,7 +202,7 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
     (next: string) => {
       if (amountMode === "exact-out") return; // fixed by the caller (e.g. the Shop)
       setAmount(next);
-      setPriceImpactAck(false);
+      setAckedQuoteExpiry(null);
       if (workflowStep === "review") setWorkflowStep("enter-amount");
     },
     [amountMode, workflowStep]
@@ -202,7 +214,7 @@ export function useMaltySwapEngine(props: MaltySwapEngineProps) {
     setInputToken(outputToken);
     setOutputToken(inputToken);
     setAmount("");
-    setPriceImpactAck(false);
+    setAckedQuoteExpiry(null);
     setWorkflowStep("enter-amount");
   }, [inputToken, outputToken, lockOutputToken, amountMode]);
 
