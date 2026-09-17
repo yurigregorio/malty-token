@@ -12,9 +12,9 @@ const copy = {
   en: {
     eyebrow: "GUIDE",
     title: "How to Buy $MALTY",
-    subtitle: "MALTY is live on Solana and available through the official MALTY/SOL pool on Raydium. Follow these six steps to buy safely — no prior crypto experience needed.",
-    ctaBuy: "Buy $MALTY on Raydium",
-    flow: ["Wallet", "SOL", "Raydium", "$MALTY", "Done 🐶"],
+    subtitle: "MALTY is live on Solana. The fastest and safest way to get it is Malty Swap, built right into this site — non-custodial, connects straight to your wallet, real Raydium liquidity underneath. Follow these five steps — no prior crypto experience needed.",
+    ctaBuy: "Open Malty Swap",
+    flow: ["Wallet", "SOL", "Malty Swap", "$MALTY", "Done 🐶"],
     steps: [
       {
         n: "01", title: "Get a Solana Wallet",
@@ -34,30 +34,25 @@ const copy = {
         ],
       },
       {
-        n: "03", title: "Open Raydium",
-        text: "Raydium is the decentralized exchange (DEX) hosting the official MALTY/SOL pool. Use only the official swap link below — never search for MALTY by name on a DEX.",
-        cta: "Open Raydium",
-        warning: "Always verify that you are using the official MALTY links before connecting your wallet.",
-      },
-      {
-        n: "04", title: "Select $MALTY",
-        text: "Confirm you're swapping for the real MALTY by checking the official contract address below — not just the name or ticker symbol.",
+        n: "03", title: "Open Malty Swap",
+        text: "Malty Swap is the official, non-custodial swap built into this site — it never holds your funds, and every transaction is one you review and sign yourself in your own wallet. It shows the official MALTY contract right on the page, so there's nothing extra to verify — but you can double-check it here too:",
         showContract: true,
-        warning: "Always verify the contract address before swapping.",
+        cta: "Open Malty Swap",
+        ctaInternal: true,
+        warning: "Prefer to use Raydium or Jupiter directly instead? You can — see the FAQ below for the official links to the same pool.",
       },
       {
-        n: "05", title: "Swap SOL → MALTY",
-        text: "Once your wallet is connected on the official pool:",
+        n: "04", title: "Swap SOL → MALTY",
+        text: "Once your wallet is connected on the Malty Swap page:",
         bullets: [
-          "Choose SOL as the token you're paying with.",
-          "Confirm MALTY as the token you're receiving.",
-          "Enter the amount of SOL you want to swap.",
-          "Review the transaction details Raydium shows you.",
-          "Confirm the swap in your wallet.",
+          "MALTY is already selected as the token you're receiving.",
+          "Choose SOL (or USDC) as the token you're paying with.",
+          "Enter the amount you want to swap — you'll see the live rate, USD value and price impact update as you type.",
+          "Review the quote, then tap Swap and confirm the transaction in your wallet.",
         ],
       },
       {
-        n: "06", title: "Check your $MALTY",
+        n: "05", title: "Check your $MALTY",
         text: "After the swap confirms, MALTY should appear in your wallet's token list. Some wallets take a moment to show new or unverified tokens — if you don't see it right away, search your wallet's token list manually.",
         bullets: [
           "Always confirm it's the real MALTY by matching the contract address, not just the name.",
@@ -78,12 +73,12 @@ const copy = {
     contractLabel: "Official Contract Address",
     copy: "Copy Contract", copied: "Copied!", copyFailed: "Copy failed",
     quickTitle: "Ready to get $MALTY?",
-    quickBuy: "Buy $MALTY", quickTelegram: "Join Telegram", quickX: "Follow on X",
+    quickBuy: "Open Malty Swap", quickTelegram: "Join Telegram", quickX: "Follow on X",
     faqTitle: "How to Buy — FAQ",
     faq: [
       ["What network is MALTY on?", "Solana."],
-      ["Where can I buy MALTY?", "The official method today is the MALTY/SOL pool on Raydium, linked throughout this page. MALTY is also reachable through Jupiter, which routes to the same pool."],
-      ["What is the official MALTY contract?", `${MINT} — always confirm this exact address before swapping.`],
+      ["Where can I buy MALTY?", "The recommended way is Malty Swap (/swap on this site) — it's non-custodial and routes to the same official MALTY/SOL pool on Raydium. If you'd rather use Raydium or Jupiter directly, both work too: Raydium hosts the official pool, and Jupiter routes to that same pool."],
+      ["What is the official MALTY contract?", `${MINT} — always confirm this exact address before swapping. Malty Swap shows it directly on the page.`],
       ["Why can't I see MALTY in my wallet?", "New or not-yet-verified tokens can take a moment to be indexed by some wallets. Check your token list manually, and always confirm you're looking at the right token by its contract address."],
       ["Can a MALTY admin help me through DM?", "MALTY admins will never DM you first, and will never ask for your seed phrase, private key, or a payment. Treat unsolicited DMs offering help as untrusted."],
       ["Does MALTY guarantee profit?", "No. MALTY is a community token. There is no promise or guarantee of price, returns or future value."],
@@ -95,9 +90,9 @@ const copy = {
   pt: {
     eyebrow: "GUIA",
     title: "Como comprar $MALTY",
-    subtitle: "O MALTY já está ao vivo na Solana e disponível no pool oficial MALTY/SOL na Raydium. Siga estes seis passos para comprar com segurança — sem precisar de experiência prévia com cripto.",
-    ctaBuy: "Comprar $MALTY na Raydium",
-    flow: ["Wallet", "SOL", "Raydium", "$MALTY", "Feito 🐶"],
+    subtitle: "O MALTY já está ao vivo na Solana. O jeito mais rápido e seguro de conseguir é o Malty Swap, direto neste site — não-custodial, conecta com sua carteira e usa a liquidez real da Raydium por baixo dos panos. Siga estes cinco passos — sem precisar de experiência prévia com cripto.",
+    ctaBuy: "Abrir o Malty Swap",
+    flow: ["Wallet", "SOL", "Malty Swap", "$MALTY", "Feito 🐶"],
     steps: [
       {
         n: "01", title: "Consiga uma carteira Solana",
@@ -117,30 +112,25 @@ const copy = {
         ],
       },
       {
-        n: "03", title: "Abra a Raydium",
-        text: "A Raydium é a exchange descentralizada (DEX) que hospeda o pool oficial MALTY/SOL. Use apenas o link oficial de swap abaixo — nunca busque MALTY pelo nome em uma DEX.",
-        cta: "Abrir Raydium",
-        warning: "Sempre verifique se está usando os links oficiais do MALTY antes de conectar sua carteira.",
-      },
-      {
-        n: "04", title: "Selecione o $MALTY",
-        text: "Confirme que você está negociando o MALTY de verdade conferindo o endereço oficial do contrato abaixo — não apenas o nome ou o ticker.",
+        n: "03", title: "Abra o Malty Swap",
+        text: "O Malty Swap é o swap oficial e não-custodial deste site — ele nunca guarda seus fundos, e cada transação é revisada e assinada por você mesmo na sua carteira. O contrato oficial do MALTY já aparece direto na página, então não tem nada extra para verificar — mas você também pode conferir aqui:",
         showContract: true,
-        warning: "Sempre verifique o endereço do contrato antes de fazer o swap.",
+        cta: "Abrir o Malty Swap",
+        ctaInternal: true,
+        warning: "Prefere usar a Raydium ou a Jupiter diretamente? Pode — veja o FAQ abaixo para os links oficiais do mesmo pool.",
       },
       {
-        n: "05", title: "Troque SOL → MALTY",
-        text: "Com sua carteira conectada no pool oficial:",
+        n: "04", title: "Troque SOL → MALTY",
+        text: "Com sua carteira conectada na página do Malty Swap:",
         bullets: [
-          "Escolha SOL como o token que você está pagando.",
-          "Confirme MALTY como o token que você vai receber.",
-          "Digite a quantidade de SOL que quer trocar.",
-          "Revise os detalhes da transação mostrados pela Raydium.",
-          "Confirme o swap na sua carteira.",
+          "O MALTY já vem selecionado como o token que você vai receber.",
+          "Escolha SOL (ou USDC) como o token que você está pagando.",
+          "Digite a quantidade que quer trocar — você vê a taxa em tempo real, o valor em dólar e o impacto no preço enquanto digita.",
+          "Revise a cotação, toque em Trocar e confirme a transação na sua carteira.",
         ],
       },
       {
-        n: "06", title: "Confira seu $MALTY",
+        n: "05", title: "Confira seu $MALTY",
         text: "Depois que o swap for confirmado, o MALTY deve aparecer na lista de tokens da sua carteira. Algumas carteiras demoram um pouco para mostrar tokens novos ou ainda não verificados — se não aparecer de imediato, procure manualmente na lista de tokens.",
         bullets: [
           "Sempre confirme que é o MALTY de verdade comparando o endereço do contrato, não só o nome.",
@@ -161,12 +151,12 @@ const copy = {
     contractLabel: "Endereço Oficial do Contrato",
     copy: "Copiar Contrato", copied: "Copiado!", copyFailed: "Falha ao copiar",
     quickTitle: "Pronto para conseguir seu $MALTY?",
-    quickBuy: "Comprar $MALTY", quickTelegram: "Entrar no Telegram", quickX: "Seguir no X",
+    quickBuy: "Abrir o Malty Swap", quickTelegram: "Entrar no Telegram", quickX: "Seguir no X",
     faqTitle: "Como comprar — FAQ",
     faq: [
       ["Em qual rede o MALTY está?", "Solana."],
-      ["Onde posso comprar MALTY?", "O método oficial hoje é o pool MALTY/SOL na Raydium, linkado ao longo desta página. O MALTY também é acessível via Jupiter, que roteia para o mesmo pool."],
-      ["Qual é o contrato oficial do MALTY?", `${MINT} — sempre confirme esse endereço exato antes de negociar.`],
+      ["Onde posso comprar MALTY?", "O jeito recomendado é o Malty Swap (/swap neste site) — é não-custodial e roteia para o mesmo pool oficial MALTY/SOL na Raydium. Se preferir usar a Raydium ou a Jupiter diretamente, os dois também funcionam: a Raydium hospeda o pool oficial, e a Jupiter roteia para esse mesmo pool."],
+      ["Qual é o contrato oficial do MALTY?", `${MINT} — sempre confirme esse endereço exato antes de negociar. O Malty Swap já mostra ele direto na página.`],
       ["Por que não consigo ver o MALTY na minha carteira?", "Tokens novos ou ainda não verificados podem demorar um pouco para serem indexados por algumas carteiras. Verifique sua lista de tokens manualmente, e sempre confirme que é o token certo pelo endereço do contrato."],
       ["Um admin do MALTY pode me ajudar por DM?", "Os admins do MALTY nunca vão te mandar DM primeiro, e nunca vão pedir sua seed phrase, chave privada ou um pagamento. Trate DMs não solicitadas oferecendo ajuda como não confiáveis."],
       ["O MALTY garante lucro?", "Não. O MALTY é um token comunitário. Não há promessa ou garantia de preço, retorno ou valor futuro."],
@@ -195,9 +185,9 @@ export function HowToBuyContent() {
         <p className="mt-2 text-[11px] font-black tracking-[0.22em] text-[#e9b949]">{t.eyebrow}</p>
         <h1 className="mt-3 max-w-2xl text-4xl font-black tracking-[-0.05em] sm:text-6xl">{t.title}</h1>
         <p className="mt-5 max-w-2xl text-sm leading-6 text-white/55">{t.subtitle}</p>
-        <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-black text-black transition-transform hover:-translate-y-0.5">
-          {t.ctaBuy} ↗
-        </a>
+        <Link href="/swap" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-black text-black transition-transform hover:-translate-y-0.5">
+          {t.ctaBuy}
+        </Link>
 
         <div className="mt-8 flex flex-wrap items-center gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.02] px-4 py-3.5 text-sm font-bold text-white/70">
           {t.flow.map((step, i) => (
@@ -238,11 +228,15 @@ export function HowToBuyContent() {
                     </div>
                   )}
 
-                  {"cta" in step && step.cta && (
+                  {"cta" in step && step.cta && ("ctaInternal" in step && step.ctaInternal ? (
+                    <Link href="/swap" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#e9b949] px-4 py-2 text-[13px] font-black text-black">
+                      {step.cta}
+                    </Link>
+                  ) : (
                     <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#e9b949] px-4 py-2 text-[13px] font-black text-black">
                       {step.cta} ↗
                     </a>
-                  )}
+                  ))}
 
                   {"warning" in step && step.warning && (
                     <p className="mt-3 flex items-start gap-2 text-xs leading-5 text-[#e9b949]/90">
@@ -270,7 +264,7 @@ export function HowToBuyContent() {
         <section className="mt-10 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 text-center sm:p-8">
           <h2 className="text-2xl font-black tracking-[-0.02em]">{t.quickTitle}</h2>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-            <a href={MALTY_RAYDIUM_SWAP_URL} target="_blank" rel="noopener noreferrer" className="rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-black text-black">{t.quickBuy} ↗</a>
+            <Link href="/swap" className="rounded-xl bg-[#e9b949] px-5 py-3 text-sm font-black text-black">{t.quickBuy}</Link>
             <a href="https://t.me/MaltyCoinOfficial" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/12 px-5 py-3 text-sm font-bold">{t.quickTelegram} ↗</a>
             <a href="https://x.com/MaltyCoin" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/12 px-5 py-3 text-sm font-bold">{t.quickX} ↗</a>
           </div>
