@@ -15,7 +15,7 @@ export default function DevPage() {
         Wallet and transaction tooling is separated from the public landing page.
         Mainnet remains read-only by default. A one-time maintenance flow can
         be explicitly enabled to publish approved metadata to Arweave and update
-        the Metaplex URI with the current Update Authority's Phantom signature.
+        the Metaplex URI with a Phantom signature from the current Update Authority.
       </p>
       <ActionsPanel />
     </main>
