@@ -6,16 +6,15 @@ export const MALTY_TOKEN = {
   description:
     "MALTY is a community-driven token on Solana inspired by a Maltese dog and guided by the motto “Small Dog. Big Community.” Built around transparency and participation, the project is developing MALTY Swap and a long-term mission for verifiable animal-welfare impact.",
   slogan: "Small Dog. Big Community.",
-  // Keep the currently published token image until the permanent Arweave
-  // replacement has been confirmed on Mainnet.
+  // Official MALTY image served from the project-controlled HTTPS endpoint.
   imageUri:
-    "https://arweave.net/w-TXbk_hQOw1mC5vA9YrVmClKzz_Avjfiq5coE1AYec",
+    "https://malty-token.vercel.app/malty-official.png",
   // Current on-chain metadata URI. Replace this with the permanent Arweave
   // URI after the one-time maintenance transaction has been confirmed.
   metadataUri:
     "https://turbo-gateway.com/rLzUMFUoqgYI04MijeVjLDriWACUApJo2BKK6ycB5MU",
-  // Public preview/template used by the website. The maintenance flow creates
-  // a permanent Arweave copy before updating the on-chain metadata URI.
+  // Official project metadata endpoint used by the guarded Mainnet update.
+  // It can later be migrated to a permanent Arweave URI if desired.
   metadataTemplateUri:
     "https://malty-token.vercel.app/metadata.json",
 } as const;
