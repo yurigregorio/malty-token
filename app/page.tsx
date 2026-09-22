@@ -21,7 +21,7 @@ import { useLanguage } from "./lib/language";
 import { SiteHeader } from "./components/site-header";
 
 const MINT = MALTY_PUBLIC_MINT;
-const TOKEN_IMAGE = MALTY_TOKEN.imageUri;
+const TOKEN_IMAGE = "/malty-official.png";
 const POOL_ID = MALTY_RAYDIUM_POOL_ID;
 
 const allocation = [

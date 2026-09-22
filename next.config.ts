@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "arweave.net",
       },
+      {
+        protocol: "https",
+        hostname: "malty-token.vercel.app",
+      },
     ],
   },
   serverExternalPackages: ["ws"],

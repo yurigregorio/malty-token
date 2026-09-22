@@ -35,7 +35,7 @@ export function SwapContent() {
         <div className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:block" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element -- decorative background art, not content */}
           <img
-            src={MALTY_TOKEN.imageUri}
+            src="/malty-official.png"
             alt=""
             className="absolute -right-24 top-24 h-[420px] w-[420px] rounded-full object-cover opacity-[0.07] grayscale"
           />

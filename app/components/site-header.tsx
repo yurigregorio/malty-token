@@ -8,7 +8,7 @@ import { MALTY_TOKEN } from "../lib/malty-token";
 import { useLanguage } from "../lib/language";
 import { SiteWalletButton } from "./site-wallet-button";
 
-const TOKEN_IMAGE = MALTY_TOKEN.imageUri;
+const TOKEN_IMAGE = "/malty-official.png";
 
 const nav = {
   en: { items: ["Project", "How to Buy", "Swap", "Token", "Gives", "Roadmap", "FAQ"], hrefs: ["/#story", "/how-to-buy", "/swap", "/#token", "/#gives", "/#roadmap", "/#faq"], menu: "Menu", close: "Close" },
