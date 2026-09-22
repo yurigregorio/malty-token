@@ -21,14 +21,14 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://malty-token.vercel.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "MALTY — Small Dog. Big Community.",
-  description: "MALTY is a community-driven Solana project focused on transparency, community and a long-term mission for verifiable positive impact for animals.",
+  description: "MALTY is a community-driven token on Solana inspired by a Maltese dog and guided by the motto “Small Dog. Big Community.” Built around transparency and participation, the project is developing MALTY Swap and a long-term mission for verifiable animal-welfare impact.",
   applicationName: "MALTY",
   keywords: ["MALTY", "Solana", "community", "animal welfare", "transparency"],
-  icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
+  icons: { icon: "/malty-official.png", shortcut: "/malty-official.png", apple: "/malty-official.png" },
   manifest: "/manifest.webmanifest",
   openGraph: {
     title: "MALTY — Small Dog. Big Community.",
-    description: "A community-driven Solana project built transparently, with a long-term mission for verifiable positive impact for animals.",
+    description: "MALTY is a community-driven token on Solana inspired by a Maltese dog and guided by the motto “Small Dog. Big Community.” Built around transparency and participation, the project is developing MALTY Swap and a long-term mission for verifiable animal-welfare impact.",
     type: "website",
     url: siteUrl,
     images: ["/opengraph-image"],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "MALTY — Small Dog. Big Community.",
-    description: "Community. Transparency. Verifiable positive animal impact.",
+    description: "Small Dog. Big Community. Transparent, community-driven and built on Solana.",
     images: ["/opengraph-image"],
     site: "@MaltyCoin",
     creator: "@MaltyCoin",
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     "@type": "WebSite",
     name: "MALTY",
     url: siteUrl,
-    description: "A community-driven Solana project built around transparency, community and a long-term mission for verifiable animal-welfare impact.",
+    description: "MALTY is a community-driven token on Solana inspired by a Maltese dog and guided by the motto “Small Dog. Big Community.” Built around transparency and participation, the project is developing MALTY Swap and a long-term mission for verifiable animal-welfare impact.",
     about: {
       "@type": "Thing",
       name: "MALTY",

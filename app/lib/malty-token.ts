@@ -4,12 +4,12 @@ export const MALTY_TOKEN = {
   decimals: 6,
   totalSupplyTokens: 1_000_000_000n,
   description:
-    "MALTY is a Solana memecoin inspired by Charlotte, a Maltese with big community energy.",
+    "MALTY is a community-driven token on Solana inspired by a Maltese dog and guided by the motto “Small Dog. Big Community.” Built around transparency and participation, the project is developing MALTY Swap and a long-term mission for verifiable animal-welfare impact.",
   slogan: "Small Dog. Big Community.",
   imageUri:
-    "https://arweave.net/w-TXbk_hQOw1mC5vA9YrVmClKzz_Avjfiq5coE1AYec",
+    "https://malty-token.vercel.app/malty-official.png",
   metadataUri:
-    "https://turbo-gateway.com/rLzUMFUoqgYI04MijeVjLDriWACUApJo2BKK6ycB5MU",
+    "https://malty-token.vercel.app/metadata.json",
 } as const;
 
 export const MALTY_PRODUCTION_POLICY = {

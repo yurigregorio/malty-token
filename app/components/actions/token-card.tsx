@@ -7,7 +7,11 @@ import { AuthorityType } from "@solana-program/token";
 import { toast } from "sonner";
 
 import { publicKey } from "@metaplex-foundation/umi";
-import { createMetadataAccountV3 } from "@metaplex-foundation/mpl-token-metadata";
+import {
+  createMetadataAccountV3,
+  fetchMetadataFromSeeds,
+  updateV1,
+} from "@metaplex-foundation/mpl-token-metadata";
 
 import { useAppClient } from "../../lib/client-provider";
 import { MALTY_CONFIG } from "../../lib/malty-config";
@@ -124,6 +128,11 @@ export function TokenCard() {
 
   const [recipient, setRecipient] = useState("");
   const [transferAmount, setTransferAmount] = useState("10");
+  const [isUpdatingMetadata, setIsUpdatingMetadata] = useState(false);
+
+  const metadataMaintenanceEnabled =
+    cluster === "mainnet" &&
+    process.env.NEXT_PUBLIC_ENABLE_MALTY_METADATA_MAINTENANCE === "true";
 
   const mintAmountError = getTokenAmountError(mintAmount);
   const transferAmountError = getTokenAmountError(transferAmount);
@@ -295,6 +304,64 @@ export function TokenCard() {
   };
 
   // -------------------------------------------------------
+  // UPDATE OFFICIAL METAPLEX METADATA
+  // -------------------------------------------------------
+
+  const handleUpdateMetadata = async () => {
+    if (!mint || cluster !== "mainnet") {
+      toast.error("Official MALTY metadata maintenance is Mainnet-only");
+      return;
+    }
+
+    if (!metadataMaintenanceEnabled) {
+      toast.error("Metadata maintenance is disabled");
+      return;
+    }
+
+    setIsUpdatingMetadata(true);
+
+    try {
+      const umi = createPhantomUmi(getClusterUrl(cluster));
+      const currentMetadata = await fetchMetadataFromSeeds(umi, {
+        mint: publicKey(mint),
+      });
+
+      if (
+        currentMetadata.updateAuthority.toString() !==
+        umi.identity.publicKey.toString()
+      ) {
+        toast.error(
+          "Connected Phantom is not the MALTY metadata update authority"
+        );
+        return;
+      }
+
+      await updateV1(umi, {
+        mint: publicKey(mint),
+        authority: umi.identity,
+        data: {
+          ...currentMetadata,
+          name: MALTY_TOKEN.name,
+          symbol: MALTY_TOKEN.symbol,
+          uri: MALTY_TOKEN.metadataUri,
+        },
+      }).sendAndConfirm(umi);
+
+      toast.success("Official MALTY metadata updated");
+    } catch (error) {
+      console.error("Metadata update error:", error);
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to update MALTY metadata"
+      );
+    } finally {
+      setIsUpdatingMetadata(false);
+    }
+  };
+
+  // -------------------------------------------------------
   // REVOKE MINT AUTHORITY
   // -------------------------------------------------------
 
@@ -421,6 +488,25 @@ export function TokenCard() {
         <p className="mt-3 rounded-lg border border-border-low bg-background px-3 py-2 text-xs text-muted">
           Creation and authority actions are locked on this network.
         </p>
+      )}
+
+      {metadataMaintenanceEnabled && mint && (
+        <div className="mt-3 rounded-lg border border-amber-400/25 bg-amber-400/5 p-3">
+          <p className="text-xs leading-relaxed text-muted">
+            One-time Mainnet metadata maintenance is enabled. Only the current
+            Metaplex Update Authority can sign this transaction. This does not
+            restore or change the revoked SPL Mint Authority.
+          </p>
+          <button
+            onClick={handleUpdateMetadata}
+            disabled={isUpdatingMetadata}
+            className="mt-3 w-full cursor-pointer rounded-lg bg-amber-400 px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-amber-300 disabled:pointer-events-none disabled:opacity-50"
+          >
+            {isUpdatingMetadata
+              ? "Updating official metadata..."
+              : "Update official MALTY metadata"}
+          </button>
+        </div>
       )}
 
       {!mint ? (

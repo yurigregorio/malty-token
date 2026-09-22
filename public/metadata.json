@@ -1,0 +1,21 @@
+{
+  "name": "Malty",
+  "symbol": "MALTY",
+  "description": "MALTY is a community-driven token on Solana inspired by a Maltese dog and guided by the motto “Small Dog. Big Community.” Built around transparency and participation, the project is developing MALTY Swap and a long-term mission for verifiable animal-welfare impact.",
+  "image": "https://malty-token.vercel.app/malty-official.png",
+  "external_url": "https://malty-token.vercel.app",
+  "properties": {
+    "files": [
+      {
+        "uri": "https://malty-token.vercel.app/malty-official.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "image"
+  },
+  "extensions": {
+    "website": "https://malty-token.vercel.app",
+    "twitter": "https://x.com/MaltyCoin",
+    "telegram": "https://t.me/MaltyCoinCommunity"
+  }
+}
