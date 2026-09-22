@@ -8,7 +8,13 @@ export const MALTY_TOKEN = {
   slogan: "Small Dog. Big Community.",
   imageUri:
     "https://malty-token.vercel.app/malty-official.png",
+  // Current on-chain metadata URI. Replace this with the permanent Arweave
+  // URI after the one-time maintenance transaction has been confirmed.
   metadataUri:
+    "https://turbo-gateway.com/rLzUMFUoqgYI04MijeVjLDriWACUApJo2BKK6ycB5MU",
+  // Public preview/template used by the website. The maintenance flow creates
+  // a permanent Arweave copy before updating the on-chain metadata URI.
+  metadataTemplateUri:
     "https://malty-token.vercel.app/metadata.json",
 } as const;
 

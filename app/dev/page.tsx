@@ -13,9 +13,9 @@ export default function DevPage() {
       </h1>
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
         Wallet and transaction tooling is separated from the public landing page.
-        Mainnet remains read-only by default. A one-time metadata maintenance
-        action can be explicitly enabled by environment flag and still requires
-        the current Metaplex Update Authority to sign with Phantom.
+        Mainnet remains read-only by default. A one-time maintenance flow can
+        be explicitly enabled to publish approved metadata to Arweave and update
+        the Metaplex URI with the current Update Authority's Phantom signature.
       </p>
       <ActionsPanel />
     </main>

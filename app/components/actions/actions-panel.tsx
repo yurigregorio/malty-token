@@ -11,6 +11,7 @@ import { AirdropCard } from "./airdrop-card";
 import { TransferSolCard } from "./transfer-sol-card";
 import { TokenCard } from "./token-card";
 import { MemoCard } from "./memo-card";
+import { MetadataMaintenanceCard } from "./metadata-maintenance-card";
 
 const subscribeToHydration = () => () => {};
 
@@ -45,14 +46,29 @@ export function ActionsPanel() {
   }
 
   if (cluster === "mainnet") {
+    const metadataMaintenanceEnabled =
+      process.env.NEXT_PUBLIC_ENABLE_MALTY_METADATA_MAINTENANCE === "true";
+
     return (
-      <section className="mt-8 rounded-2xl border border-border-low bg-card p-6">
-        <h2 className="text-sm font-semibold">MALTY Mainnet</h2>
-        <p className="mt-2 text-sm text-muted">
-          Mainnet v1 is complete. Transaction actions are intentionally disabled
-          in this application. Use Mainnet here only for read-only inspection
-          and verification.
-        </p>
+      <section className="mt-8 space-y-4">
+        <div className="rounded-2xl border border-border-low bg-card p-6">
+          <h2 className="text-sm font-semibold">MALTY Mainnet</h2>
+          <p className="mt-2 text-sm text-muted">
+            Mainnet v1 is read-only by default. Token creation, supply and
+            authority actions remain disabled.
+          </p>
+        </div>
+
+        {metadataMaintenanceEnabled ? (
+          connected.signer ? (
+            <MetadataMaintenanceCard />
+          ) : (
+            <p className="rounded-2xl border border-border-low bg-card p-6 text-sm text-muted">
+              Connect a signing-capable Phantom account to use the one-time
+              metadata maintenance flow.
+            </p>
+          )
+        ) : null}
       </section>
     );
   }
