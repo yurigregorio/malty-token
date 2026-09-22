@@ -225,7 +225,7 @@ export function MetadataMaintenanceCard() {
         <input
           type="file"
           accept="image/png"
-          disabled={isPublishing || !selectedIcon}
+          disabled={isPublishing}
           onChange={(event) => {
             const file = event.target.files?.[0] ?? null;
             setSelectedIcon(file);
@@ -247,7 +247,7 @@ export function MetadataMaintenanceCard() {
       <button
         type="button"
         onClick={handlePublishAndUpdate}
-        disabled={isPublishing}
+        disabled={isPublishing || !selectedIcon}
         className="mt-4 w-full cursor-pointer rounded-xl bg-amber-400 px-4 py-3 text-sm font-semibold text-black transition hover:bg-amber-300 disabled:pointer-events-none disabled:opacity-50"
       >
         {isPublishing
