@@ -5,23 +5,26 @@ project information can be maintained without changing token supply.
 
 ## Approved source files
 
-- Website icon preview: `https://malty-token.vercel.app/malty-official.png`
-- Website metadata preview: `https://malty-token.vercel.app/metadata.json`
+- Metadata preview: `https://malty-token.vercel.app/metadata.json`
 - Mint: `6ZhVVH2KwbiVg6HJjrPg2YC5SWomBFA5qGmz57pknMpz`
 
-The Vercel URLs above are only the approved source/preview. The Mainnet update
-flow publishes fresh immutable copies to Arweave and writes the permanent
-Arweave metadata URI to the Metaplex metadata account.
+The new approved PNG is intentionally selected locally in the guarded /dev flow
+instead of being committed as a deployment dependency. The Mainnet update flow
+publishes the selected PNG and generated JSON to Arweave and writes the
+permanent Arweave metadata URI to the Metaplex metadata account.
 
 ## Guarded Mainnet flow
 
-1. Deploy the current `main` branch and verify the approved icon is visible.
+1. Keep the approved transparent MALTY PNG on the local machine used for the
+   maintenance transaction. It must be smaller than 100 KiB.
 2. Temporarily set
    `NEXT_PUBLIC_ENABLE_MALTY_METADATA_MAINTENANCE=true` in Vercel and redeploy.
 3. Open `/dev`, select Mainnet and connect the Phantom wallet that currently
    owns the MALTY Metaplex Metadata Update Authority.
-4. Click **Publish to Arweave & update MALTY**.
-5. The page verifies the Update Authority before publishing anything.
+4. Select the approved MALTY PNG in the file picker, then click
+   **Publish to Arweave & update MALTY**.
+5. The page validates the PNG and verifies the Update Authority before
+   publishing anything.
 6. The approved PNG and generated metadata JSON are each checked to remain
    below the guarded 100 KiB free-upload limit and are uploaded through
    Turbo's unsigned x402 Arweave route.

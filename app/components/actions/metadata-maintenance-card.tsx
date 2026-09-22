@@ -98,6 +98,7 @@ function buildPermanentMetadata(imageUri: string) {
 }
 
 export function MetadataMaintenanceCard() {
+  const [selectedIcon, setSelectedIcon] = useState<File | null>(null);
   const [isPublishing, setIsPublishing] = useState(false);
   const [status, setStatus] = useState(
     "Ready to verify the Update Authority."
@@ -107,6 +108,21 @@ export function MetadataMaintenanceCard() {
   );
 
   async function handlePublishAndUpdate() {
+    if (!selectedIcon) {
+      toast.error("Select the approved MALTY PNG first");
+      return;
+    }
+
+    if (selectedIcon.type !== "image/png") {
+      toast.error("The official MALTY icon must be a PNG file");
+      return;
+    }
+
+    if (selectedIcon.size >= FREE_UPLOAD_LIMIT_BYTES) {
+      toast.error("The selected PNG must be smaller than 100 KiB");
+      return;
+    }
+
     setIsPublishing(true);
     setPublished(null);
 
@@ -132,19 +148,10 @@ export function MetadataMaintenanceCard() {
 
       setStatus("Publishing the approved MALTY icon to Arweave...");
 
-      const iconResponse = await fetch("/malty-official.png", {
-        cache: "no-store",
-      });
-
-      if (!iconResponse.ok) {
-        throw new Error("Could not load the approved MALTY icon");
-      }
-
-      const iconBlob = await iconResponse.blob();
       const imageUri = await uploadSmallPermanentBlob(
-        iconBlob,
+        selectedIcon,
         "image/png",
-        "malty-official.png"
+        selectedIcon.name || "malty-official.png"
       );
 
       setStatus("Publishing the MALTY metadata JSON to Arweave...");
@@ -210,6 +217,28 @@ export function MetadataMaintenanceCard() {
         permanent Arweave storage, then asks Phantom to sign the Metaplex URI
         update. It does not change supply or restore the revoked Mint Authority.
       </p>
+
+      <label className="mt-4 block rounded-xl border border-dashed border-amber-400/30 bg-background p-4">
+        <span className="block text-xs font-semibold text-foreground">
+          Official MALTY icon (PNG, under 100 KiB)
+        </span>
+        <input
+          type="file"
+          accept="image/png"
+          disabled={isPublishing || !selectedIcon}
+          onChange={(event) => {
+            const file = event.target.files?.[0] ?? null;
+            setSelectedIcon(file);
+            setPublished(null);
+            setStatus(
+              file
+                ? `Selected: ${file.name} (${Math.ceil(file.size / 1024)} KiB)`
+                : "Ready to verify the Update Authority."
+            );
+          }}
+          className="mt-3 block w-full text-xs text-muted file:mr-3 file:rounded-lg file:border-0 file:bg-amber-400 file:px-3 file:py-2 file:font-semibold file:text-black"
+        />
+      </label>
 
       <div className="mt-4 rounded-xl border border-border-low bg-background p-3 text-xs leading-relaxed text-muted">
         <strong className="text-foreground">Status:</strong> {status}

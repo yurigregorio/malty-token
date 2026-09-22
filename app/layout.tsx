@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description: "MALTY is a community-driven token on Solana inspired by a Maltese dog and guided by the motto “Small Dog. Big Community.” Built around transparency and participation, the project is developing MALTY Swap and a long-term mission for verifiable animal-welfare impact.",
   applicationName: "MALTY",
   keywords: ["MALTY", "Solana", "community", "animal welfare", "transparency"],
-  icons: { icon: "/malty-official.png", shortcut: "/malty-official.png", apple: "/malty-official.png" },
+  icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
   manifest: "/manifest.webmanifest",
   openGraph: {
     title: "MALTY — Small Dog. Big Community.",
